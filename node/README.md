@@ -1,0 +1,2 @@
+# CineScope backend
+NodeJS Express
