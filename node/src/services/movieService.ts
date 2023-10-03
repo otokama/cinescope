@@ -10,7 +10,15 @@ interface FetchNowPlayingResponse {
 }
 
 async function getMovieList(listName: string) {
+  let queryParams = {};
+  if (listName === "upcoming") {
+    queryParams = {
+      "primary_release_date.gte": new Date()
+    }
+  }
+
   return await apiClient.get<FetchNowPlayingResponse>(`/${listName}`, {
+    params: queryParams,
     headers: {
       Accept: "application/json",
       Authorization: `Bearer ${process.env.TMDB_ACCESS_TOKEN}`,

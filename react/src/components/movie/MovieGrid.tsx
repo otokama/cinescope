@@ -1,18 +1,42 @@
-import { Box, Text } from "@chakra-ui/react";
-import { useDiscoveryMovies } from "../../hooks/movies/useMovies";
-import MovieSubGrid from "./MovieSubGrid";
+import { SimpleGrid } from "@chakra-ui/react";
+import { UseQueryResult } from "@tanstack/react-query";
+import _ from "lodash";
+import { Movie } from "../../hooks/movies/useMovies";
+import MovieCard from "./MovieCard";
+import MovieCardContainer from "./MovieCardContainer";
+import MovieCardSkeleton from "./MovieCardSkeleton";
 
-const MovieGrid = () => {
+interface Props {
+  useMovie: () => UseQueryResult<Movie[], Error>;
+}
+
+const MovieSubGrid = ({ useMovie }: Props) => {
+  const { data: movies, isLoading, error } = useMovie();
+
+  const skeletons = _.range(10);
+
+  if (error) return null;
+
   return (
-    <>
-      <Box width="full">
-        <Text fontSize="2xl" fontWeight="bold">
-          Now in Theater:
-        </Text>
-        <MovieSubGrid useMovie={() => useDiscoveryMovies("now_playing")} />
-      </Box>
-    </>
+    <SimpleGrid
+      columns={{ sm: 2, md: 4, lg: 5, xl: 6 }}
+      spacing={{ sm: 4, md: 8 }}
+      marginTop={4}
+    >
+      {isLoading &&
+        skeletons.map((skeleton) => (
+          <MovieCardContainer key={skeleton}>
+            <MovieCardSkeleton />
+          </MovieCardContainer>
+        ))}
+      {!isLoading &&
+        movies?.map((movie) => (
+          <MovieCardContainer key={movie.id}>
+            <MovieCard key={movie.id} movie={movie} />
+          </MovieCardContainer>
+        ))}
+    </SimpleGrid>
   );
 };
 
-export default MovieGrid;
+export default MovieSubGrid;
