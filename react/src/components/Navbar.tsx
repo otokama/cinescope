@@ -21,7 +21,7 @@ const Navbar = ({onSearch}: Props) => {
       paddingY="10px"
       shadow="md"
     >
-      <Image src={logo} boxSize="40px" />
+      <Image src={logo} boxSize={10}/>
       <Box maxWidth="500px" width="full">
         <SearchInput onSearch={onSearch} />
       </Box>

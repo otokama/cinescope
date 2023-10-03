@@ -1,8 +1,8 @@
 import { Grid, GridItem, Show, Text } from "@chakra-ui/react";
 import Navbar from "./components/Navbar";
+import MovieSlider from "./components/movie/MovieSlider";
 
 function App() {
-
   return (
     <Grid
       templateAreas={{
@@ -25,9 +25,8 @@ function App() {
       </Show>
 
       <GridItem area="main" paddingTop="80px" paddingX={5} paddingBottom={5}>
-        <Text>Main</Text>
+        <MovieSlider />
       </GridItem>
-
     </Grid>
   );
 }

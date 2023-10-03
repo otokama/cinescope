@@ -1,3 +1,4 @@
+import "@fontsource-variable/nunito-sans";
 import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 import React from "react";
 import ReactDOM from "react-dom/client";
