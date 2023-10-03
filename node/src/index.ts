@@ -2,7 +2,9 @@ import cors from "cors";
 import dotenv from "dotenv";
 import express, { Request, Response } from "express";
 import accountRouter from "./controller/accountController";
+import movieController from "./controller/movieController";
 import sessionRouter from "./controller/sessionController";
+
 import { jwtClient } from "./helpers/jwt";
 import bodyParser = require("body-parser");
 import path = require("path");
@@ -17,7 +19,12 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // public paths that don't require session auth token:
-const publicPath = ["/", "/session/new", "/session/tmdb-approved"];
+const publicPath = [
+  "/",
+  "/session/new",
+  "/session/tmdb-approved",
+  "/api/movie/now_playing",
+];
 const jwt = jwtClient(publicPath);
 
 app.use(jwt);
@@ -27,6 +34,7 @@ app.get("/", (req: Request, res: Response) => {
 });
 
 app.use("/api/account", accountRouter);
+app.use("/api/movie", movieController);
 
 app.use("/session", sessionRouter);
 
