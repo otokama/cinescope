@@ -10,7 +10,9 @@ const MovieCard = ({ movie }: Props) => {
     <Box>
       <VStack align="start" spacing={3}>
         <Image src={movie.poster_path} shadow="lg" borderRadius={12} />
-        <Text fontSize="17" fontWeight="medium" paddingLeft={2}>{movie.title}</Text>
+        <Text fontSize="17" fontWeight="medium" paddingLeft={2}>
+          {movie.title}
+        </Text>
       </VStack>
     </Box>
   );

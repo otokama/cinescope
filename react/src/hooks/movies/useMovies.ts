@@ -1,5 +1,5 @@
-import APIClient from "../../services/api-client";
 import { useQuery } from "@tanstack/react-query";
+import APIClient from "../../services/api-client";
 
 export interface Movie {
   id: number;
@@ -15,12 +15,14 @@ export interface Movie {
   genre_ids: number[];
 }
 
-const useNowPlayingMovies = () => {
-  const apiClient = new APIClient<Movie>("/movie/now_playing");
+const useDiscoveryMovies = (
+  listName: "now_playing" | "popular" | "top_rated" | "upcoming"
+) => {
+  const apiClient = new APIClient<Movie>("/movie/" + listName);
   return useQuery<Movie[], Error>({
     queryKey: ["now_playing_movies"],
     queryFn: apiClient.getAll,
   });
 };
 
-export { useNowPlayingMovies };
+export { useDiscoveryMovies };

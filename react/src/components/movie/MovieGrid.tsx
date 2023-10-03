@@ -1,5 +1,5 @@
 import { Box, Text } from "@chakra-ui/react";
-import { useNowPlayingMovies } from "../../hooks/movies/useMovies";
+import { useDiscoveryMovies } from "../../hooks/movies/useMovies";
 import MovieSubGrid from "./MovieSubGrid";
 
 const MovieGrid = () => {
@@ -9,7 +9,7 @@ const MovieGrid = () => {
         <Text fontSize="2xl" fontWeight="bold">
           Now in Theater:
         </Text>
-        <MovieSubGrid useMovie={useNowPlayingMovies} />
+        <MovieSubGrid useMovie={() => useDiscoveryMovies("now_playing")} />
       </Box>
     </>
   );
