@@ -14,8 +14,9 @@ const SideNav = ({ showMovie, setShowMovie }: Props) => {
             width={20}
             fontSize="md"
             fontWeight="bold"
-            bgColor={showMovie ? "blue.300" : ""}
+            colorScheme={showMovie ? "blue" : "gray"}
             onClick={() => setShowMovie(true)}
+            
           >
             Movie
           </Button>
@@ -23,7 +24,7 @@ const SideNav = ({ showMovie, setShowMovie }: Props) => {
             width={20}
             fontSize="md"
             fontWeight="bold"
-            bgColor={!showMovie ? "red.300" : ""}
+            colorScheme={!showMovie ? "red" : "gray"}
             onClick={() => setShowMovie(false)}
           >
             TV
