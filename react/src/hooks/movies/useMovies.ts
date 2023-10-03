@@ -19,8 +19,9 @@ const useDiscoveryMovies = (
   listName: "now_playing" | "popular" | "top_rated" | "upcoming"
 ) => {
   const apiClient = new APIClient<Movie>("/movie/" + listName);
+  const queryStr = "movies_discovery_" + listName;
   return useQuery<Movie[], Error>({
-    queryKey: ["now_playing_movies"],
+    queryKey: [queryStr],
     queryFn: apiClient.getAll,
   });
 };

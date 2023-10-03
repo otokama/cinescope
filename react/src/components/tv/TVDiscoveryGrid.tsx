@@ -1,39 +1,39 @@
 import { Box, Text } from "@chakra-ui/react";
-import { useDiscoveryMovies } from "../../hooks/movies/useMovies";
-import MovieGrid from "./MovieGrid";
+import { useDiscoveryTV } from "../../hooks/tv/useTV";
+import TVGrid from "./TVGrid";
 
-const MovieDiscoveryGrid = () => {
+const TVDiscoveryGrid = () => {
   return (
     <>
       <Box marginBottom={10}>
         <Text fontSize="3xl" fontWeight="bold">
-          Now in Theater:
+          Airing Today:
         </Text>
-        <MovieGrid useMovie={() => useDiscoveryMovies("now_playing")} />
+        <TVGrid useTV={() => useDiscoveryTV("airing_today")} />
       </Box>
 
       <Box marginBottom={10}>
         <Text fontSize="3xl" fontWeight="bold">
           Trending:
         </Text>
-        <MovieGrid useMovie={() => useDiscoveryMovies("popular")} />
+        <TVGrid useTV={() => useDiscoveryTV("popular")} />
       </Box>
 
       <Box marginBottom={10}>
         <Text fontSize="3xl" fontWeight="bold">
           Top Rated:
         </Text>
-        <MovieGrid useMovie={() => useDiscoveryMovies("top_rated")} />
+        <TVGrid useTV={() => useDiscoveryTV("top_rated")} />
       </Box>
 
       <Box marginBottom={10}>
         <Text fontSize="3xl" fontWeight="bold">
           Upcoming:
         </Text>
-        <MovieGrid useMovie={() => useDiscoveryMovies("upcoming")} />
+        <TVGrid useTV={() => useDiscoveryTV("on_the_air")} />
       </Box>
     </>
   );
 };
 
-export default MovieDiscoveryGrid;
+export default TVDiscoveryGrid;

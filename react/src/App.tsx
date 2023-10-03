@@ -1,8 +1,13 @@
-import { Grid, GridItem, Show, Text } from "@chakra-ui/react";
+import { Grid, GridItem, Show } from "@chakra-ui/react";
+import { useState } from "react";
 import Navbar from "./components/Navbar";
-import MovieGrid from "./components/movie/MovieGrid";
+import SideNav from "./components/SideNav";
+import MovieDiscoveryGrid from "./components/movie/MovieDiscoveryGrid";
+import TVDiscoveryGrid from "./components/tv/TVDiscoveryGrid";
 
 function App() {
+  const [showMovieDiscovery, setShowMovieDiscovery] = useState(true);
+
   return (
     <Grid
       templateAreas={{
@@ -11,7 +16,7 @@ function App() {
       }}
       templateColumns={{
         base: "1fr",
-        lg: "230px 1fr",
+        lg: "250px 1fr",
       }}
     >
       <GridItem area="nav">
@@ -20,12 +25,16 @@ function App() {
 
       <Show above="lg">
         <GridItem area="aside" paddingX={5} paddingTop="80px">
-          <Text>Sidenav</Text>
+          <SideNav
+            showMovie={showMovieDiscovery}
+            setShowMovie={(showMovie) => setShowMovieDiscovery(showMovie)}
+          />
         </GridItem>
       </Show>
 
       <GridItem area="main" paddingTop="80px" paddingX={5} paddingBottom={5}>
-        <MovieGrid />
+        {showMovieDiscovery && <MovieDiscoveryGrid />}
+        {!showMovieDiscovery && <TVDiscoveryGrid />}
       </GridItem>
     </Grid>
   );
