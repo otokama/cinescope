@@ -9,6 +9,8 @@ const MovieSlider = () => {
   const { data: movies, isLoading, error } = useNowPlayingMovies();
 
   const skeletons = _.range(10);
+  
+  if (error) return null;
 
   return (
     <>

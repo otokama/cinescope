@@ -7,8 +7,8 @@ interface Props {
   onSearch: (searchText: string) => void;
 }
 
-const Navbar = ({onSearch}: Props) => {
-  const {colorMode} = useColorMode();
+const Navbar = ({ onSearch }: Props) => {
+  const { colorMode } = useColorMode();
   return (
     <HStack
       position="fixed"
@@ -21,7 +21,7 @@ const Navbar = ({onSearch}: Props) => {
       paddingY="10px"
       shadow="md"
     >
-      <Image src={logo} boxSize={10}/>
+      <Image src={logo} boxSize={10} />
       <Box maxWidth="500px" width="full">
         <SearchInput onSearch={onSearch} />
       </Box>

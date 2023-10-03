@@ -1,4 +1,4 @@
-import { Box, Image, Text, VStack } from "@chakra-ui/react";
+import { Image, Text, VStack } from "@chakra-ui/react";
 import { Movie } from "../../hooks/movies/useMovies";
 
 interface Props {
