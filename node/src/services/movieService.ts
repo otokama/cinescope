@@ -5,7 +5,7 @@ const apiClient = axios.create({
   baseURL: "https://api.themoviedb.org/3/movie",
 });
 
-interface FetchNowPlayingResponse {
+interface FetchMovieListResponse {
   results: Movie[];
 }
 
@@ -13,11 +13,11 @@ async function getMovieList(listName: string) {
   let queryParams = {};
   if (listName === "upcoming") {
     queryParams = {
-      "primary_release_date.gte": new Date()
-    }
+      "primary_release_date.gte": new Date(),
+    };
   }
 
-  return await apiClient.get<FetchNowPlayingResponse>(`/${listName}`, {
+  return await apiClient.get<FetchMovieListResponse>(`/${listName}`, {
     params: queryParams,
     headers: {
       Accept: "application/json",
@@ -25,6 +25,5 @@ async function getMovieList(listName: string) {
     },
   });
 }
-
 
 export { getMovieList };

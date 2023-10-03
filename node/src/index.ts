@@ -4,6 +4,7 @@ import express, { Request, Response } from "express";
 import accountRouter from "./controller/accountController";
 import movieController from "./controller/movieController";
 import sessionRouter from "./controller/sessionController";
+import tvController from "./controller/tvController";
 
 import { jwtClient } from "./helpers/jwt";
 import bodyParser = require("body-parser");
@@ -27,6 +28,10 @@ const publicPath = [
   "/api/movie/popular",
   "/api/movie/top_rated",
   "/api/movie/upcoming",
+  "/api/tv/airing_today",
+  "/api/tv/top_rated",
+  "/api/tv/on_the_air",
+  "/api/tv/popular",
 ];
 const jwt = jwtClient(publicPath);
 
@@ -38,6 +43,7 @@ app.get("/", (req: Request, res: Response) => {
 
 app.use("/api/account", accountRouter);
 app.use("/api/movie", movieController);
+app.use("/api/tv", tvController);
 
 app.use("/session", sessionRouter);
 
