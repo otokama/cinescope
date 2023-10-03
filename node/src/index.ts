@@ -24,6 +24,9 @@ const publicPath = [
   "/session/new",
   "/session/tmdb-approved",
   "/api/movie/now_playing",
+  "/api/movie/popular",
+  "/api/movie/top_rated",
+  "/api/movie/upcoming",
 ];
 const jwt = jwtClient(publicPath);
 

@@ -9,8 +9,8 @@ interface FetchNowPlayingResponse {
   results: Movie[];
 }
 
-async function getNowPlayingMovies() {
-  return await apiClient.get<FetchNowPlayingResponse>("/now_playing", {
+async function getMovieList(listName: string) {
+  return await apiClient.get<FetchNowPlayingResponse>(`/${listName}`, {
     headers: {
       Accept: "application/json",
       Authorization: `Bearer ${process.env.TMDB_ACCESS_TOKEN}`,
@@ -18,4 +18,5 @@ async function getNowPlayingMovies() {
   });
 }
 
-export { getNowPlayingMovies };
+
+export { getMovieList };
