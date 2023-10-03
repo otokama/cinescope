@@ -1,4 +1,4 @@
-import { Image, Text, VStack } from "@chakra-ui/react";
+import { Box, Image, Text, VStack } from "@chakra-ui/react";
 import { Movie } from "../../hooks/movies/useMovies";
 
 interface Props {
@@ -7,12 +7,12 @@ interface Props {
 
 const MovieCard = ({ movie }: Props) => {
   return (
-    <>
-      <VStack align="start" spacing={4}>
+    <Box>
+      <VStack align="start" spacing={3}>
         <Image src={movie.poster_path} shadow="lg" borderRadius={12} />
-        <Text fontSize="18">{movie.title}</Text>
+        <Text fontSize="17" fontWeight="medium" paddingLeft={2}>{movie.title}</Text>
       </VStack>
-    </>
+    </Box>
   );
 };
 
