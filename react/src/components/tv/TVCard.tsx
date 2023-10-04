@@ -1,6 +1,6 @@
 import { Box, Image, Text, VStack } from "@chakra-ui/react";
 import { TV } from "../../hooks/tv/useTV";
-import fallbackImg from "../../assets/card-image-placeholder.png";
+import fallbackImg from "../../assets/image-placeholder.png";
 
 interface Props {
   tv: TV;

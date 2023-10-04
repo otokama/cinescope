@@ -1,6 +1,6 @@
 import { Box, Image, Text, VStack } from "@chakra-ui/react";
 import { Movie } from "../../hooks/movies/useMovies";
-import fallbackImg from "../../assets/card-image-placeholder.png";
+import fallbackImg from "../../assets/image-placeholder.png";
 
 interface Props {
   movie: Movie;

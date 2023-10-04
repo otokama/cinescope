@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import ms from "ms";
 import APIClient from "../../services/api-client";
 
 export interface Movie {
@@ -23,6 +24,7 @@ const useDiscoveryMovies = (
   return useQuery<Movie[], Error>({
     queryKey: [queryStr],
     queryFn: apiClient.getAll,
+    staleTime: ms("1h"),
   });
 };
 
