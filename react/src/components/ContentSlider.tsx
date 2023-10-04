@@ -1,10 +1,20 @@
-import { Card, Image } from "@chakra-ui/react";
+import {
+  Badge,
+  Card,
+  HStack,
+  Image,
+  Show,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
 import { UseQueryResult } from "@tanstack/react-query";
 import { CarouselProvider, Slide, Slider } from "pure-react-carousel";
 import fallbackImg from "../assets/banner-placeholder.webp";
 import { Movie } from "../hooks/movies/useMovies";
 import { TV } from "../hooks/tv/useTV";
 import useMediaTypeStore from "../stores/media-type";
+import useMovieGenres from "../hooks/genres/useMovieGenres";
+import useTVGenres from "../hooks/genres/useTVGenres";
 
 interface Props {
   useContents: () => UseQueryResult<(Movie | TV)[], Error>;
@@ -37,8 +47,46 @@ const ContentSlider = ({ useContents }: Props) => {
                 borderRadius={{ sm: 5, md: 15 }}
                 overflow="hidden"
                 _hover={{ shadow: "lg" }}
+                position="relative"
               >
                 <Image src={content.backdrop_path} fallbackSrc={fallbackImg} />
+                <Show above="md">
+                  <VStack
+                    position="absolute"
+                    bottom={0}
+                    left={0}
+                    w="full"
+                    bgGradient="linear(to-b, transparent, blackAlpha.900)"
+                    padding={5}
+                    color="whiteAlpha.900"
+                    align="stretch"
+                  >
+                    <Text
+                      fontSize="xl"
+                      fontWeight="bold"
+                      color="whiteAlpha.900"
+                    >
+                      {(content as TV).name || (content as Movie).title}
+                    </Text>
+
+                    <HStack>
+                      {mediaType === "movie" && (
+                        <>
+                          {useMovieGenres(content.genre_ids).map((genre) => (
+                            <Badge key={genre.id}>{genre.name}</Badge>
+                          ))}
+                        </>
+                      )}
+                      {mediaType === "tv" && (
+                        <>
+                          {useTVGenres(content.genre_ids).map((genre) => (
+                            <Badge key={genre.id}>{genre.name}</Badge>
+                          ))}
+                        </>
+                      )}
+                    </HStack>
+                  </VStack>
+                </Show>
               </Card>
             </Slide>
           ))}
