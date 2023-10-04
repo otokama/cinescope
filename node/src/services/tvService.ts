@@ -9,14 +9,12 @@ interface FetchTVListResponse {
   results: TV[];
 }
 
-
 async function getTVList(listName: string) {
-
   return await apiClient.get<FetchTVListResponse>(`/tv/${listName}`, {
     headers: {
       Accept: "application/json",
       Authorization: `Bearer ${process.env.TMDB_ACCESS_TOKEN}`,
-    }
+    },
   });
 }
 
@@ -25,7 +23,7 @@ async function getDiscoveryTV() {
     include_adult: false,
     include_null_first_air_dates: false,
     language: "en-US",
-    with_origin_country: "us",
+    with_original_language: "en",
     page: 1,
     sort_by: "popularity.desc",
   };
@@ -38,4 +36,5 @@ async function getDiscoveryTV() {
   });
 }
 
-export { getTVList, getDiscoveryTV };
+export { getDiscoveryTV, getTVList };
+

@@ -1,7 +1,11 @@
 import { NextFunction, Request, Response, Router } from "express";
-import { getDiscoveryTV, getTVList } from "../services/tvService";
-import { getBackdropLink, getPosterLink, populateLinks } from "../utils/image-url";
 import { TV } from "../models/TV";
+import { getDiscoveryTV, getTVList } from "../services/tvService";
+import {
+  getBackdropLink,
+  getPosterLink,
+  populateLinks,
+} from "../utils/image-url";
 
 const tvController = Router();
 
@@ -48,7 +52,7 @@ async function getDiscoverTVList(
   try {
     const response = await getDiscoveryTV();
     let { results: tvs } = response.data;
-    tvs = tvs.map((tv) => (populateLinks(tv) as TV));
+    tvs = tvs.map((tv) => populateLinks(tv) as TV);
     res.send(tvs.slice(0, size));
   } catch (err) {
     next(err);
