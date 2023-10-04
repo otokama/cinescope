@@ -22,10 +22,11 @@ async function getDiscoveryTV() {
   const queryParams = {
     include_adult: false,
     include_null_first_air_dates: false,
-    language: "en-US",
     with_original_language: "en",
+    language: "en-US",
     page: 1,
-    sort_by: "popularity.desc",
+    sort_by: "primary_release_date.desc",
+    "vote_count.gte": 200
   };
   return await apiClient.get<FetchTVListResponse>("/discover/tv", {
     params: queryParams,

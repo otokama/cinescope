@@ -34,6 +34,7 @@ async function getMovieDiscovery() {
     region: "us",
     page: 1,
     sort_by: "popularity.desc",
+    "vote_count.gte": 200
   };
   return await apiClient.get<FetchMovieListResponse>("/discover/movie", {
     params: queryParams,
