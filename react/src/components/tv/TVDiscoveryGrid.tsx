@@ -7,9 +7,9 @@ const TVDiscoveryGrid = () => {
     <>
       <Box marginBottom={10}>
         <Text fontSize="3xl" fontWeight="bold">
-          Airing Today:
+          Top Rated:
         </Text>
-        <TVGrid useTV={() => useDiscoveryTV("airing_today")} />
+        <TVGrid useTV={() => useDiscoveryTV("top_rated")} />
       </Box>
 
       <Box marginBottom={10}>
@@ -18,13 +18,14 @@ const TVDiscoveryGrid = () => {
         </Text>
         <TVGrid useTV={() => useDiscoveryTV("popular")} />
       </Box>
-
+      
       <Box marginBottom={10}>
         <Text fontSize="3xl" fontWeight="bold">
-          Top Rated:
+          Airing Today:
         </Text>
-        <TVGrid useTV={() => useDiscoveryTV("top_rated")} />
+        <TVGrid useTV={() => useDiscoveryTV("airing_today")} />
       </Box>
+
 
       <Box marginBottom={10}>
         <Text fontSize="3xl" fontWeight="bold">

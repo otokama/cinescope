@@ -1,11 +1,10 @@
 import { Box, Button, ButtonGroup } from "@chakra-ui/react";
+import useMediaTypeStore from "../stores/media-type";
 
-interface Props {
-  showMovie: boolean;
-  setShowMovie: (showMovie: boolean) => void;
-}
+const SideNav = () => {
 
-const SideNav = ({ showMovie, setShowMovie }: Props) => {
+  const { mediaType, setMediaType } = useMediaTypeStore();
+
   return (
     <>
       <Box textAlign="center">
@@ -14,9 +13,9 @@ const SideNav = ({ showMovie, setShowMovie }: Props) => {
             width={20}
             fontSize="md"
             fontWeight="bold"
-            colorScheme={showMovie ? "blue" : "gray"}
-            onClick={() => setShowMovie(true)}
-            
+            colorScheme={mediaType === "movie" ? "blue" : "gray"}
+            onClick={() => setMediaType("movie")}
+            paddingTop={0.5}
           >
             Movie
           </Button>
@@ -24,8 +23,9 @@ const SideNav = ({ showMovie, setShowMovie }: Props) => {
             width={20}
             fontSize="md"
             fontWeight="bold"
-            colorScheme={!showMovie ? "red" : "gray"}
-            onClick={() => setShowMovie(false)}
+            colorScheme={mediaType === "tv" ? "red" : "gray"}
+            onClick={() => setMediaType("tv")}
+            paddingTop={0.5}
           >
             TV
           </Button>
