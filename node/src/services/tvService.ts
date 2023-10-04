@@ -2,7 +2,7 @@ import axios from "axios";
 import { TV } from "../models/TV";
 
 const apiClient = axios.create({
-  baseURL: "https://api.themoviedb.org/3/tv",
+  baseURL: "https://api.themoviedb.org/3",
 });
 
 interface FetchTVListResponse {
@@ -12,7 +12,7 @@ interface FetchTVListResponse {
 
 async function getTVList(listName: string) {
 
-  return await apiClient.get<FetchTVListResponse>(`/${listName}`, {
+  return await apiClient.get<FetchTVListResponse>(`/tv/${listName}`, {
     headers: {
       Accept: "application/json",
       Authorization: `Bearer ${process.env.TMDB_ACCESS_TOKEN}`,
@@ -20,4 +20,22 @@ async function getTVList(listName: string) {
   });
 }
 
-export { getTVList };
+async function getDiscoveryTV() {
+  const queryParams = {
+    include_adult: false,
+    include_null_first_air_dates: false,
+    language: "en-US",
+    with_origin_country: "us",
+    page: 1,
+    sort_by: "popularity.desc",
+  };
+  return await apiClient.get<FetchTVListResponse>("/discover/tv", {
+    params: queryParams,
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${process.env.TMDB_ACCESS_TOKEN}`,
+    },
+  });
+}
+
+export { getTVList, getDiscoveryTV };

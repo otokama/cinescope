@@ -20,18 +20,12 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // public paths that don't require session auth token:
-const publicPath = [
+const publicPath: (string | RegExp)[] = [
   "/",
   "/session/new",
   "/session/tmdb-approved",
-  "/api/movie/now_playing",
-  "/api/movie/popular",
-  "/api/movie/top_rated",
-  "/api/movie/upcoming",
-  "/api/tv/airing_today",
-  "/api/tv/top_rated",
-  "/api/tv/on_the_air",
-  "/api/tv/popular",
+  /api\/movie\/discover/,
+  /api\/tv\/discover/,
 ];
 const jwt = jwtClient(publicPath);
 

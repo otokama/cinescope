@@ -1,13 +1,15 @@
 import { NextFunction, Request, Response, Router } from "express";
-import { getMovieList } from "../services/movieService";
-import { getBackdropLink, getPosterLink } from "../utils/movieUtil";
+import { getMovieDiscovery, getMovieList } from "../services/movieService";
+import { populateLinks } from "../utils/image-url";
+import { Movie } from "../models/Movie";
 
 const movieController = Router();
 
-movieController.get("/now_playing", getDiscoverMovieList);
-movieController.get("/popular", getDiscoverMovieList);
-movieController.get("/top_rated", getDiscoverMovieList);
-movieController.get("/upcoming", getDiscoverMovieList);
+movieController.get("/discover/now_playing", getDiscoverMovieList);
+movieController.get("/discover/popular", getDiscoverMovieList);
+movieController.get("/discover/top_rated", getDiscoverMovieList);
+movieController.get("/discover/upcoming", getDiscoverMovieList);
+movieController.get("/discover", getDiscoveryMovies);
 
 
 async function getDiscoverMovieList(req: Request, res: Response, next: NextFunction) {
@@ -18,16 +20,25 @@ async function getDiscoverMovieList(req: Request, res: Response, next: NextFunct
   try {
     const response = await getMovieList(listName);
     let { results: movieList } = response.data;
-    movieList = movieList.map((movie) => {
-      movie.backdrop_path = getBackdropLink(movie.backdrop_path);
-      movie.poster_path = getPosterLink(movie.poster_path);
-      return movie;
-    });
+    movieList = movieList.map(((movie) => populateLinks(movie) as Movie));
     if (movieList.length > size) {
       res.send(movieList.slice(0, size));
     } else {
       res.send(movieList);
     }
+  } catch (err) {
+    next(err);
+  }
+}
+
+
+async function getDiscoveryMovies(req: Request, res: Response, next: NextFunction) {
+  const size = 20;
+  try {
+    const response = await getMovieDiscovery();
+    let { results: movies } = response.data;
+    movies = movies.map(((movie) => populateLinks(movie) as Movie));
+    res.send(movies.slice(0, size));
   } catch (err) {
     next(err);
   }
