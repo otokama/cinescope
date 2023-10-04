@@ -1,4 +1,5 @@
 import "@fontsource-variable/nunito-sans";
+import "pure-react-carousel/dist/react-carousel.es.css";
 import { ChakraProvider, ColorModeScript } from "@chakra-ui/react";
 import React from "react";
 import ReactDOM from "react-dom/client";

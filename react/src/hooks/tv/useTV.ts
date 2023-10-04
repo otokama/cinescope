@@ -17,10 +17,10 @@ export interface TV {
   origin_country: string;
 }
 
-const useDiscoveryTV = (
+const useDiscoveryTVList = (
   listName: "top_rated" | "on_the_air" | "popular" | "airing_today"
 ) => {
-  const apiClient = new APIClient<TV>("/tv/" + listName);
+  const apiClient = new APIClient<TV>("/tv/discover/" + listName);
   const queryStr = "tv_discovery_" + listName;
   return useQuery<TV[], Error>({
     queryKey: [queryStr],
@@ -29,4 +29,13 @@ const useDiscoveryTV = (
   });
 };
 
-export { useDiscoveryTV };
+const useDiscoveryTVs = () => {
+  const apiClient = new APIClient<TV>("/tv/discover");
+  return useQuery<TV[], Error>({
+    queryKey: ["tv_discover"],
+    queryFn: apiClient.getAll,
+    staleTime: ms("1h"),
+  });
+};
+
+export { useDiscoveryTVList, useDiscoveryTVs };

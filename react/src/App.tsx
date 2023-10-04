@@ -16,7 +16,7 @@ function App() {
       }}
       templateColumns={{
         base: "1fr",
-        lg: "250px 1fr",
+        lg: "260px 1fr",
       }}
     >
       <GridItem area="nav">
@@ -24,12 +24,12 @@ function App() {
       </GridItem>
 
       <Show above="lg">
-        <GridItem area="aside" paddingX={5} paddingTop="80px">
+        <GridItem area="aside" paddingX="10px" paddingTop={24}>
           <SideNav />
         </GridItem>
       </Show>
 
-      <GridItem area="main" paddingTop="80px" paddingX={5} paddingBottom={5}>
+      <GridItem area="main" paddingTop={28} paddingX={8} paddingBottom={5}>
         {mediaType === "movie" && <MovieDiscoveryGrid />}
         {mediaType === "tv" && <TVDiscoveryGrid />}
       </GridItem>

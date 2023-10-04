@@ -1,6 +1,6 @@
 import { Box, Image, Text, VStack } from "@chakra-ui/react";
+import fallbackImg from "../../assets/image-placeholder.webp";
 import { TV } from "../../hooks/tv/useTV";
-import fallbackImg from "../../assets/image-placeholder.png";
 
 interface Props {
   tv: TV;
@@ -15,6 +15,7 @@ const TVCard = ({ tv }: Props) => {
           shadow="md"
           borderRadius={12}
           fallbackSrc={fallbackImg}
+          objectFit="fill"
         />
         <Text fontSize="17" fontWeight="medium" paddingLeft={2}>
           {tv.name}
