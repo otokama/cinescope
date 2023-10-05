@@ -5,12 +5,93 @@ const apiClient = axios.create({
   baseURL: "https://api.themoviedb.org/3",
 });
 
+interface TVSearchParams {
+  include_adult: boolean;
+  include_null_first_air_dates: boolean;
+  with_original_language: string;
+  language: string;
+  page: number;
+  sort_by?: string;
+  "vote_count.gte"?: number;
+  "vote_average.gte"?: number;
+  "vote_average.lte"?: number;
+  with_genres?: string;
+  with_keywords?: string;
+  with_origin_country?: string;
+  region?: string;
+  watch_region?: string;
+  "with_runtime.gte"?: number;
+  "first_air_date.gte"?: Date;
+  "first_air_date.lte"?: Date;
+  "air_date.gte"?: Date;
+  "air_date.lte"?: Date;
+}
+
 interface FetchTVListResponse {
   results: TV[];
 }
 
+function getAirTodayQueryParams(queryParams: TVSearchParams) {
+  return {
+    ...queryParams,
+    "air_date.gte": new Date(),
+    "air_date.lte": new Date(),
+  };
+}
+
+function getOnAirQueryParams(queryParams: TVSearchParams) {
+  return {
+    ...queryParams,
+    "air_date.gte": new Date(),
+    "air_date.lte": new Date(),
+    sort_by: "primary_release_date.desc",
+  };
+}
+
+function getPopularQueryParams(queryParams: TVSearchParams) {
+  return {
+    ...queryParams,
+  };
+}
+
+function getTopRatedQueryParams(queryParams: TVSearchParams) {
+  return {
+    ...queryParams,
+    sort_by: "vote_average.desc",
+  };
+}
+
 async function getTVList(listName: string) {
-  return await apiClient.get<FetchTVListResponse>(`/tv/${listName}`, {
+  let queryParams: TVSearchParams = {
+    include_adult: false,
+    include_null_first_air_dates: false,
+    with_original_language: "en",
+    language: "en-US",
+    region: "US",
+    watch_region: "US",
+    page: 1,
+    "vote_count.gte": 200,
+    sort_by: "popularity.desc",
+  };
+  switch (listName) {
+    case "airing_today":
+      queryParams = getAirTodayQueryParams(queryParams);
+      break;
+    case "on_the_air":
+      queryParams = getOnAirQueryParams(queryParams);
+      break;
+    case "popular":
+      queryParams = getPopularQueryParams(queryParams);
+      break;
+    case "top_rated":
+      queryParams = getTopRatedQueryParams(queryParams);
+      break;
+    default:
+      break;
+  }
+
+  return await apiClient.get<FetchTVListResponse>("/discover/tv", {
+    params: queryParams,
     headers: {
       Accept: "application/json",
       Authorization: `Bearer ${process.env.TMDB_ACCESS_TOKEN}`,
@@ -26,7 +107,7 @@ async function getDiscoveryTV() {
     language: "en-US",
     page: 1,
     sort_by: "primary_release_date.desc",
-    "vote_count.gte": 200
+    "vote_count.gte": 200,
   };
   return await apiClient.get<FetchTVListResponse>("/discover/tv", {
     params: queryParams,
@@ -38,4 +119,3 @@ async function getDiscoveryTV() {
 }
 
 export { getDiscoveryTV, getTVList };
-
