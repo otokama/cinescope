@@ -1,5 +1,6 @@
-import APIClient from "../../services/api-client";
 import { useQuery } from "@tanstack/react-query";
+import ms from "ms";
+import APIClient from "../../services/api-client";
 
 export interface Movie {
   id: number;
@@ -15,12 +16,25 @@ export interface Movie {
   genre_ids: number[];
 }
 
-const useNowPlayingMovies = () => {
-  const apiClient = new APIClient<Movie>("/movie/now_playing");
+const useDiscoveryMovieList = (
+  listName: "now_playing" | "popular" | "top_rated" | "upcoming"
+) => {
+  const apiClient = new APIClient<Movie>("/movie/discover/" + listName);
+  const queryStr = "movies_discovery_" + listName;
   return useQuery<Movie[], Error>({
-    queryKey: ["now_playing_movies"],
+    queryKey: [queryStr],
     queryFn: apiClient.getAll,
+    staleTime: ms("1h"),
   });
 };
 
-export { useNowPlayingMovies };
+const useDiscoveryMovies = () => {
+  const apiClient = new APIClient<Movie>("/movie/discover");
+  return useQuery<Movie[], Error>({
+    queryKey: ["movies_discover"],
+    queryFn: apiClient.getAll,
+    staleTime: ms("1h"),
+  });
+};
+
+export { useDiscoveryMovieList, useDiscoveryMovies };

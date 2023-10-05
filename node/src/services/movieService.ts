@@ -2,15 +2,23 @@ import axios from "axios";
 import { Movie } from "../models/Movie";
 
 const apiClient = axios.create({
-  baseURL: "https://api.themoviedb.org/3/movie",
+  baseURL: "https://api.themoviedb.org/3",
 });
 
-interface FetchNowPlayingResponse {
+interface FetchMovieListResponse {
   results: Movie[];
 }
 
-async function getNowPlayingMovies() {
-  return await apiClient.get<FetchNowPlayingResponse>("/now_playing", {
+async function getMovieList(listName: string) {
+  let queryParams = {};
+  if (listName === "upcoming") {
+    queryParams = {
+      "primary_release_date.gte": new Date(),
+    };
+  }
+
+  return await apiClient.get<FetchMovieListResponse>(`/movie/${listName}`, {
+    params: queryParams,
     headers: {
       Accept: "application/json",
       Authorization: `Bearer ${process.env.TMDB_ACCESS_TOKEN}`,
@@ -18,4 +26,23 @@ async function getNowPlayingMovies() {
   });
 }
 
-export { getNowPlayingMovies };
+async function getMovieDiscovery() {
+  const queryParams = {
+    include_adult: false,
+    include_video: false,
+    language: "en-US",
+    region: "us",
+    page: 1,
+    sort_by: "popularity.desc",
+  };
+  return await apiClient.get<FetchMovieListResponse>("/discover/movie", {
+    params: queryParams,
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${process.env.TMDB_ACCESS_TOKEN}`,
+    },
+  });
+}
+
+export { getMovieDiscovery, getMovieList };
+

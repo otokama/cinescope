@@ -1,28 +1,28 @@
 import { Box, Image, Text, VStack } from "@chakra-ui/react";
-import { Movie } from "../../hooks/movies/useMovies";
 import fallbackImg from "../../assets/image-placeholder.webp";
+import { TV } from "../../hooks/tv/useTV";
 
 interface Props {
-  movie: Movie;
+  tv: TV;
 }
 
-const MovieCard = ({ movie }: Props) => {
+const TVCard = ({ tv }: Props) => {
   return (
     <Box>
       <VStack align="start" spacing={3}>
         <Image
-          src={movie.poster_path}
+          src={tv.poster_path}
           shadow="md"
           borderRadius={12}
           fallbackSrc={fallbackImg}
           objectFit="fill"
         />
         <Text fontSize="17" fontWeight="medium" paddingLeft={2}>
-          {movie.title}
+          {tv.name}
         </Text>
       </VStack>
     </Box>
   );
 };
 
-export default MovieCard;
+export default TVCard;

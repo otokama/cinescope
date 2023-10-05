@@ -1,17 +1,17 @@
 import { SimpleGrid } from "@chakra-ui/react";
 import { UseQueryResult } from "@tanstack/react-query";
 import _ from "lodash";
-import { Movie } from "../../hooks/movies/useMovies";
-import MovieCard from "./MovieCard";
+import { TV } from "../../hooks/tv/useTV";
 import CardContainer from "../CardContainer";
 import CardSkeleton from "../CardSkeleton";
+import TVCard from "./TVCard";
 
 interface Props {
-  useMovie: () => UseQueryResult<Movie[], Error>;
+  useTV: () => UseQueryResult<TV[], Error>;
 }
 
-const MovieGrid = ({ useMovie }: Props) => {
-  const { data: movies, isLoading, error } = useMovie();
+const TVGrid = ({ useTV }: Props) => {
+  const { data: movies, isLoading, error } = useTV();
 
   const skeletons = _.range(10);
 
@@ -30,13 +30,13 @@ const MovieGrid = ({ useMovie }: Props) => {
           </CardContainer>
         ))}
       {!isLoading &&
-        movies?.map((movie) => (
-          <CardContainer key={movie.id}>
-            <MovieCard key={movie.id} movie={movie} />
+        movies?.map((tv) => (
+          <CardContainer key={tv.id}>
+            <TVCard key={tv.id} tv={tv} />
           </CardContainer>
         ))}
     </SimpleGrid>
   );
 };
 
-export default MovieGrid;
+export default TVGrid;

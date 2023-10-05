@@ -1,6 +1,6 @@
 import { Card, Skeleton } from "@chakra-ui/react";
 
-const MovieCardSkeleton = () => {
+const CardSkeleton = () => {
   return (
     <Card shadow="none" borderRadius="10px">
       <Skeleton height="345px" borderRadius="10px" />
@@ -8,4 +8,4 @@ const MovieCardSkeleton = () => {
   );
 };
 
-export default MovieCardSkeleton;
+export default CardSkeleton;

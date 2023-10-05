@@ -5,12 +5,12 @@ interface Props {
   children: ReactNode;
 }
 
-const MovieCardContainer = ({ children }: Props) => {
+const CardContainer = ({ children }: Props) => {
   return (
-    <Box overflow="hidden" width="230px">
+    <Box overflow="hidden">
       {children}
     </Box>
   );
 };
 
-export default MovieCardContainer;
+export default CardContainer;

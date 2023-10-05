@@ -4,6 +4,7 @@ import express, { Request, Response } from "express";
 import accountRouter from "./controller/accountController";
 import movieController from "./controller/movieController";
 import sessionRouter from "./controller/sessionController";
+import tvController from "./controller/tvController";
 
 import { jwtClient } from "./helpers/jwt";
 import bodyParser = require("body-parser");
@@ -19,11 +20,12 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // public paths that don't require session auth token:
-const publicPath = [
+const publicPath: (string | RegExp)[] = [
   "/",
   "/session/new",
   "/session/tmdb-approved",
-  "/api/movie/now_playing",
+  /api\/movie\/discover/,
+  /api\/tv\/discover/,
 ];
 const jwt = jwtClient(publicPath);
 
@@ -35,6 +37,7 @@ app.get("/", (req: Request, res: Response) => {
 
 app.use("/api/account", accountRouter);
 app.use("/api/movie", movieController);
+app.use("/api/tv", tvController);
 
 app.use("/session", sessionRouter);
 
