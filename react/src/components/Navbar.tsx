@@ -23,14 +23,15 @@ const Navbar = ({ onSearch }: Props) => {
       shadow="md"
     >
       <Link to="/">
-        <Image
-          src={logo}
-          boxSize={10}
-          _hover={{
-            transform: "scale(1.1)",
-            transition: "transform .15s ease-in",
-          }}
-        />
+        <Box boxSize={10}>
+          <Image
+            src={logo}
+            _hover={{
+              transform: "scale(1.1)",
+              transition: "transform .15s ease-in",
+            }}
+          />
+        </Box>
       </Link>
       <Box maxWidth="500px" width="full">
         <SearchInput onSearch={onSearch} />
