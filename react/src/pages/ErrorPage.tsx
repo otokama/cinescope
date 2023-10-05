@@ -1,4 +1,4 @@
-import { Box, Flex, HStack, Image, Text, VStack } from "@chakra-ui/react";
+import { Flex, HStack, Image, Text, VStack } from "@chakra-ui/react";
 import { isRouteErrorResponse, useRouteError } from "react-router-dom";
 import fullMoonImg from "../assets/full-moon.png";
 import Navbar from "../components/Navbar";

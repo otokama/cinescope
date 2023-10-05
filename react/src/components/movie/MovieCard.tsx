@@ -1,6 +1,7 @@
-import { Box, Image, Text, VStack } from "@chakra-ui/react";
-import { Movie } from "../../hooks/movies/useMovies";
+import { Image, Text, VStack } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 import fallbackImg from "../../assets/image-placeholder.webp";
+import { Movie } from "../../hooks/movies/useMovies";
 
 interface Props {
   movie: Movie;
@@ -8,7 +9,7 @@ interface Props {
 
 const MovieCard = ({ movie }: Props) => {
   return (
-    <Box>
+    <Link to={"/movie/" + movie.id}>
       <VStack align="start" spacing={3}>
         <Image
           src={movie.poster_path}
@@ -21,7 +22,7 @@ const MovieCard = ({ movie }: Props) => {
           {movie.title}
         </Text>
       </VStack>
-    </Box>
+    </Link>
   );
 };
 

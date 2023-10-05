@@ -16,6 +16,12 @@ class APIClient<T> {
       .get<T[]>(this.endpoint, config)
       .then((res) => res.data);
   };
+
+  get = (config?: AxiosRequestConfig) => {
+    return this.axiosInstance
+      .get<T>(this.endpoint, config)
+      .then((res) => res.data);
+  };
 }
 
 export default APIClient;

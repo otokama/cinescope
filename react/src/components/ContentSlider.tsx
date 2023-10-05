@@ -46,7 +46,6 @@ const ContentSlider = ({ useContents }: Props) => {
                 shadow="md"
                 borderRadius={{ sm: 5, md: 15 }}
                 overflow="hidden"
-                _hover={{ shadow: "lg" }}
                 position="relative"
               >
                 <Image src={content.backdrop_path} fallbackSrc={fallbackImg} />
