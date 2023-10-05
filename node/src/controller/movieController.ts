@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response, Router } from "express";
 import { Movie } from "../models/Movie";
-import { getMovieDiscovery, getMovieList } from "../services/movieService";
+import { getMovieDiscovery, getMovieList, retrieveMovieDetail } from "../services/movieService";
 import { populateLinks } from "../utils/image-url";
 
 const movieController = Router();
@@ -10,6 +10,7 @@ movieController.get("/discover/popular", getDiscoverMovieList);
 movieController.get("/discover/top_rated", getDiscoverMovieList);
 movieController.get("/discover/upcoming", getDiscoverMovieList);
 movieController.get("/discover", getDiscoveryMovies);
+movieController.get("/detail/:id", getMovieDetail);
 
 async function getDiscoverMovieList(
   req: Request,
@@ -48,6 +49,26 @@ async function getDiscoveryMovies(
   } catch (err) {
     next(err);
   }
+}
+
+async function getMovieDetail(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    if (!req.params.id) {
+      return res.send("Missing movie id").status(400);
+    }
+    const movieId = parseInt(req.params.id);
+    const { data: movieDetail, status } = await retrieveMovieDetail(movieId);
+    if (status === 200 && movieDetail) {
+      return res.send(movieDetail);
+    }
+  } catch (err) {
+    res.status(404).send("Movie Not Found");
+  }
+
 }
 
 export default movieController;

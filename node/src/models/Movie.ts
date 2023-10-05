@@ -1,3 +1,6 @@
+import { Country } from "./Country";
+import { Genre } from "./Genre";
+
 export interface Movie {
   id: number;
   title: string;
@@ -11,3 +14,4 @@ export interface Movie {
   poster_path: string;
   genre_ids: number[];
 }
+

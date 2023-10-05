@@ -34,7 +34,7 @@ async function getMovieDiscovery() {
     region: "us",
     page: 1,
     sort_by: "popularity.desc",
-    "vote_count.gte": 200
+    "vote_count.gte": 200,
   };
   return await apiClient.get<FetchMovieListResponse>("/discover/movie", {
     params: queryParams,
@@ -45,5 +45,13 @@ async function getMovieDiscovery() {
   });
 }
 
-export { getMovieDiscovery, getMovieList };
+async function retrieveMovieDetail(id: number) {
+  return await apiClient.get(`/movie/${id}`, {
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${process.env.TMDB_ACCESS_TOKEN}`,
+    },
+  });
+}
 
+export { getMovieDiscovery, getMovieList, retrieveMovieDetail };
