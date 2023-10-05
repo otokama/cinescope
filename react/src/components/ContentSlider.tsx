@@ -12,8 +12,8 @@ import { CarouselProvider, Slide, Slider } from "pure-react-carousel";
 import fallbackImg from "../assets/banner-placeholder.webp";
 import useMovieGenres from "../hooks/genres/useMovieGenres";
 import useTVGenres from "../hooks/genres/useTVGenres";
-import { Movie } from "../hooks/movies/useMovies";
-import { TV } from "../hooks/tv/useTV";
+import { Movie } from "../entities/Movie";
+import { TV } from "../entities/TV";
 import useMediaTypeStore from "../stores/media-type";
 
 interface Props {

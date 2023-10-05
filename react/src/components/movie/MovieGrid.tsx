@@ -1,7 +1,7 @@
 import { SimpleGrid } from "@chakra-ui/react";
 import { UseQueryResult } from "@tanstack/react-query";
 import _ from "lodash";
-import { Movie } from "../../hooks/movies/useMovies";
+import { Movie } from "../../entities/Movie";
 import MovieCard from "./MovieCard";
 import CardContainer from "../CardContainer";
 import CardSkeleton from "../CardSkeleton";

@@ -1,20 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import ms from "ms";
 import APIClient from "../../services/api-client";
-
-export interface Movie {
-  id: number;
-  title: string;
-  overview: string;
-  popularity: number;
-  vote_average: number;
-  vote_count: number;
-  release_date: string;
-  adult: boolean;
-  backdrop_path: string;
-  poster_path: string;
-  genre_ids: number[];
-}
+import { Movie } from "../../entities/Movie";
 
 const useDiscoveryMovieList = (
   listName: "now_playing" | "popular" | "top_rated" | "upcoming"

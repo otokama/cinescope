@@ -1,6 +1,6 @@
 import { Box, Image, Text, VStack } from "@chakra-ui/react";
 import fallbackImg from "../../assets/image-placeholder.webp";
-import { TV } from "../../hooks/tv/useTV";
+import { TV } from "../../entities/TV";
 
 interface Props {
   tv: TV;
