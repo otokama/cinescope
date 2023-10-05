@@ -19,7 +19,7 @@ const Navbar = ({ onSearch }: Props) => {
       zIndex={20}
       bgColor={colorMode === "dark" ? "gray.600" : "gray.100"}
       paddingX="15px"
-      paddingY="10px"
+      h="16"
       shadow="md"
     >
       <Link to="/">

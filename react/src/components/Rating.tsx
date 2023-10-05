@@ -1,4 +1,5 @@
 import {
+  Box,
   CircularProgress,
   CircularProgressLabel,
   Text,
@@ -10,17 +11,20 @@ interface Props {
 
 const Rating = ({ value }: Props) => {
   return (
-    <CircularProgress
-      rounded="full"
-      bg="blackAlpha.500"
-      value={value}
-      size={10}
-      color={value > 70 ? "green.500" : "yellow.500"}
-    >
-      <CircularProgressLabel>
-        <Text fontSize={14}>{value}</Text>
-      </CircularProgressLabel>
-    </CircularProgress>
+    <Box w="fit-content">
+      <CircularProgress
+        rounded="full"
+        bg="blackAlpha.800"
+        backdropBlur="2xl"
+        value={value}
+        size="14"
+        color={value > 70 ? "green.500" : "yellow.500"}
+      >
+        <CircularProgressLabel>
+          <Text fontSize={17}>{value}</Text>
+        </CircularProgressLabel>
+      </CircularProgress>
+    </Box>
   );
 };
 

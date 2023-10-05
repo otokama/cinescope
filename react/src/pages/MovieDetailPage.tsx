@@ -2,6 +2,8 @@ import { useParams } from "react-router-dom";
 import LoadingPage from "../components/LoadingPage";
 import useMovieDetail from "../hooks/movies/useMovie";
 import { useNavigate } from "react-router-dom";
+import MovieDetailHeader from "../components/movie/MovieDetailHeader";
+import { SimpleGrid } from "@chakra-ui/react";
 
 const MovieDetailPage = () => {
   const { id } = useParams();
@@ -9,9 +11,14 @@ const MovieDetailPage = () => {
   const navigate = useNavigate();
   if (isLoading) return <LoadingPage />;
 
-  if (error || !movieDetail) navigate("*");
+  if (error || !movieDetail) return navigate("*");
 
-  return <div>MovieDetailPage</div>;
+  return <>
+    <MovieDetailHeader movie={movieDetail}/>
+    <SimpleGrid>
+      
+    </SimpleGrid>
+  </>;
 };
 
 export default MovieDetailPage;

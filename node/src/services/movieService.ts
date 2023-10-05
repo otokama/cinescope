@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Movie } from "../models/Movie";
+import { MovieDetail } from "../models/MovieDetail";
 
 const apiClient = axios.create({
   baseURL: "https://api.themoviedb.org/3",
@@ -7,6 +8,20 @@ const apiClient = axios.create({
 
 interface FetchMovieListResponse {
   results: Movie[];
+}
+
+interface MovieReleaseDate {
+  release_date: Date;
+  certification: string;
+}
+
+interface MovieReleaseCountry {
+  iso_3166_1: string;
+  release_dates: MovieReleaseDate[];
+}
+
+interface FetchMovieRatingResponse {
+  results: MovieReleaseCountry[];
 }
 
 async function getMovieList(listName: string) {
@@ -46,7 +61,7 @@ async function getMovieDiscovery() {
 }
 
 async function retrieveMovieDetail(id: number) {
-  return await apiClient.get(`/movie/${id}`, {
+  return await apiClient.get<MovieDetail>(`/movie/${id}`, {
     headers: {
       Accept: "application/json",
       Authorization: `Bearer ${process.env.TMDB_ACCESS_TOKEN}`,
@@ -54,4 +69,26 @@ async function retrieveMovieDetail(id: number) {
   });
 }
 
-export { getMovieDiscovery, getMovieList, retrieveMovieDetail };
+async function getMovieRating(id: number) {
+  const { data } = await apiClient.get<FetchMovieRatingResponse>(
+    `/movie/${id}/release_dates`,
+    {
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${process.env.TMDB_ACCESS_TOKEN}`,
+      },
+    }
+  );
+  const releaseDatesUS = data.results.find(
+    (releaseCountry) => releaseCountry.iso_3166_1 === "US"
+  );
+
+  if (releaseDatesUS && releaseDatesUS.release_dates.length > 0) {
+    for (const release of releaseDatesUS.release_dates) {
+      if (release.certification.length > 0) return release.certification;
+    }
+  }
+  return null;
+}
+
+export { getMovieDiscovery, getMovieList, retrieveMovieDetail, getMovieRating };

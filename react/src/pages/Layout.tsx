@@ -8,7 +8,7 @@ const Layout = () => {
     <>
       <Navbar onSearch={() => {}} />
       <div id="main">
-        <Box paddingTop={24} paddingX={5}>
+        <Box paddingTop={16}>
           <Outlet />
         </Box>
       </div>

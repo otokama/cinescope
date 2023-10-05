@@ -19,12 +19,12 @@ const HomePage = () => {
       }}
     >
       <Show above="lg">
-        <GridItem area="aside">
+        <GridItem area="aside" paddingTop="10">
           <SideNav />
         </GridItem>
       </Show>
 
-      <GridItem area="main" paddingX={8} paddingBottom={5}>
+      <GridItem area="main" paddingX={8} paddingTop="10" paddingBottom={5}>
         {mediaType === "movie" && <MovieDiscoveryGrid />}
         {mediaType === "tv" && <TVDiscoveryGrid />}
       </GridItem>
