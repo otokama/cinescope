@@ -1,4 +1,5 @@
 import { Box, HStack, Image, useColorMode } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 import logo from "../assets/video-camera.png";
 import ColorModeSwitch from "./ColorModeSwitch";
 import SearchInput from "./SearchInput";
@@ -21,7 +22,16 @@ const Navbar = ({ onSearch }: Props) => {
       paddingY="10px"
       shadow="md"
     >
-      <Image src={logo} boxSize={10} />
+      <Link to="/">
+        <Image
+          src={logo}
+          boxSize={10}
+          _hover={{
+            transform: "scale(1.1)",
+            transition: "transform .15s ease-in",
+          }}
+        />
+      </Link>
       <Box maxWidth="500px" width="full">
         <SearchInput onSearch={onSearch} />
       </Box>
