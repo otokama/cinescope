@@ -1,4 +1,4 @@
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Show, Text } from "@chakra-ui/react";
 import {
   useDiscoveryMovieList,
   useDiscoveryMovies,
@@ -9,7 +9,9 @@ import MovieGrid from "./MovieGrid";
 const MovieDiscoveryGrid = () => {
   return (
     <>
-      <ContentSlider useContents={useDiscoveryMovies} />
+      <Show above="md">
+        <ContentSlider useContents={useDiscoveryMovies} />
+      </Show>
       <Box marginTop={5}>
         <Box marginBottom={10}>
           <Text fontSize="3xl" fontWeight="bold">

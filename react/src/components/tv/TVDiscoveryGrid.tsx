@@ -1,4 +1,4 @@
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Show, Text } from "@chakra-ui/react";
 import { useDiscoveryTVList, useDiscoveryTVs } from "../../hooks/tv/useTV";
 import ContentSlider from "../ContentSlider";
 import TVGrid from "./TVGrid";
@@ -6,7 +6,9 @@ import TVGrid from "./TVGrid";
 const TVDiscoveryGrid = () => {
   return (
     <>
-      <ContentSlider useContents={useDiscoveryTVs} />
+      <Show above="md">
+        <ContentSlider useContents={useDiscoveryTVs} />
+      </Show>
       <Box marginTop={5}>
         <Box marginBottom={10}>
           <Text fontSize="3xl" fontWeight="bold">
