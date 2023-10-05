@@ -15,11 +15,11 @@ const HomePage = () => {
       }}
       templateColumns={{
         base: "1fr",
-        lg: "260px 1fr",
+        lg: "250px 1fr",
       }}
     >
       <Show above="lg">
-        <GridItem area="aside" paddingX="10px">
+        <GridItem area="aside">
           <SideNav />
         </GridItem>
       </Show>

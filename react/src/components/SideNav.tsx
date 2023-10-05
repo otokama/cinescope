@@ -6,7 +6,7 @@ const SideNav = () => {
 
   return (
     <Box position="relative">
-      <VStack align="center" position="fixed" zIndex="10" w="240px" h="full">
+      <VStack align="center" position="fixed" zIndex="10" w="250px" h="full">
         <ButtonGroup isAttached borderRadius="2xl" overflow="hidden">
           <Button
             width={24}
