@@ -10,11 +10,11 @@ import {
 import { UseQueryResult } from "@tanstack/react-query";
 import { CarouselProvider, Slide, Slider } from "pure-react-carousel";
 import fallbackImg from "../assets/banner-placeholder.webp";
+import useMovieGenres from "../hooks/genres/useMovieGenres";
+import useTVGenres from "../hooks/genres/useTVGenres";
 import { Movie } from "../hooks/movies/useMovies";
 import { TV } from "../hooks/tv/useTV";
 import useMediaTypeStore from "../stores/media-type";
-import useMovieGenres from "../hooks/genres/useMovieGenres";
-import useTVGenres from "../hooks/genres/useTVGenres";
 
 interface Props {
   useContents: () => UseQueryResult<(Movie | TV)[], Error>;
@@ -42,7 +42,7 @@ const ContentSlider = ({ useContents }: Props) => {
           contents?.map((content, idx) => (
             <Slide index={idx} key={idx}>
               <Card
-                marginX={{ sm: 2, lg: 5 }}
+                marginX={{ sm: 2, lg: 4 }}
                 shadow="md"
                 borderRadius={{ sm: 5, md: 15 }}
                 overflow="hidden"
