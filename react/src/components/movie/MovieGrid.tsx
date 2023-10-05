@@ -19,8 +19,8 @@ const MovieGrid = ({ useMovie }: Props) => {
 
   return (
     <SimpleGrid
-      columns={{ sm: 2, md: 4, lg: 5, xl: 6 }}
-      spacing={{ sm: 4, md: 8 }}
+      columns={{ base: 2, md: 4, lg: 5, xl: 6 }}
+      spacing={{ base: 4, md: 8 }}
       marginTop={4}
     >
       {isLoading &&
