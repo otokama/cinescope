@@ -42,7 +42,7 @@ const ContentSlider = ({ useContents }: Props) => {
           contents?.map((content, idx) => (
             <Slide index={idx} key={idx}>
               <Card
-                marginX={{ sm: 2, lg: 4 }}
+                marginX={{ base: 2, lg: 4 }}
                 shadow="md"
                 borderRadius={{ sm: 5, md: 15 }}
                 overflow="hidden"
