@@ -1,7 +1,8 @@
 import { Box, Grid, GridItem, Show, Text } from "@chakra-ui/react";
 import { useNavigate, useParams } from "react-router-dom";
 import LoadingPage from "../components/LoadingPage";
-import MovieCredit from "../components/movie/MovieCredit";
+
+import CastList from "../components/CastList";
 import MovieDetailHeader from "../components/movie/MovieDetailHeader";
 import MovieRecommendations from "../components/movie/MovieRecommendations";
 import MovieTrailer from "../components/movie/MovieTrailer";
@@ -55,7 +56,7 @@ const MovieDetailPage = () => {
 
           <MovieTrailer movieId={movieDetail.id} />
 
-          <MovieCredit movieId={movieDetail.id} />
+          <CastList contentId={movieDetail.id} isMovie />
 
           <Show below="lg">
             <MovieWatchProviders movieId={movieDetail.id} />
@@ -69,7 +70,6 @@ const MovieDetailPage = () => {
             <MovieWatchProviders movieId={movieDetail.id} />
           </GridItem>
         </Show>
-        
       </Grid>
     </>
   );

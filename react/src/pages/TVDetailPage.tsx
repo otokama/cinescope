@@ -1,9 +1,10 @@
+import { Box, Grid, GridItem, Show, Text } from "@chakra-ui/react";
 import { useNavigate, useParams } from "react-router-dom";
+import CastList from "../components/CastList";
 import LoadingPage from "../components/LoadingPage";
 import TVDetailHeader from "../components/tv/TVDetailHeader";
-import { useTVDetail } from "../hooks/tv/useTV";
-import { Box, Grid, GridItem, Show, Text } from "@chakra-ui/react";
 import TVTrailer from "../components/tv/TVTrailer";
+import { useTVDetail } from "../hooks/tv/useTV";
 
 const TVDetailPage = () => {
   const { id } = useParams();
@@ -48,8 +49,9 @@ const TVDetailPage = () => {
 
           <TVTrailer tvId={tvDetail.id} />
 
+          <CastList contentId={tvDetail.id} isMovie={false} />
+          
         </GridItem>
-
       </Grid>
     </>
   );
