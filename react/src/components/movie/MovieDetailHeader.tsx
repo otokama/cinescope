@@ -102,7 +102,7 @@ const MovieDetailHeader = ({ movie }: Props) => {
               <Text whiteSpace="nowrap">{movie.release_date}</Text>
             </HStack>
 
-            <HStack spacing="3" mb="5">
+            <HStack spacing="3" mb="5" wrap="wrap">
               {movie.genres.map((genre) => (
                 <Badge key={genre.id}>{genre.name}</Badge>
               ))}
