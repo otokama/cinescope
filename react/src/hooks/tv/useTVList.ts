@@ -24,4 +24,12 @@ const useDiscoveryTVs = () => {
   });
 };
 
-export { useDiscoveryTVList, useDiscoveryTVs };
+const useTVRecommendation = (tvId: number) => {
+  const apiClient = new APIClient<TV>(`/tv/detail/${tvId}/recommendation`);
+  return useQuery<TV[], Error>({
+    queryKey: ["tv_recommend", tvId],
+    queryFn: apiClient.getAll,
+  });
+}
+
+export { useDiscoveryTVList, useDiscoveryTVs, useTVRecommendation };
