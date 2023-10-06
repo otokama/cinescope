@@ -1,4 +1,4 @@
-import { Grid, GridItem, Show } from "@chakra-ui/react";
+import { Box, Grid, GridItem, Show, Text } from "@chakra-ui/react";
 import { useNavigate, useParams } from "react-router-dom";
 import CastList from "../components/CastList";
 import LoadingPage from "../components/LoadingPage";
@@ -8,16 +8,19 @@ import { useMovieCredit, useMovieDetail } from "../hooks/movies/useMovie";
 const MovieDetailPage = () => {
   const { id } = useParams();
   const movieId = parseInt(id!);
+
   const {
     data: movieDetail,
     isLoading: isLoadingDetail,
     error: movieDetailError,
   } = useMovieDetail(movieId);
+
   const {
     data: cast,
     isLoading: isLoadingCredits,
     error: creditsLoadingError,
   } = useMovieCredit(movieId);
+  
 
   const navigate = useNavigate();
   if (isLoadingDetail) return <LoadingPage />;
@@ -44,6 +47,15 @@ const MovieDetailPage = () => {
         }}
       >
         <GridItem area="main" paddingTop={10} pr={5}>
+          <Show below="md">
+            <Box mb="10">
+              <Text fontSize="lg" fontWeight="bold" mb="2">
+                Overview
+              </Text>
+              <Text>{movieDetail.overview}</Text>
+            </Box>
+          </Show>
+
           {!isLoadingCredits && !creditsLoadingError && cast && (
             <CastList cast={cast} isLoading={isLoadingCredits} />
           )}

@@ -14,7 +14,7 @@ const CastList = ({ cast, isLoading }: Props) => {
   return (
     <Box>
       <Text fontSize={{ base: "lg", md: "xl" }} fontWeight="bold">
-        Top Cast:
+        Top Cast
       </Text>
       <SimpleGrid
         columns={{ base: 2, sm: 3, md: 4, lg: 5, xl: 8 }}
