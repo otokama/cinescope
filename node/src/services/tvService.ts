@@ -1,9 +1,9 @@
 import axios from "axios";
+import { Actor } from "../models/Actor";
 import { ContentRating } from "../models/Rating";
 import { TV } from "../models/TV";
 import { TVDetail } from "../models/TVDetail";
 import { Video } from "../models/Video";
-import { Actor } from "../models/Actor";
 
 const apiClient = axios.create({
   baseURL: "https://api.themoviedb.org/3",
@@ -176,4 +176,21 @@ async function getVideos(id: number) {
   });
 }
 
-export { getDetail, getDiscoveryTV, getTVList, getRating, getCast, getVideos };
+async function getStreamProviders(id: number) {
+  return await apiClient.get(`/tv/${id}/watch/providers`, {
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${process.env.TMDB_ACCESS_TOKEN}`,
+    },
+  });
+}
+
+export {
+  getCast,
+  getDetail,
+  getDiscoveryTV,
+  getRating,
+  getStreamProviders,
+  getTVList,
+  getVideos,
+};

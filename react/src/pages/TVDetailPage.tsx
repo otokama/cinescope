@@ -2,6 +2,7 @@ import { Box, Grid, GridItem, Show, Text } from "@chakra-ui/react";
 import { useNavigate, useParams } from "react-router-dom";
 import CastList from "../components/CastList";
 import LoadingPage from "../components/LoadingPage";
+import WatchProviders from "../components/WatchProviders";
 import TVDetailHeader from "../components/tv/TVDetailHeader";
 import TVTrailer from "../components/tv/TVTrailer";
 import { useTVDetail } from "../hooks/tv/useTV";
@@ -50,8 +51,17 @@ const TVDetailPage = () => {
           <TVTrailer tvId={tvDetail.id} />
 
           <CastList contentId={tvDetail.id} isMovie={false} />
-          
+
+          <Show below="lg">
+            <WatchProviders contentId={tvDetail.id} isMovie={false} />
+          </Show>
         </GridItem>
+
+        <Show above="lg">
+          <GridItem area="aside" paddingTop={10} pr={4}>
+            <WatchProviders contentId={tvDetail.id} isMovie={false} />
+          </GridItem>
+        </Show>
       </Grid>
     </>
   );
