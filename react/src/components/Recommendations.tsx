@@ -21,7 +21,7 @@ const Recommendations = ({ contents, isLoading }: Props) => {
       </Text>
 
       <SimpleGrid
-        columns={{ base: 2, sm: 3, md: 4, lg: 5 }}
+        columns={{ base: 2, sm: 3, md: 4 }}
         spacing={{ base: 4, md: 6, lg: 8 }}
         mb="4"
       >
