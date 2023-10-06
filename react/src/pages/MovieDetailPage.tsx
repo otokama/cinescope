@@ -3,10 +3,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import LoadingPage from "../components/LoadingPage";
 import MovieCredit from "../components/movie/MovieCredit";
 import MovieDetailHeader from "../components/movie/MovieDetailHeader";
-import MovieTrailer from "../components/movie/MovieTrailer";
-import { useMovieDetail } from "../hooks/movies/useMovie";
-import MovieWatchProviders from "../components/movie/MovieWatchProviders";
 import MovieRecommendations from "../components/movie/MovieRecommendations";
+import MovieTrailer from "../components/movie/MovieTrailer";
+import MovieWatchProviders from "../components/movie/MovieWatchProviders";
+import { useMovieDetail } from "../hooks/movies/useMovie";
 
 const MovieDetailPage = () => {
   const { id } = useParams();
@@ -42,7 +42,7 @@ const MovieDetailPage = () => {
           lg: "1fr 270px",
         }}
       >
-        <GridItem area="main" paddingTop={10} pr={{lg: 12}}>
+        <GridItem area="main" paddingTop={10} pr={{ lg: 12 }}>
           <Show below="md">
             <Box mb="10">
               <Text fontSize="lg" fontWeight="bold" mb="2">
@@ -60,8 +60,7 @@ const MovieDetailPage = () => {
             <MovieWatchProviders movieId={movieDetail.id} />
           </Show>
 
-          <MovieRecommendations  movieId={movieDetail.id}/>
-          
+          <MovieRecommendations movieId={movieDetail.id} />
         </GridItem>
         <Show above="lg">
           <GridItem area="aside" paddingTop={10} pr={4}>

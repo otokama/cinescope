@@ -6,7 +6,7 @@ interface Props {
   isLoading: boolean;
 }
 
-const WatchProviders = ({ providerDetail, isLoading }: Props) => {
+const WatchProviders = ({ providerDetail }: Props) => {
   const providers =
     providerDetail?.buy || providerDetail?.rent || providerDetail?.flatrate;
   if (!providers) return null;
@@ -15,7 +15,11 @@ const WatchProviders = ({ providerDetail, isLoading }: Props) => {
       <Text fontSize="lg" fontWeight="semibold" mb="5">
         Watch Now On
       </Text>
-      <SimpleGrid columns={{ base: 5, lg: 4 }} spacing={{ base: 2, lg: 4 }} mb="4">
+      <SimpleGrid
+        columns={{ base: 5, lg: 4 }}
+        spacing={{ base: 2, lg: 4 }}
+        mb="4"
+      >
         {providers &&
           providers.map((provider) => (
             <Link

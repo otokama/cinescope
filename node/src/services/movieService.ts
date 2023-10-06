@@ -149,5 +149,6 @@ export {
   getMovieRating,
   getMovieRecommendations,
   getMovieVideos,
-  retrieveMovieDetail,
+  retrieveMovieDetail
 };
+

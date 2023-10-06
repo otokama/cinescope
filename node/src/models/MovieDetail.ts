@@ -1,6 +1,5 @@
-import { Genre } from "./Genre";
 import { Country } from "./Country";
-
+import { Genre } from "./Genre";
 
 export interface MovieDetail {
   adult: boolean;

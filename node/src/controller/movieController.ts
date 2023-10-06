@@ -156,7 +156,7 @@ async function getRecommendations(req: Request, res: Response) {
     let { data, status } = await getMovieRecommendations(movieId);
     let movies = data.results;
     if (status === 200 && movies) {
-      movies = movies.map(movie => populateLinks(movie) as Movie);
+      movies = movies.map((movie) => populateLinks(movie) as Movie);
       res.send(movies);
     } else {
       res.send([]);

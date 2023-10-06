@@ -14,4 +14,3 @@ export interface Movie {
   poster_path: string;
   genre_ids: number[];
 }
-

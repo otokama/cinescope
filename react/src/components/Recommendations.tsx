@@ -1,15 +1,8 @@
-import {
-  Box,
-  Flex,
-  HStack,
-  SimpleGrid,
-  Skeleton,
-  Text,
-} from "@chakra-ui/react";
+import { Box, SimpleGrid, Skeleton, Text } from "@chakra-ui/react";
 import _ from "lodash";
 import { Movie } from "../entities/Movie";
-import MovieCard from "./movie/MovieCard";
 import CardContainer from "./CardContainer";
+import MovieCard from "./movie/MovieCard";
 
 interface Props {
   contents?: Movie[];

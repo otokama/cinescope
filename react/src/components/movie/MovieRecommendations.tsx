@@ -5,9 +5,8 @@ interface Props {
   movieId: number;
 }
 
-const MovieRecommendations = ({movieId}: Props) => {
-
-  const {data: movies, isLoading, error} = useMovieRecommendation(movieId);
+const MovieRecommendations = ({ movieId }: Props) => {
+  const { data: movies, isLoading, error } = useMovieRecommendation(movieId);
 
   if (error) return null;
 
@@ -15,7 +14,7 @@ const MovieRecommendations = ({movieId}: Props) => {
     <>
       <Recommendations contents={movies} isLoading={isLoading} />
     </>
-  )
-}
+  );
+};
 
-export default MovieRecommendations
+export default MovieRecommendations;

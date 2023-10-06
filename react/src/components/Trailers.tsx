@@ -7,7 +7,6 @@ interface Props {
 }
 
 const Trailers = ({ videos, isLoading }: Props) => {
-
   if (videos?.length === 0) return null;
 
   return (
