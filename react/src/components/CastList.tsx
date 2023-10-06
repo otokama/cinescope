@@ -1,15 +1,19 @@
 import { Box, SimpleGrid, Text } from "@chakra-ui/react";
 import _ from "lodash";
-import { Actor } from "../entities/Actor";
+import useCredit from "../hooks/useCredits";
 import ActorCard from "./ActorCard";
 import ActorSkeleton from "./ActorSkeleton";
 
 interface Props {
-  cast?: Actor[];
-  isLoading: boolean;
+  contentId: number;
+  isMovie: boolean;
 }
 
-const CastList = ({ cast, isLoading }: Props) => {
+const CastList = ({ contentId, isMovie }: Props) => {
+  const { data: cast, isLoading, error } = useCredit(contentId, isMovie);
+
+  if (error) return null;
+
   const skeletons = _.range(10);
   return (
     <Box mb="10">
