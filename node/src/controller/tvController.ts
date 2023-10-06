@@ -1,10 +1,11 @@
 import { NextFunction, Request, Response, Router } from "express";
 import { TV } from "../models/TV";
-import { getDetail, getDiscoveryTV, getRating, getTVList, getVideos } from "../services/tvService";
+import { getCast, getDetail, getDiscoveryTV, getRating, getTVList, getVideos } from "../services/tvService";
 import {
   getBackdropLink,
   getPosterLink,
   populateLinks,
+  populateProfileLink,
 } from "../utils/image-url";
 import { TVDetail } from "../models/TVDetail";
 import { populateVideoLink } from "../utils/video-url";
@@ -18,6 +19,7 @@ tvController.get("/discover/top_rated", getDiscoveryTVList);
 tvController.get("/discover", getDiscoverTVList);
 tvController.get("/detail/:id", getTVDetail);
 tvController.get("/detail/:id/trailer", getTVTrailers);
+tvController.get("/detail/:id/credits", getTVCredits);
 
 async function getDiscoveryTVList(
   req: Request,
@@ -66,7 +68,7 @@ async function getDiscoverTVList(
 async function getTVDetail(req: Request, res: Response) {
   try {
     if (!req.params.id) {
-      return res.send("Missing movie id").status(400);
+      return res.send("Missing tv id").status(400);
     }
     const tvId = parseInt(req.params.id);
     let { data: tvDetail, status } = await getDetail(tvId);
@@ -86,10 +88,29 @@ async function getTVDetail(req: Request, res: Response) {
   }
 };
 
+async function getTVCredits(req: Request, res: Response) {
+  try {
+    if (!req.params.id) {
+      return res.send("Missing tv id").status(400);
+    }
+    const tvId = parseInt(req.params.id);
+    let { data, status } = await getCast(tvId);
+    let cast = data.cast;
+    if (status === 200 && cast && cast.length > 0) {
+      cast = cast.map((actor) => populateProfileLink(actor));
+      res.send(cast.slice(0, 10));
+    } else {
+      res.send([]);
+    }
+  } catch (err) {
+    res.status(404).send("TV Not Found");
+  }
+}
+
 async function getTVTrailers(req: Request, res: Response){
   try {
     if (!req.params.id) {
-      return res.send("Missing movie id").status(400);
+      return res.send("Missing tv id").status(400);
     }
     const tvId = parseInt(req.params.id);
     let { data, status} = await getVideos(tvId);

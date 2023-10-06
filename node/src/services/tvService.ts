@@ -3,6 +3,7 @@ import { ContentRating } from "../models/Rating";
 import { TV } from "../models/TV";
 import { TVDetail } from "../models/TVDetail";
 import { Video } from "../models/Video";
+import { Actor } from "../models/Actor";
 
 const apiClient = axios.create({
   baseURL: "https://api.themoviedb.org/3",
@@ -36,6 +37,10 @@ interface FetchTVListResponse {
 
 interface FetchResultList<T> {
   results: T[];
+}
+
+interface FetchTVCastResponse {
+  cast: Actor[];
 }
 
 function getAirTodayQueryParams(queryParams: TVSearchParams) {
@@ -150,6 +155,15 @@ async function getRating(id: number) {
   );
 }
 
+async function getCast(id: number) {
+  return await apiClient.get<FetchTVCastResponse>(`/tv/${id}/credits`, {
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${process.env.TMDB_ACCESS_TOKEN}`,
+    },
+  });
+}
+
 async function getVideos(id: number) {
   return await apiClient.get<FetchResultList<Video>>(`/tv/${id}/videos`, {
     params: {
@@ -162,4 +176,4 @@ async function getVideos(id: number) {
   });
 }
 
-export { getDetail, getDiscoveryTV, getTVList, getRating, getVideos };
+export { getDetail, getDiscoveryTV, getTVList, getRating, getCast, getVideos };
