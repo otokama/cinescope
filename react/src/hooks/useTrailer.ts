@@ -11,4 +11,4 @@ const useTrailers = (id: number, isMovie: boolean) => {
   });
 };
 
-export { useTrailers };
+export default useTrailers;

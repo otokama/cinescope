@@ -1,4 +1,4 @@
-import { useTrailers } from "../../hooks/useTrailer";
+import useTrailers from "../../hooks/useTrailer";
 import Trailers from "../Trailers";
 
 interface Props {

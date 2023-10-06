@@ -12,7 +12,7 @@ interface Props {
 const CastList = ({ cast, isLoading }: Props) => {
   const skeletons = _.range(10);
   return (
-    <Box>
+    <Box mb="10">
       <Text fontSize={{ base: "lg", md: "xl" }} fontWeight="bold">
         Top Cast
       </Text>

@@ -5,6 +5,7 @@ import MovieCredit from "../components/movie/MovieCredit";
 import MovieDetailHeader from "../components/movie/MovieDetailHeader";
 import MovieTrailer from "../components/movie/MovieTrailer";
 import { useMovieDetail } from "../hooks/movies/useMovie";
+import MovieWatchProviders from "../components/movie/MovieWatchProviders";
 
 const MovieDetailPage = () => {
   const { id } = useParams();
@@ -37,10 +38,10 @@ const MovieDetailPage = () => {
         }}
         templateColumns={{
           base: "1fr",
-          lg: "1fr 250px",
+          lg: "1fr 270px",
         }}
       >
-        <GridItem area="main" paddingTop={10} pr={5}>
+        <GridItem area="main" paddingTop={10} pr={{lg: 12}}>
           <Show below="md">
             <Box mb="10">
               <Text fontSize="lg" fontWeight="bold" mb="2">
@@ -53,10 +54,14 @@ const MovieDetailPage = () => {
           <MovieTrailer movieId={movieDetail.id} />
 
           <MovieCredit movieId={movieDetail.id} />
+
+          <Show below="lg">
+            <MovieWatchProviders movieId={movieDetail.id} />
+          </Show>
         </GridItem>
         <Show above="lg">
-          <GridItem area="aside" paddingTop={10}>
-            <p>aside here</p>
+          <GridItem area="aside" paddingTop={10} pr={4}>
+            <MovieWatchProviders movieId={movieDetail.id} />
           </GridItem>
         </Show>
       </Grid>

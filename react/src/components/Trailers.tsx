@@ -26,8 +26,8 @@ const Trailers = ({ videos, isLoading }: Props) => {
           position="relative"
         >
           {videos.map((video) => (
-            <Box display="inline-block" w="full" maxW="800px" pr={8}>
-              <AspectRatio key={video.id} ratio={16 / 9} maxW="800px">
+            <Box key={video.id} display="inline-block" w="full" maxW="800px" pr={8}>
+              <AspectRatio ratio={16 / 9} maxW="800px">
                 <iframe src={video.link} allowFullScreen />
               </AspectRatio>
             </Box>
