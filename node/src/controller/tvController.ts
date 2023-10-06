@@ -8,6 +8,7 @@ import {
   getRating,
   getStreamProviders,
   getTVList,
+  getTVRecommendations,
   getVideos,
 } from "../services/tvService";
 import {
@@ -29,6 +30,7 @@ tvController.get("/detail/:id", getTVDetail);
 tvController.get("/detail/:id/trailer", getTVTrailers);
 tvController.get("/detail/:id/credits", getTVCredits);
 tvController.get("/detail/:id/provider", getTVWatchProviders);
+tvController.get("/detail/:id/recommendation", getRecommendations);
 
 async function getDiscoveryTVList(
   req: Request,
@@ -152,6 +154,25 @@ async function getTVWatchProviders(req: Request, res: Response) {
     let { data, status } = await getStreamProviders(tvId);
     if (status === 200 && data && data.results) {
       res.send(data.results["US"]);
+    } else {
+      res.send([]);
+    }
+  } catch (err) {
+    res.status(404).send("TV Not Found");
+  }
+}
+
+async function getRecommendations(req: Request, res: Response) {
+  try {
+    if (!req.params.id) {
+      return res.send("Missing tv id").status(400);
+    }
+    const tvId = parseInt(req.params.id);
+    let { data, status } = await getTVRecommendations(tvId);
+    let tvs = data.results;
+    if (status === 200 && tvs) {
+      tvs = tvs.map((tv) => populateLinks(tv) as TV);
+      res.send(tvs);
     } else {
       res.send([]);
     }

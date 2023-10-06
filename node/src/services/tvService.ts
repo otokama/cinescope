@@ -185,12 +185,21 @@ async function getStreamProviders(id: number) {
   });
 }
 
+async function getTVRecommendations(id: number) {
+  return await apiClient.get<FetchResultList<TV>>(`/tv/${id}/recommendations`, {
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${process.env.TMDB_ACCESS_TOKEN}`,
+    },
+  });
+}
+
 export {
   getCast,
   getDetail,
   getDiscoveryTV,
   getRating,
   getStreamProviders,
-  getTVList,
-  getVideos,
+  getTVList, getTVRecommendations, getVideos
 };
+
