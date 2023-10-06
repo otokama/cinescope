@@ -14,12 +14,12 @@ const MovieDetailPage = () => {
 
   const {
     data: movieDetail,
-    isLoading: isLoadingDetail,
+    isLoading,
     error: movieDetailError,
   } = useMovieDetail(movieId);
 
   const navigate = useNavigate();
-  if (isLoadingDetail) return <LoadingPage />;
+  if (isLoading) return <LoadingPage />;
 
   if (movieDetailError || !movieDetail) {
     navigate("*");
@@ -29,6 +29,7 @@ const MovieDetailPage = () => {
   return (
     <>
       <MovieDetailHeader movie={movieDetail} />
+
       <Grid
         maxW="1500px"
         mx="auto"
@@ -62,11 +63,13 @@ const MovieDetailPage = () => {
 
           <MovieRecommendations movieId={movieDetail.id} />
         </GridItem>
+
         <Show above="lg">
           <GridItem area="aside" paddingTop={10} pr={4}>
             <MovieWatchProviders movieId={movieDetail.id} />
           </GridItem>
         </Show>
+        
       </Grid>
     </>
   );

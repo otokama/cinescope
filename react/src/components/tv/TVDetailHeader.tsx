@@ -10,20 +10,21 @@ import {
 } from "@chakra-ui/react";
 import { BsDot } from "react-icons/bs";
 import fallBackImg from "../../assets/image-placeholder.webp";
-import { MovieDetail } from "../../entities/MovieDetail";
+import { TVDetail } from "../../entities/TVDetail"
 
 interface Props {
-  movie: MovieDetail;
+  tv: TVDetail;
 }
 
-const MovieDetailHeader = ({ movie }: Props) => {
+const TVDetailHeader = ({ tv }: Props) => {
+
   return (
     <Box
       h={{
         base: "300px",
         md: "600px",
       }}
-      background={`url(${movie.backdrop_path}) center/cover `}
+      background={`url(${tv.backdrop_path}) center/cover `}
       position="relative"
       zIndex="-1"
     >
@@ -46,7 +47,7 @@ const MovieDetailHeader = ({ movie }: Props) => {
           pl={{ base: 4, md: 10 }}
         >
           <Image
-            src={movie.poster_path}
+            src={tv.poster_path}
             h={{
               base: "180px",
               md: "450px",
@@ -56,26 +57,26 @@ const MovieDetailHeader = ({ movie }: Props) => {
             shadow="lg"
           />
           <VStack align="start" gap="0">
-            {movie.vote_count > 200 && (
+            {tv.vote_count > 200 && (
               <Badge
                 variant="subtle"
                 px="2"
                 fontSize={{ base: "xs", md: "md" }}
-                colorScheme={movie.vote_average > 7 ? "green" : "yellow"}
+                colorScheme={tv.vote_average > 7 ? "green" : "yellow"}
               >
-                {movie.vote_average.toFixed(1)}
+                {tv.vote_average.toFixed(1)}
               </Badge>
             )}
             <Text
               fontSize={{ base: "xl", md: "2xl", lg: "4xl" }}
               fontWeight="bold"
             >
-              {movie.title}
+              {tv.name}
             </Text>
 
-            {movie.tagline && (
+            {tv.tagline && (
               <Text mb="5" fontStyle="italic" color="gray.200">
-                {movie.tagline}
+                {tv.tagline}
               </Text>
             )}
 
@@ -86,25 +87,25 @@ const MovieDetailHeader = ({ movie }: Props) => {
               fontWeight="semibold"
               fontSize={{ base: "xs", md: "md" }}
             >
-              {movie.certification && (
+              {tv.certification && (
                 <>
                   <Badge variant="outline" color="white" whiteSpace="nowrap">
-                    {movie.certification}
+                    {tv.certification}
                   </Badge>
                   <Text fontSize={25}>
                     <BsDot />
                   </Text>
                 </>
               )}
-              <Text whiteSpace="nowrap">{movie.runtime} MIN</Text>
+              <Text whiteSpace="nowrap">{tv.episode_run_time} MIN</Text>
               <Text fontSize={25}>
                 <BsDot />
               </Text>
-              <Text whiteSpace="nowrap">{movie.release_date}</Text>
+              <Text whiteSpace="nowrap">{tv.last_air_date}</Text>
             </HStack>
 
             <HStack spacing="3" mb="5" wrap="wrap">
-              {movie.genres.map((genre) => (
+              {tv.genres.map((genre) => (
                 <Badge key={genre.id}>{genre.name}</Badge>
               ))}
             </HStack>
@@ -114,7 +115,7 @@ const MovieDetailHeader = ({ movie }: Props) => {
                 <Text fontWeight="semibold" fontSize="lg">
                   Overview
                 </Text>
-                <Text maxW="900px">{movie.overview}</Text>
+                <Text maxW="900px">{tv.overview}</Text>
               </VStack>
             </Show>
 
@@ -124,6 +125,6 @@ const MovieDetailHeader = ({ movie }: Props) => {
       </Box>
     </Box>
   );
-};
+}
 
-export default MovieDetailHeader;
+export default TVDetailHeader

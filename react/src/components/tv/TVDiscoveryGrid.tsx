@@ -1,5 +1,5 @@
 import { Box, Show, Text } from "@chakra-ui/react";
-import { useDiscoveryTVList, useDiscoveryTVs } from "../../hooks/tv/useTV";
+import { useDiscoveryTVList, useDiscoveryTVs } from "../../hooks/tv/useTVList";
 import ContentSlider from "../ContentSlider";
 import TVGrid from "./TVGrid";
 

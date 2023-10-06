@@ -1,4 +1,5 @@
-import { Box, Image, Text, VStack } from "@chakra-ui/react";
+import { Image, Text, VStack } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 import fallbackImg from "../../assets/image-placeholder.webp";
 import { TV } from "../../entities/TV";
 
@@ -8,7 +9,7 @@ interface Props {
 
 const TVCard = ({ tv }: Props) => {
   return (
-    <Box>
+    <Link to={"/tv/" + tv.id}>
       <VStack align="start" spacing={3}>
         <Image
           src={tv.poster_path}
@@ -21,7 +22,7 @@ const TVCard = ({ tv }: Props) => {
           {tv.name}
         </Text>
       </VStack>
-    </Box>
+    </Link>
   );
 };
 
