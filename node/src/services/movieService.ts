@@ -1,7 +1,7 @@
 import axios from "axios";
+import { Actor } from "../models/Actor";
 import { Movie } from "../models/Movie";
 import { MovieDetail } from "../models/MovieDetail";
-import { Actor } from "../models/Actor";
 import { Video } from "../models/Video";
 
 const apiClient = axios.create({
@@ -128,12 +128,26 @@ async function getMovieProviders(id: number) {
   });
 }
 
+async function getMovieRecommendations(id: number) {
+  return await apiClient.get<FetchMovieListResponse>(
+    `/movie/${id}/recommendations`,
+    {
+      params: { language: "en-US" },
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${process.env.TMDB_ACCESS_TOKEN}`,
+      },
+    }
+  );
+}
+
 export {
+  getMovieCast,
   getMovieDiscovery,
   getMovieList,
-  retrieveMovieDetail,
+  getMovieProviders,
   getMovieRating,
-  getMovieCast,
+  getMovieRecommendations,
   getMovieVideos,
-  getMovieProviders
+  retrieveMovieDetail,
 };

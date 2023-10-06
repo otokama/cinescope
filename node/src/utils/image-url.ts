@@ -17,12 +17,13 @@ function getPosterLink(path: string, size?: string) {
 }
 
 function populateProfileLink(actor: Actor, size?: string) {
+  if (!actor.profile_path) return actor;
   const imgSize = size || "h632";
   actor.profile_path = baseUrl + imgSize + actor.profile_path;
   return actor;
 }
 
-function populateLinks(content: Movie | TV | MovieDetail | TVDetail) {
+function populateLinks(content: Movie | TV | MovieDetail | TVDetail): Movie | TV | MovieDetail | TVDetail {
   content.backdrop_path = getBackdropLink(content.backdrop_path);
   content.poster_path = getPosterLink(content.poster_path);
   return content;
