@@ -1,10 +1,10 @@
 import { Box, Grid, GridItem, Show, Text } from "@chakra-ui/react";
 import { useNavigate, useParams } from "react-router-dom";
-import CastList from "../components/CastList";
 import LoadingPage from "../components/LoadingPage";
-import MovieDetailHeader from "../components/movie/MovieDetailHeader";
-import { useMovieCredit, useMovieDetail } from "../hooks/movies/useMovie";
 import Trailers from "../components/Trailers";
+import MovieCredit from "../components/movie/MovieCredit";
+import MovieDetailHeader from "../components/movie/MovieDetailHeader";
+import { useMovieDetail } from "../hooks/movies/useMovie";
 
 const MovieDetailPage = () => {
   const { id } = useParams();
@@ -15,13 +15,6 @@ const MovieDetailPage = () => {
     isLoading: isLoadingDetail,
     error: movieDetailError,
   } = useMovieDetail(movieId);
-
-  const {
-    data: cast,
-    isLoading: isLoadingCredits,
-    error: creditsLoadingError,
-  } = useMovieCredit(movieId);
-  
 
   const navigate = useNavigate();
   if (isLoadingDetail) return <LoadingPage />;
@@ -59,9 +52,7 @@ const MovieDetailPage = () => {
 
           <Trailers contentId={movieDetail.id} />
 
-          {!isLoadingCredits && !creditsLoadingError && cast && (
-            <CastList cast={cast} isLoading={isLoadingCredits} />
-          )}
+          <MovieCredit movieId={movieDetail.id} />
         </GridItem>
         <Show above="lg">
           <GridItem area="aside" paddingTop={10}>
