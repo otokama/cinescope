@@ -1,12 +1,13 @@
 import { NextFunction, Request, Response, Router } from "express";
 import { TV } from "../models/TV";
-import { getDetail, getDiscoveryTV, getRating, getTVList } from "../services/tvService";
+import { getDetail, getDiscoveryTV, getRating, getTVList, getVideos } from "../services/tvService";
 import {
   getBackdropLink,
   getPosterLink,
   populateLinks,
 } from "../utils/image-url";
 import { TVDetail } from "../models/TVDetail";
+import { populateVideoLink } from "../utils/video-url";
 
 const tvController = Router();
 
@@ -16,6 +17,7 @@ tvController.get("/discover/popular", getDiscoveryTVList);
 tvController.get("/discover/top_rated", getDiscoveryTVList);
 tvController.get("/discover", getDiscoverTVList);
 tvController.get("/detail/:id", getTVDetail);
+tvController.get("/detail/:id/trailer", getTVTrailers);
 
 async function getDiscoveryTVList(
   req: Request,
@@ -83,5 +85,30 @@ async function getTVDetail(req: Request, res: Response) {
     res.status(404).send("TV Not Found");
   }
 };
+
+async function getTVTrailers(req: Request, res: Response){
+  try {
+    if (!req.params.id) {
+      return res.send("Missing movie id").status(400);
+    }
+    const tvId = parseInt(req.params.id);
+    let { data, status} = await getVideos(tvId);
+    let { results: videos } = data;
+    if (status === 200 && videos.length > 0) {
+      let trailerVideos = videos.filter(
+        (v) => v.type === "Trailer" || v.type === "Teaser"
+      );
+      if (trailerVideos.length === 0) {
+        return res.send([]);
+      }
+      trailerVideos = trailerVideos.map((v) => populateVideoLink(v));
+      res.send(trailerVideos);
+    } else {
+      res.send([]);
+    }
+  } catch (err) {
+    res.status(404).send("TV Not Found");
+  }
+}
 
 export default tvController;

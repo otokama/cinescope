@@ -2,6 +2,7 @@ import axios from "axios";
 import { ContentRating } from "../models/Rating";
 import { TV } from "../models/TV";
 import { TVDetail } from "../models/TVDetail";
+import { Video } from "../models/Video";
 
 const apiClient = axios.create({
   baseURL: "https://api.themoviedb.org/3",
@@ -149,4 +150,16 @@ async function getRating(id: number) {
   );
 }
 
-export { getDetail, getDiscoveryTV, getTVList, getRating};
+async function getVideos(id: number) {
+  return await apiClient.get<FetchResultList<Video>>(`/tv/${id}/videos`, {
+    params: {
+      language: "en-US",
+    },
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${process.env.TMDB_ACCESS_TOKEN}`,
+    },
+  });
+}
+
+export { getDetail, getDiscoveryTV, getTVList, getRating, getVideos };

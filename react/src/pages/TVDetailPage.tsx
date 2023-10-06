@@ -3,6 +3,7 @@ import LoadingPage from "../components/LoadingPage";
 import TVDetailHeader from "../components/tv/TVDetailHeader";
 import { useTVDetail } from "../hooks/tv/useTV";
 import { Box, Grid, GridItem, Show, Text } from "@chakra-ui/react";
+import TVTrailer from "../components/tv/TVTrailer";
 
 const TVDetailPage = () => {
   const { id } = useParams();
@@ -44,6 +45,8 @@ const TVDetailPage = () => {
               <Text>{tvDetail.overview}</Text>
             </Box>
           </Show>
+
+          <TVTrailer tvId={tvDetail.id} />
 
         </GridItem>
 
