@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Movie } from "../models/Movie";
 import { MovieDetail } from "../models/MovieDetail";
+import { Actor } from "../models/Actor";
 
 const apiClient = axios.create({
   baseURL: "https://api.themoviedb.org/3",
@@ -22,6 +23,10 @@ interface MovieReleaseCountry {
 
 interface FetchMovieRatingResponse {
   results: MovieReleaseCountry[];
+}
+
+interface FetchMovieCastResponse {
+  cast: Actor[];
 }
 
 async function getMovieList(listName: string) {
@@ -91,4 +96,13 @@ async function getMovieRating(id: number) {
   return null;
 }
 
-export { getMovieDiscovery, getMovieList, retrieveMovieDetail, getMovieRating };
+async function getMovieCast(id: number) {
+  return await apiClient.get<FetchMovieCastResponse>(`/movie/${id}/credits`, {
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${process.env.TMDB_ACCESS_TOKEN}`,
+    },
+  });
+}
+
+export { getMovieDiscovery, getMovieList, retrieveMovieDetail, getMovieRating, getMovieCast };

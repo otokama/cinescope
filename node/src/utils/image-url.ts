@@ -1,3 +1,4 @@
+import { Actor } from "../models/Actor";
 import { Movie } from "../models/Movie";
 import { MovieDetail } from "../models/MovieDetail";
 import { TV } from "../models/TV";
@@ -12,7 +13,13 @@ function getBackdropLink(path: string, size?: string) {
 
 function getPosterLink(path: string, size?: string) {
   const imgSize = size || "w780";
-  return baseUrl+ imgSize + path;
+  return baseUrl + imgSize + path;
+}
+
+function populateProfileLink(actor: Actor, size?: string) {
+  const imgSize = size || "h632";
+  actor.profile_path = baseUrl + imgSize + actor.profile_path;
+  return actor;
 }
 
 function populateLinks(content: Movie | TV | MovieDetail | TVDetail) {
@@ -21,4 +28,4 @@ function populateLinks(content: Movie | TV | MovieDetail | TVDetail) {
   return content;
 }
 
-export { getBackdropLink, getPosterLink, populateLinks };
+export { getBackdropLink, getPosterLink, populateLinks, populateProfileLink };

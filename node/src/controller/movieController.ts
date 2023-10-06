@@ -1,13 +1,14 @@
 import { NextFunction, Request, Response, Router } from "express";
 import { Movie } from "../models/Movie";
+import { MovieDetail } from "../models/MovieDetail";
 import {
+  getMovieCast,
   getMovieDiscovery,
   getMovieList,
   getMovieRating,
   retrieveMovieDetail,
 } from "../services/movieService";
-import { populateLinks } from "../utils/image-url";
-import { MovieDetail } from "../models/MovieDetail";
+import { populateLinks, populateProfileLink } from "../utils/image-url";
 
 const movieController = Router();
 
@@ -17,6 +18,7 @@ movieController.get("/discover/top_rated", getDiscoverMovieList);
 movieController.get("/discover/upcoming", getDiscoverMovieList);
 movieController.get("/discover", getDiscoveryMovies);
 movieController.get("/detail/:id", getMovieDetail);
+movieController.get("/detail/credits/:id", getMovieCredit);
 
 async function getDiscoverMovieList(
   req: Request,
@@ -68,7 +70,28 @@ async function getMovieDetail(req: Request, res: Response, next: NextFunction) {
     if (status === 200 && movieDetail) {
       const certification = await getMovieRating(parseInt(req.params.id));
       if (certification) movieDetail.certification = certification;
-      return res.send(movieDetail);
+      res.send(movieDetail);
+    } else {
+      res.status(404).send("Movie Not Found");
+    }
+  } catch (err) {
+    res.status(404).send("Movie Not Found");
+  }
+}
+
+async function getMovieCredit(req: Request, res: Response, next: NextFunction) {
+  try {
+    if (!req.params.id) {
+      return res.send("Missing movie id").status(400);
+    }
+    const movieId = parseInt(req.params.id);
+    let { data, status } = await getMovieCast(movieId);
+    let cast = data.cast;
+    if (status === 200 && cast && cast.length > 0) {
+      cast = cast.map((actor) => populateProfileLink(actor));
+      res.send(cast.slice(0, 10));
+    } else {
+      res.send([]);
     }
   } catch (err) {
     res.status(404).send("Movie Not Found");
