@@ -6,6 +6,7 @@ import WatchProviders from "../components/WatchProviders";
 import TVDetailHeader from "../components/tv/TVDetailHeader";
 import TVTrailer from "../components/tv/TVTrailer";
 import { useTVDetail } from "../hooks/tv/useTV";
+import Recommendations from "../components/Recommendations";
 
 const TVDetailPage = () => {
   const { id } = useParams();
@@ -62,6 +63,8 @@ const TVDetailPage = () => {
             <WatchProviders contentId={tvDetail.id} isMovie={false} />
           </GridItem>
         </Show>
+
+        <Recommendations contentId={tvDetail.id} isMovie={false} />
       </Grid>
     </>
   );

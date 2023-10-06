@@ -3,9 +3,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import LoadingPage from "../components/LoadingPage";
 
 import CastList from "../components/CastList";
+import Recommendations from "../components/Recommendations";
 import WatchProviders from "../components/WatchProviders";
 import MovieDetailHeader from "../components/movie/MovieDetailHeader";
-import MovieRecommendations from "../components/movie/MovieRecommendations";
 import MovieTrailer from "../components/movie/MovieTrailer";
 import { useMovieDetail } from "../hooks/movies/useMovie";
 
@@ -62,7 +62,7 @@ const MovieDetailPage = () => {
             <WatchProviders contentId={movieDetail.id} isMovie />
           </Show>
 
-          <MovieRecommendations movieId={movieDetail.id} />
+          <Recommendations contentId={movieDetail.id} isMovie />
         </GridItem>
 
         <Show above="lg">

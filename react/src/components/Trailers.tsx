@@ -11,7 +11,7 @@ const Trailers = ({ videos, isLoading }: Props) => {
 
   return (
     <Box mb="10">
-      <Text fontSize={{ base: "lg", md: "xl" }} fontWeight="bold" mb="5">
+      <Text fontSize={{ base: "lg", md: "2xl" }} fontWeight="bold" mb="5">
         Trailers & Teasers
       </Text>
 

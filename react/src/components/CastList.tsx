@@ -17,7 +17,7 @@ const CastList = ({ contentId, isMovie }: Props) => {
   const skeletons = _.range(10);
   return (
     <Box mb="10">
-      <Text fontSize={{ base: "lg", md: "xl" }} fontWeight="bold">
+      <Text fontSize={{ base: "lg", md: "2xl" }} fontWeight="bold">
         Top Cast
       </Text>
       <SimpleGrid
