@@ -5,7 +5,7 @@ import ActorCard from "./ActorCard";
 import ActorSkeleton from "./ActorSkeleton";
 
 interface Props {
-  cast: Actor[];
+  cast?: Actor[];
   isLoading: boolean;
 }
 
@@ -24,6 +24,7 @@ const CastList = ({ cast, isLoading }: Props) => {
         {isLoading && skeletons.map((s) => <ActorSkeleton key={s} />)}
 
         {!isLoading &&
+          cast &&
           cast.map((actor) => <ActorCard key={actor.id} actor={actor} />)}
       </SimpleGrid>
     </Box>

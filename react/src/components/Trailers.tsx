@@ -1,27 +1,23 @@
 import { AspectRatio, Box, Skeleton, Text } from "@chakra-ui/react";
-import { useTrailers } from "../hooks/useTrailer";
+import { Video } from "../entities/Video";
 
 interface Props {
-  isMovie?: boolean;
-  contentId: number;
+  videos?: Video[];
+  isLoading: boolean;
 }
 
-const Trailers = ({ isMovie = true, contentId }: Props) => {
-  const { data: videos, isLoading, error } = useTrailers(contentId, isMovie);
-
-  if (error) return null;
-
+const Trailers = ({ videos, isLoading }: Props) => {
   return (
     <Box mb="10">
       <Text fontSize={{ base: "lg", md: "xl" }} fontWeight="bold" mb="10">
         Trailers
       </Text>
 
-      {isLoading && 
-        <Skeleton w="800px" aspectRatio={16/9} borderRadius={20} />
-      }
+      {isLoading && (
+        <Skeleton w="800px" aspectRatio={16 / 9} borderRadius={10} />
+      )}
 
-      {!isLoading &&
+      {!isLoading && videos && (
         <Box
           maxW="1180px"
           overflowX="auto"
@@ -37,7 +33,7 @@ const Trailers = ({ isMovie = true, contentId }: Props) => {
             </Box>
           ))}
         </Box>
-      }
+      )}
     </Box>
   );
 };

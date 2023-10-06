@@ -55,7 +55,7 @@ const MovieDetailHeader = ({ movie }: Props) => {
             shadow="lg"
           />
           <VStack align="start" gap="0">
-            {movie.vote_count > 200 &&
+            {movie.vote_count > 200 && (
               <Badge
                 variant="subtle"
                 px="2"
@@ -64,8 +64,7 @@ const MovieDetailHeader = ({ movie }: Props) => {
               >
                 {movie.vote_average.toFixed(1)}
               </Badge>
-
-            }
+            )}
             <Text
               fontSize={{ base: "xl", md: "2xl", lg: "4xl" }}
               fontWeight="bold"
@@ -87,13 +86,15 @@ const MovieDetailHeader = ({ movie }: Props) => {
               fontSize={{ base: "xs", md: "md" }}
             >
               {movie.certification && (
-                <Badge variant="outline" color="white" whiteSpace="nowrap">
-                  {movie.certification}
-                </Badge>
+                <>
+                  <Badge variant="outline" color="white" whiteSpace="nowrap">
+                    {movie.certification}
+                  </Badge>
+                  <Text fontSize={25}>
+                    <BsDot />
+                  </Text>
+                </>
               )}
-              <Text fontSize={25}>
-                <BsDot />
-              </Text>
               <Text whiteSpace="nowrap">{movie.runtime} MIN</Text>
               <Text fontSize={25}>
                 <BsDot />

@@ -1,9 +1,9 @@
 import { Box, Grid, GridItem, Show, Text } from "@chakra-ui/react";
 import { useNavigate, useParams } from "react-router-dom";
 import LoadingPage from "../components/LoadingPage";
-import Trailers from "../components/Trailers";
 import MovieCredit from "../components/movie/MovieCredit";
 import MovieDetailHeader from "../components/movie/MovieDetailHeader";
+import MovieTrailer from "../components/movie/MovieTrailer";
 import { useMovieDetail } from "../hooks/movies/useMovie";
 
 const MovieDetailPage = () => {
@@ -50,7 +50,7 @@ const MovieDetailPage = () => {
             </Box>
           </Show>
 
-          <Trailers contentId={movieDetail.id} />
+          <MovieTrailer movieId={movieDetail.id} />
 
           <MovieCredit movieId={movieDetail.id} />
         </GridItem>
