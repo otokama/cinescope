@@ -1,15 +1,21 @@
 import { Box, Image, Link, SimpleGrid, Text } from "@chakra-ui/react";
-import { WatchProviderDetail } from "../entities/WatchProviderDetail";
+import useProviders from "../hooks/useProviders";
 
 interface Props {
-  providerDetail?: WatchProviderDetail;
-  isLoading: boolean;
+  contentId: number;
+  isMovie: boolean;
 }
 
-const WatchProviders = ({ providerDetail }: Props) => {
+const WatchProviders = ({ contentId, isMovie }: Props) => {
+  const { data: providerDetail, error } = useProviders(contentId, isMovie);
+
+  if (error) return null;
+
   const providers =
     providerDetail?.buy || providerDetail?.rent || providerDetail?.flatrate;
+
   if (!providers) return null;
+
   return (
     <Box mb="10">
       <Text fontSize="lg" fontWeight="semibold" mb="5">
