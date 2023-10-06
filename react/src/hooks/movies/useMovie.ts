@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import ms from "ms";
-import APIClient from "../../services/api-client";
-import { MovieDetail } from "../../entities/MovieDetail";
 import { Actor } from "../../entities/Actor";
+import { MovieDetail } from "../../entities/MovieDetail";
+import APIClient from "../../services/api-client";
 
 const useMovieDetail = (movieId: number) => {
   const apiClient = new APIClient<MovieDetail>("/movie/detail/" + movieId);
@@ -19,6 +19,6 @@ const useMovieCredit = (movieId: number) => {
     queryKey: ["movie_credits", movieId],
     queryFn: apiClient.getAll,
   });
-}
+};
 
-export {useMovieDetail, useMovieCredit};
+export { useMovieCredit, useMovieDetail };

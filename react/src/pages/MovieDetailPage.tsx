@@ -6,6 +6,7 @@ import MovieDetailHeader from "../components/movie/MovieDetailHeader";
 import MovieTrailer from "../components/movie/MovieTrailer";
 import { useMovieDetail } from "../hooks/movies/useMovie";
 import MovieWatchProviders from "../components/movie/MovieWatchProviders";
+import MovieRecommendations from "../components/movie/MovieRecommendations";
 
 const MovieDetailPage = () => {
   const { id } = useParams();
@@ -31,7 +32,7 @@ const MovieDetailPage = () => {
       <Grid
         maxW="1500px"
         mx="auto"
-        pl={{ base: 4, md: 10 }}
+        px={{ base: 4, md: 10 }}
         templateAreas={{
           base: `"main"`,
           lg: `"main aside"`,
@@ -58,6 +59,9 @@ const MovieDetailPage = () => {
           <Show below="lg">
             <MovieWatchProviders movieId={movieDetail.id} />
           </Show>
+
+          <MovieRecommendations  movieId={movieDetail.id}/>
+          
         </GridItem>
         <Show above="lg">
           <GridItem area="aside" paddingTop={10} pr={4}>

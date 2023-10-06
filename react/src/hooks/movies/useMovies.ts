@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import ms from "ms";
-import APIClient from "../../services/api-client";
 import { Movie } from "../../entities/Movie";
+import APIClient from "../../services/api-client";
 
 const useDiscoveryMovieList = (
   listName: "now_playing" | "popular" | "top_rated" | "upcoming"
@@ -24,4 +24,14 @@ const useDiscoveryMovies = () => {
   });
 };
 
-export { useDiscoveryMovieList, useDiscoveryMovies };
+const useMovieRecommendation = (movieId: number) => {
+  const apiClient = new APIClient<Movie>(
+    `/movie/detail/${movieId}/recommendation`
+  );
+  return useQuery<Movie[], Error>({
+    queryKey: ["movie_recommendation", movieId],
+    queryFn: apiClient.getAll,
+  });
+};
+
+export { useDiscoveryMovieList, useDiscoveryMovies, useMovieRecommendation };
