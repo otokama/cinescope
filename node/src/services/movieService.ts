@@ -2,6 +2,7 @@ import axios from "axios";
 import { Movie } from "../models/Movie";
 import { MovieDetail } from "../models/MovieDetail";
 import { Actor } from "../models/Actor";
+import { Video } from "../models/Video";
 
 const apiClient = axios.create({
   baseURL: "https://api.themoviedb.org/3",
@@ -27,6 +28,10 @@ interface FetchMovieRatingResponse {
 
 interface FetchMovieCastResponse {
   cast: Actor[];
+}
+
+interface FetchMovieTrailerResponse {
+  results: Video[];
 }
 
 async function getMovieList(listName: string) {
@@ -105,4 +110,20 @@ async function getMovieCast(id: number) {
   });
 }
 
-export { getMovieDiscovery, getMovieList, retrieveMovieDetail, getMovieRating, getMovieCast };
+async function getMovieVideos(id: number) {
+  return await apiClient.get<FetchMovieTrailerResponse>(`/movie/${id}/videos`, {
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${process.env.TMDB_ACCESS_TOKEN}`,
+    },
+  });
+}
+
+export {
+  getMovieDiscovery,
+  getMovieList,
+  retrieveMovieDetail,
+  getMovieRating,
+  getMovieCast,
+  getMovieVideos,
+};

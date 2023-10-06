@@ -6,9 +6,11 @@ import {
   getMovieDiscovery,
   getMovieList,
   getMovieRating,
+  getMovieVideos,
   retrieveMovieDetail,
 } from "../services/movieService";
 import { populateLinks, populateProfileLink } from "../utils/image-url";
+import { populateVideoLink } from "../utils/video-url";
 
 const movieController = Router();
 
@@ -18,7 +20,8 @@ movieController.get("/discover/top_rated", getDiscoverMovieList);
 movieController.get("/discover/upcoming", getDiscoverMovieList);
 movieController.get("/discover", getDiscoveryMovies);
 movieController.get("/detail/:id", getMovieDetail);
-movieController.get("/detail/credits/:id", getMovieCredit);
+movieController.get("/detail/:id/credits", getMovieCredit);
+movieController.get("/detail/:id/trailer", getMovieTrailers);
 
 async function getDiscoverMovieList(
   req: Request,
@@ -90,6 +93,35 @@ async function getMovieCredit(req: Request, res: Response, next: NextFunction) {
     if (status === 200 && cast && cast.length > 0) {
       cast = cast.map((actor) => populateProfileLink(actor));
       res.send(cast.slice(0, 10));
+    } else {
+      res.send([]);
+    }
+  } catch (err) {
+    res.status(404).send("Movie Not Found");
+  }
+}
+
+async function getMovieTrailers(
+  req: Request,
+  res: Response,
+  next: NextFunction
+) {
+  try {
+    if (!req.params.id) {
+      return res.send("Missing movie id").status(400);
+    }
+    const movieId = parseInt(req.params.id);
+    let { data, status } = await getMovieVideos(movieId);
+    let { results: videos } = data;
+    if (status === 200 && videos && videos.length > 0) {
+      let trailerVideos = videos.filter(
+        (v) => v.type === "Trailer" || v.type === "Teaser"
+      );
+      if (trailerVideos.length === 0) {
+        return res.send([]);
+      }
+      trailerVideos = trailerVideos.map((v) => populateVideoLink(v));
+      res.send(trailerVideos);
     } else {
       res.send([]);
     }
