@@ -14,7 +14,7 @@ const useMovieDetail = (movieId: number) => {
 };
 
 const useMovieCredit = (movieId: number) => {
-  const apiClient = new APIClient<Actor>("/movie/detail/credits/" + movieId);
+  const apiClient = new APIClient<Actor>(`/movie/detail/${movieId}/credits`);
   return useQuery<Actor[], Error>({
     queryKey: ["movie_credits", movieId],
     queryFn: apiClient.getAll,

@@ -4,6 +4,7 @@ import CastList from "../components/CastList";
 import LoadingPage from "../components/LoadingPage";
 import MovieDetailHeader from "../components/movie/MovieDetailHeader";
 import { useMovieCredit, useMovieDetail } from "../hooks/movies/useMovie";
+import Trailers from "../components/Trailers";
 
 const MovieDetailPage = () => {
   const { id } = useParams();
@@ -55,6 +56,8 @@ const MovieDetailPage = () => {
               <Text>{movieDetail.overview}</Text>
             </Box>
           </Show>
+
+          <Trailers contentId={movieDetail.id} />
 
           {!isLoadingCredits && !creditsLoadingError && cast && (
             <CastList cast={cast} isLoading={isLoadingCredits} />
