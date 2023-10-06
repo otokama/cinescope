@@ -5,6 +5,7 @@ import {
   getMovieCast,
   getMovieDiscovery,
   getMovieList,
+  getMovieProviders,
   getMovieRating,
   getMovieVideos,
   retrieveMovieDetail,
@@ -22,6 +23,7 @@ movieController.get("/discover", getDiscoveryMovies);
 movieController.get("/detail/:id", getMovieDetail);
 movieController.get("/detail/:id/credits", getMovieCredit);
 movieController.get("/detail/:id/trailer", getMovieTrailers);
+movieController.get("/detail/:id/provider", getWatchProviders);
 
 async function getDiscoverMovieList(
   req: Request,
@@ -103,8 +105,7 @@ async function getMovieCredit(req: Request, res: Response, next: NextFunction) {
 
 async function getMovieTrailers(
   req: Request,
-  res: Response,
-  next: NextFunction
+  res: Response
 ) {
   try {
     if (!req.params.id) {
@@ -122,6 +123,26 @@ async function getMovieTrailers(
       }
       trailerVideos = trailerVideos.map((v) => populateVideoLink(v));
       res.send(trailerVideos);
+    } else {
+      res.send([]);
+    }
+  } catch (err) {
+    res.status(404).send("Movie Not Found");
+  }
+}
+
+async function getWatchProviders(
+  req: Request,
+  res: Response
+) {
+  try {
+    if (!req.params.id) {
+      return res.send("Missing movie id").status(400);
+    }
+    const movieId = parseInt(req.params.id);
+    let { data, status } = await getMovieProviders(movieId);
+    if (status === 200 && data && data.results) {
+      return res.send(data.results["US"]);
     } else {
       res.send([]);
     }

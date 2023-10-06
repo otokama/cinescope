@@ -119,6 +119,15 @@ async function getMovieVideos(id: number) {
   });
 }
 
+async function getMovieProviders(id: number) {
+  return await apiClient.get(`/movie/${id}/watch/providers`, {
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${process.env.TMDB_ACCESS_TOKEN}`,
+    },
+  });
+}
+
 export {
   getMovieDiscovery,
   getMovieList,
@@ -126,4 +135,5 @@ export {
   getMovieRating,
   getMovieCast,
   getMovieVideos,
+  getMovieProviders
 };
