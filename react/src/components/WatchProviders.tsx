@@ -11,7 +11,7 @@ const WatchProviders = ({ providerDetail, isLoading }: Props) => {
     providerDetail?.buy || providerDetail?.rent || providerDetail?.flatrate;
   if (!providers) return null;
   return (
-    <Box>
+    <Box mb="10">
       <Text fontSize="lg" fontWeight="semibold" mb="5">
         Watch Now On
       </Text>

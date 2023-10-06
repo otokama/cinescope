@@ -7,14 +7,17 @@ interface Props {
 }
 
 const Trailers = ({ videos, isLoading }: Props) => {
+
+  if (videos?.length === 0) return null;
+
   return (
     <Box mb="10">
-      <Text fontSize={{ base: "lg", md: "xl" }} fontWeight="bold" mb="10">
-        Trailers
+      <Text fontSize={{ base: "lg", md: "xl" }} fontWeight="bold" mb="5">
+        Trailers & Teasers
       </Text>
 
       {isLoading && (
-        <Skeleton w="800px" aspectRatio={16 / 9} borderRadius={10} />
+        <Skeleton w="400px" aspectRatio={16 / 9} borderRadius={10} />
       )}
 
       {!isLoading && videos && (
@@ -26,8 +29,14 @@ const Trailers = ({ videos, isLoading }: Props) => {
           position="relative"
         >
           {videos.map((video) => (
-            <Box key={video.id} display="inline-block" w="full" maxW="800px" pr={8}>
-              <AspectRatio ratio={16 / 9} maxW="800px">
+            <Box
+              key={video.id}
+              display="inline-block"
+              w="full"
+              maxW="800px"
+              pr={8}
+            >
+              <AspectRatio ratio={16 / 9}>
                 <iframe src={video.link} allowFullScreen />
               </AspectRatio>
             </Box>
