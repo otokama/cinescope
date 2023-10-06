@@ -9,7 +9,7 @@ import {
   getMovieRating,
   getMovieRecommendations,
   getMovieVideos,
-  retrieveMovieDetail,
+  getDetail,
 } from "../services/movieService";
 import { populateLinks, populateProfileLink } from "../utils/image-url";
 import { populateVideoLink } from "../utils/video-url";
@@ -72,9 +72,9 @@ async function getMovieDetail(req: Request, res: Response, next: NextFunction) {
       return res.send("Missing movie id").status(400);
     }
     const movieId = parseInt(req.params.id);
-    let { data: movieDetail, status } = await retrieveMovieDetail(movieId);
-    movieDetail = populateLinks(movieDetail) as MovieDetail;
+    let { data: movieDetail, status } = await getDetail(movieId);
     if (status === 200 && movieDetail) {
+      movieDetail = populateLinks(movieDetail) as MovieDetail;
       const certification = await getMovieRating(parseInt(req.params.id));
       if (certification) movieDetail.certification = certification;
       res.send(movieDetail);

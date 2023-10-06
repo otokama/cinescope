@@ -17,7 +17,7 @@ const Recommendations = ({ contents, isLoading }: Props) => {
   return (
     <Box mb="10">
       <Text fontSize={{ base: "lg", md: "xl" }} fontWeight="bold" mb="10">
-        More Like This
+        You Might Also Like
       </Text>
 
       <SimpleGrid

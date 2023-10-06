@@ -70,7 +70,7 @@ async function getMovieDiscovery() {
   });
 }
 
-async function retrieveMovieDetail(id: number) {
+async function getDetail(id: number) {
   return await apiClient.get<MovieDetail>(`/movie/${id}`, {
     headers: {
       Accept: "application/json",
@@ -149,6 +149,6 @@ export {
   getMovieRating,
   getMovieRecommendations,
   getMovieVideos,
-  retrieveMovieDetail
+  getDetail
 };
 

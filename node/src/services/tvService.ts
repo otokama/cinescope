@@ -1,5 +1,7 @@
 import axios from "axios";
+import { ContentRating } from "../models/Rating";
 import { TV } from "../models/TV";
+import { TVDetail } from "../models/TVDetail";
 
 const apiClient = axios.create({
   baseURL: "https://api.themoviedb.org/3",
@@ -29,6 +31,10 @@ interface TVSearchParams {
 
 interface FetchTVListResponse {
   results: TV[];
+}
+
+interface FetchResultList<T> {
+  results: T[];
 }
 
 function getAirTodayQueryParams(queryParams: TVSearchParams) {
@@ -118,4 +124,29 @@ async function getDiscoveryTV() {
   });
 }
 
-export { getDiscoveryTV, getTVList };
+async function getDetail(id: number) {
+  const queryParam = {
+    language: "en-US",
+  };
+  return await apiClient.get<TVDetail>("/tv/" + id, {
+    params: queryParam,
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${process.env.TMDB_ACCESS_TOKEN}`,
+    },
+  });
+}
+
+async function getRating(id: number) {
+  return await apiClient.get<FetchResultList<ContentRating>>(
+    `/tv/${id}/content_ratings`,
+    {
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${process.env.TMDB_ACCESS_TOKEN}`,
+      },
+    }
+  );
+}
+
+export { getDetail, getDiscoveryTV, getTVList, getRating};

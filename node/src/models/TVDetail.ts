@@ -5,7 +5,7 @@ import { Genre } from "./Genre";
 export interface TVDetail {
   adult: boolean;
   backdrop_path: string;
-  creator: Actor[];
+  created_by: Actor[];
   episode_run_time: number;
   first_air_date: string;
   genres: Genre[];
@@ -27,4 +27,5 @@ export interface TVDetail {
   tagline: string;
   vote_average: number;
   vote_count: number;
+  certification?: string;
 }
