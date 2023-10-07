@@ -4,12 +4,9 @@ import logo from "../assets/video-camera.png";
 import ColorModeSwitch from "./ColorModeSwitch";
 import SearchInput from "./SearchInput";
 
-interface Props {
-  onSearch: (searchText: string) => void;
-}
-
-const Navbar = ({ onSearch }: Props) => {
+const Navbar = () => {
   const { colorMode } = useColorMode();
+
   return (
     <HStack
       position="fixed"
@@ -34,7 +31,7 @@ const Navbar = ({ onSearch }: Props) => {
         </Box>
       </Link>
       <Box maxWidth="500px" width="full">
-        <SearchInput onSearch={onSearch} />
+        <SearchInput />
       </Box>
       <ColorModeSwitch />
     </HStack>

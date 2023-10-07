@@ -8,10 +8,14 @@ const ErrorPage = () => {
 
   return (
     <>
-      <Navbar onSearch={() => {}} />
+      <Navbar />
       <Flex h="100vh" w="100vw" justify="center" align="center">
-        <HStack  spacing={{base: 3, md: 5}}>
-          <Image src={fullMoonImg} alt="" boxSize={{base:16, sm: 20, md: 32, lg: 48}} />
+        <HStack spacing={{ base: 3, md: 5 }}>
+          <Image
+            src={fullMoonImg}
+            alt=""
+            boxSize={{ base: 16, sm: 20, md: 32, lg: 48 }}
+          />
           <VStack align="start">
             {isRouteErrorResponse(error) ? (
               <>

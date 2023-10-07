@@ -1,8 +1,8 @@
 import { Box, Button, ButtonGroup, VStack } from "@chakra-ui/react";
-import useMediaTypeStore from "../stores/media-type";
+import useSearchParamsStore from "../stores/search";
 
 const SideNav = () => {
-  const { mediaType, setMediaType } = useMediaTypeStore();
+  const { searchParams, setMediaType } = useSearchParamsStore();
 
   return (
     <Box position="relative">
@@ -12,7 +12,7 @@ const SideNav = () => {
             width={24}
             fontSize="md"
             fontWeight="bold"
-            colorScheme={mediaType === "movie" ? "blue" : "gray"}
+            colorScheme={searchParams.mediaType === "movie" ? "blue" : "gray"}
             onClick={() => setMediaType("movie")}
           >
             Movie
@@ -21,7 +21,7 @@ const SideNav = () => {
             width={24}
             fontSize="md"
             fontWeight="bold"
-            colorScheme={mediaType === "tv" ? "red" : "gray"}
+            colorScheme={searchParams.mediaType === "tv" ? "red" : "gray"}
             onClick={() => setMediaType("tv")}
           >
             TV

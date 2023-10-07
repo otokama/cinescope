@@ -3,6 +3,7 @@ import ErrorPage from "./pages/ErrorPage";
 import HomePage from "./pages/HomePage";
 import Layout from "./pages/Layout";
 import MovieDetailPage from "./pages/MovieDetailPage";
+import SearchResultPage from "./pages/SearchResultPage";
 import TVDetailPage from "./pages/TVDetailPage";
 
 const router = createBrowserRouter([
@@ -14,6 +15,7 @@ const router = createBrowserRouter([
       { index: true, element: <HomePage /> },
       { path: "movie/:id", element: <MovieDetailPage /> },
       { path: "tv/:id", element: <TVDetailPage /> },
+      { path: "search", element: <SearchResultPage /> },
     ],
   },
 ]);

@@ -1,17 +1,27 @@
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import ms from "ms";
 import { Movie } from "../../entities/Movie";
-import APIClient from "../../services/api-client";
+import APIClient, { FetchPaginatedResponse } from "../../services/api-client";
+import useSearchParamsStore from "../../stores/search";
 
 const useDiscoveryMovieList = (
   listName: "now_playing" | "popular" | "top_rated" | "upcoming"
 ) => {
   const apiClient = new APIClient<Movie>("/movie/discover/" + listName);
-  const queryStr = "movies_discovery_" + listName;
-  return useQuery<Movie[], Error>({
+  const queryStr = "movie_list_" + listName;
+  return useInfiniteQuery<FetchPaginatedResponse<Movie>, Error>({
     queryKey: [queryStr],
-    queryFn: apiClient.getAll,
-    staleTime: ms("1h"),
+    queryFn: ({ pageParam = 1 }) =>
+      apiClient.paginatedGetAll({
+        params: {
+          page: pageParam,
+        },
+      }),
+    getNextPageParam: (lastPage, allPages) => {
+      return lastPage.total_pages < lastPage.page
+        ? allPages.length + 1
+        : undefined;
+    },
   });
 };
 
@@ -34,4 +44,30 @@ const useMovieRecommendation = (movieId: number) => {
   });
 };
 
-export { useDiscoveryMovieList, useDiscoveryMovies, useMovieRecommendation };
+const useMovieSearch = () => {
+  const apiClient = new APIClient<Movie>("/movie/search");
+  const searchParams = useSearchParamsStore((s) => s.searchParams);
+
+  return useInfiniteQuery<FetchPaginatedResponse<Movie>, Error>({
+    queryKey: ["movies", searchParams],
+    queryFn: ({ pageParam = 1 }) =>
+      apiClient.paginatedGetAll({
+        params: {
+          query: searchParams.searchText,
+          page: pageParam,
+        },
+      }),
+    getNextPageParam: (lastPage, allPages) => {
+      return lastPage.total_pages < lastPage.page
+        ? allPages.length + 1
+        : undefined;
+    },
+  });
+};
+
+export {
+  useDiscoveryMovieList,
+  useDiscoveryMovies,
+  useMovieRecommendation,
+  useMovieSearch,
+};

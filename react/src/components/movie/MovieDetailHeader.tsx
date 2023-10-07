@@ -11,6 +11,7 @@ import {
 import { BsDot } from "react-icons/bs";
 import fallBackImg from "../../assets/image-placeholder.webp";
 import { MovieDetail } from "../../entities/MovieDetail";
+import { getBackdropLink, getPosterLink } from "../util/image-url";
 
 interface Props {
   movie: MovieDetail;
@@ -23,7 +24,7 @@ const MovieDetailHeader = ({ movie }: Props) => {
         base: "300px",
         md: "600px",
       }}
-      background={`url(${movie.backdrop_path}) center/cover `}
+      background={`url(${getBackdropLink(movie.backdrop_path)}) center/cover `}
       position="relative"
       zIndex="-1"
     >
@@ -33,7 +34,7 @@ const MovieDetailHeader = ({ movie }: Props) => {
         backdropBrightness="40%"
         h="full"
         bgGradient="linear(to-b, transparent, blackAlpha.800)"
-        pr={{base: 1, md: 5}}
+        pr={{ base: 1, md: 5 }}
       >
         <Flex
           justify="start"
@@ -46,7 +47,7 @@ const MovieDetailHeader = ({ movie }: Props) => {
           pl={{ base: 4, md: 10 }}
         >
           <Image
-            src={movie.poster_path}
+            src={getPosterLink(movie.poster_path)}
             h={{
               base: "180px",
               md: "450px",

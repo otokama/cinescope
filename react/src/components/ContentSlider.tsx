@@ -10,11 +10,11 @@ import {
 import { UseQueryResult } from "@tanstack/react-query";
 import { CarouselProvider, Slide, Slider } from "pure-react-carousel";
 import fallbackImg from "../assets/banner-placeholder.webp";
-import useMovieGenres from "../hooks/genres/useMovieGenres";
-import useTVGenres from "../hooks/genres/useTVGenres";
 import { Movie } from "../entities/Movie";
 import { TV } from "../entities/TV";
-import useMediaTypeStore from "../stores/media-type";
+import useMovieGenres from "../hooks/genres/useMovieGenres";
+import useTVGenres from "../hooks/genres/useTVGenres";
+import useSearchParamsStore from "../stores/search";
 
 interface Props {
   useContents: () => UseQueryResult<(Movie | TV)[], Error>;
@@ -22,7 +22,7 @@ interface Props {
 
 const ContentSlider = ({ useContents }: Props) => {
   const { data: contents, isLoading, error } = useContents();
-  const { mediaType } = useMediaTypeStore();
+  const mediaType = useSearchParamsStore((s) => s.searchParams.mediaType);
 
   if (error) return null;
 

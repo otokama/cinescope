@@ -3,10 +3,10 @@ import { Show } from "@chakra-ui/media-query";
 import SideNav from "../components/SideNav";
 import MovieDiscoveryGrid from "../components/movie/MovieDiscoveryGrid";
 import TVDiscoveryGrid from "../components/tv/TVDiscoveryGrid";
-import useMediaTypeStore from "../stores/media-type";
+import useSearchParamsStore from "../stores/search";
 
 const HomePage = () => {
-  const { mediaType } = useMediaTypeStore();
+  const mediaType = useSearchParamsStore(s => s.searchParams.mediaType);
   return (
     <Grid
       templateAreas={{

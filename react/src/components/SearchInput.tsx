@@ -1,13 +1,18 @@
-import { Input, InputLeftElement, InputGroup } from "@chakra-ui/react";
-import { BsSearch } from "react-icons/bs";
+import { Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
 import { useRef } from "react";
+import { BsSearch } from "react-icons/bs";
+import { useNavigate } from "react-router-dom";
+import useSearchParamsStore from "../stores/search";
 
-interface Props {
-  onSearch: (searchText: string) => void;
-}
-
-const SearchInput = ({ onSearch }: Props) => {
+const SearchInput = () => {
   const ref = useRef<HTMLInputElement>(null);
+  const navigate = useNavigate();
+  const setSearchText = useSearchParamsStore((s) => s.setSearchText);
+
+  const onSearch = (queryStr: string) => {
+    setSearchText(queryStr);
+    navigate("/search");
+  };
 
   return (
     <form
@@ -23,7 +28,7 @@ const SearchInput = ({ onSearch }: Props) => {
         <Input
           ref={ref}
           borderRadius={20}
-          placeholder="Search for a movie, TV show, person... "
+          placeholder="Search for a movie, TV show... "
           variant="filled"
         />
       </InputGroup>

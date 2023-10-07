@@ -2,6 +2,7 @@ import { Image, Text, VStack } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import fallbackImg from "../../assets/image-placeholder.webp";
 import { Movie } from "../../entities/Movie";
+import { getPosterLink } from "../util/image-url";
 
 interface Props {
   movie: Movie;
@@ -12,7 +13,7 @@ const MovieCard = ({ movie }: Props) => {
     <Link to={"/movie/" + movie.id}>
       <VStack align="start" spacing={3}>
         <Image
-          src={movie.poster_path}
+          src={getPosterLink(movie.poster_path)}
           shadow="md"
           borderRadius={12}
           fallbackSrc={fallbackImg}

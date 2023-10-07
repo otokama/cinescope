@@ -6,7 +6,7 @@ import Navbar from "../components/Navbar";
 const Layout = () => {
   return (
     <>
-      <Navbar onSearch={() => {}} />
+      <Navbar />
       <div id="main">
         <Box paddingTop={16}>
           <Outlet />

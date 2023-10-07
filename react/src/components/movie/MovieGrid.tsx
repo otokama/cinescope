@@ -1,17 +1,21 @@
 import { SimpleGrid } from "@chakra-ui/react";
-import { UseQueryResult } from "@tanstack/react-query";
+import {
+  UseInfiniteQueryResult
+} from "@tanstack/react-query";
 import _ from "lodash";
+import React from "react";
 import { Movie } from "../../entities/Movie";
 import CardContainer from "../CardContainer";
 import CardSkeleton from "../CardSkeleton";
 import MovieCard from "./MovieCard";
+import { FetchPaginatedResponse } from "../../services/api-client";
 
 interface Props {
-  useMovie: () => UseQueryResult<Movie[], Error>;
+  useMovie: () => UseInfiniteQueryResult<FetchPaginatedResponse<Movie>, Error>;
 }
 
 const MovieGrid = ({ useMovie }: Props) => {
-  const { data: movies, isLoading, error } = useMovie();
+  const { data, isLoading, error } = useMovie();
 
   const skeletons = _.range(10);
 
@@ -31,10 +35,14 @@ const MovieGrid = ({ useMovie }: Props) => {
             </CardContainer>
           ))}
         {!isLoading &&
-          movies?.map((movie) => (
-            <CardContainer key={movie.id}>
-              <MovieCard key={movie.id} movie={movie} />
-            </CardContainer>
+          data.pages.map((page, idx) => (
+            <React.Fragment key={idx}>
+              {page.results.map((movie) => (
+                <CardContainer key={movie.id}>
+                  <MovieCard movie={movie} />
+                </CardContainer>
+              ))}
+            </React.Fragment>
           ))}
       </SimpleGrid>
     </>
