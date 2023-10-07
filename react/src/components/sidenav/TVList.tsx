@@ -28,25 +28,11 @@ const TVList = () => {
             bg="transparent"
             borderX="4px"
             borderRightColor="transparent"
-            borderLeftColor={
-              tvList === "on_the_air" ? "green.400" : "transparent"
-            }
-            fontWeight={tvList === "on_the_air" ? "bold" : "medium"}
-            onClick={() => setTVList("on_the_air")}
-          >
-            Trending
-          </Button>
-          <Button
-            width={48}
-            borderRadius="none"
-            bg="transparent"
-            borderX="4px"
-            borderRightColor="transparent"
             borderLeftColor={tvList === "popular" ? "green.400" : "transparent"}
             fontWeight={tvList === "popular" ? "bold" : "medium"}
             onClick={() => setTVList("popular")}
           >
-            Airing Today
+            Trending
           </Button>
           <Button
             width={48}
@@ -59,6 +45,20 @@ const TVList = () => {
             }
             fontWeight={tvList === "airing_today" ? "bold" : "medium"}
             onClick={() => setTVList("airing_today")}
+          >
+            Airing Today
+          </Button>
+          <Button
+            width={48}
+            borderRadius="none"
+            bg="transparent"
+            borderX="4px"
+            borderRightColor="transparent"
+            borderLeftColor={
+              tvList === "on_the_air" ? "green.400" : "transparent"
+            }
+            fontWeight={tvList === "on_the_air" ? "bold" : "medium"}
+            onClick={() => setTVList("on_the_air")}
           >
             Upcoming
           </Button>

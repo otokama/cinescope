@@ -19,7 +19,7 @@ const MovieDiscoveryGrid = () => {
         {movieList === "now_playing" && (
           <Box marginBottom={10}>
             <Text fontSize="3xl" fontWeight="bold">
-              Now in Theater:
+              Now in Theater
             </Text>
             <MovieGrid useMovie={() => useDiscoveryMovieList("now_playing")} />
           </Box>
@@ -28,7 +28,7 @@ const MovieDiscoveryGrid = () => {
         {movieList === "popular" && (
           <Box marginBottom={10}>
             <Text fontSize="3xl" fontWeight="bold">
-              Trending:
+              Trending
             </Text>
             <MovieGrid useMovie={() => useDiscoveryMovieList("popular")} />
           </Box>
@@ -37,7 +37,7 @@ const MovieDiscoveryGrid = () => {
         {movieList === "top_rated" && (
           <Box marginBottom={10}>
             <Text fontSize="3xl" fontWeight="bold">
-              Top Rated:
+              Top Rated
             </Text>
             <MovieGrid useMovie={() => useDiscoveryMovieList("top_rated")} />
           </Box>
@@ -46,7 +46,7 @@ const MovieDiscoveryGrid = () => {
         {movieList === "upcoming" && (
           <Box marginBottom={10}>
             <Text fontSize="3xl" fontWeight="bold">
-              Upcoming:
+              Upcoming
             </Text>
             <MovieGrid useMovie={() => useDiscoveryMovieList("upcoming")} />
           </Box>
