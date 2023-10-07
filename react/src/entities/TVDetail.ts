@@ -6,7 +6,7 @@ export interface TVDetail {
   adult: boolean;
   backdrop_path: string;
   created_by: Actor[];
-  episode_run_time: number;
+  episode_run_time: number[];
   first_air_date: string;
   genres: Genre[];
   homepage: string;

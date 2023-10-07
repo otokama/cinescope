@@ -10,14 +10,13 @@ import {
 } from "@chakra-ui/react";
 import { BsDot } from "react-icons/bs";
 import fallBackImg from "../../assets/image-placeholder.webp";
-import { TVDetail } from "../../entities/TVDetail"
+import { TVDetail } from "../../entities/TVDetail";
 
 interface Props {
   tv: TVDetail;
 }
 
 const TVDetailHeader = ({ tv }: Props) => {
-
   return (
     <Box
       h={{
@@ -34,7 +33,7 @@ const TVDetailHeader = ({ tv }: Props) => {
         backdropBrightness="40%"
         h="full"
         bgGradient="linear(to-b, transparent, blackAlpha.800)"
-        pr={{base: 1, md: 5}}
+        pr={{ base: 1, md: 5 }}
       >
         <Flex
           justify="start"
@@ -97,10 +96,14 @@ const TVDetailHeader = ({ tv }: Props) => {
                   </Text>
                 </>
               )}
-              <Text whiteSpace="nowrap">{tv.episode_run_time} MIN</Text>
-              <Text fontSize={25}>
-                <BsDot />
-              </Text>
+              {tv.episode_run_time[0] && (
+                <>
+                  <Text whiteSpace="nowrap">{tv.episode_run_time[0]} MIN</Text>
+                  <Text fontSize={25}>
+                    <BsDot />
+                  </Text>
+                </>
+              )}
               <Text whiteSpace="nowrap">{tv.last_air_date}</Text>
             </HStack>
 
@@ -125,6 +128,6 @@ const TVDetailHeader = ({ tv }: Props) => {
       </Box>
     </Box>
   );
-}
+};
 
-export default TVDetailHeader
+export default TVDetailHeader;
