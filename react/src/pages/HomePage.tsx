@@ -24,7 +24,7 @@ const HomePage = () => {
         </GridItem>
       </Show>
 
-      <GridItem area="main" paddingX={8} paddingTop="10" paddingBottom={5}>
+      <GridItem area="main" paddingX={4} paddingTop="10" paddingBottom={5}>
         {mediaType === "movie" && <MovieDiscoveryGrid />}
         {mediaType === "tv" && <TVDiscoveryGrid />}
       </GridItem>

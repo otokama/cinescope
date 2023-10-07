@@ -1,13 +1,11 @@
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import ms from "ms";
 import { Movie } from "../../entities/Movie";
+import { MovieList } from "../../entities/MovieListType";
 import APIClient, { FetchPaginatedResponse } from "../../services/api-client";
 import useSearchParamsStore from "../../stores/search";
-import { MovieList } from "../../entities/MovieListType";
 
-const useDiscoveryMovieList = (
-  listName: MovieList
-) => {
+const useDiscoveryMovieList = (listName: MovieList) => {
   const apiClient = new APIClient<Movie>("/movie/discover/" + listName);
   const queryStr = "movie_list_" + listName;
   return useInfiniteQuery<FetchPaginatedResponse<Movie>, Error>({
@@ -47,14 +45,14 @@ const useMovieRecommendation = (movieId: number) => {
 
 const useMovieSearch = () => {
   const apiClient = new APIClient<Movie>("/movie/search");
-  const searchParams = useSearchParamsStore((s) => s.searchParams);
+  const searchText = useSearchParamsStore((s) => s.searchParams.searchText);
 
   return useInfiniteQuery<FetchPaginatedResponse<Movie>, Error>({
-    queryKey: ["movies", searchParams],
+    queryKey: ["movies_search", searchText],
     queryFn: ({ pageParam = 1 }) =>
       apiClient.paginatedGetAll({
         params: {
-          query: searchParams.searchText,
+          query: searchText,
           page: pageParam,
         },
       }),
@@ -70,5 +68,6 @@ export {
   useDiscoveryMovieList,
   useDiscoveryMovies,
   useMovieRecommendation,
-  useMovieSearch,
+  useMovieSearch
 };
+

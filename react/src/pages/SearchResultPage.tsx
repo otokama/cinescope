@@ -23,7 +23,7 @@ const SearchResultPage = () => {
 
         <GridItem
           area="main"
-          paddingX={8}
+          paddingX={4}
           paddingTop="10"
           paddingBottom={5}
         >

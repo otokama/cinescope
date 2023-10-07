@@ -39,6 +39,8 @@ const TVGrid = ({ useTV }: Props) => {
           columns={{ base: 2, md: 4, lg: 5, xl: 6 }}
           spacing={{ base: 4, md: 8 }}
           marginTop={4}
+          p={2}
+          overflow="hidden"
         >
           {isLoading &&
             skeletons.map((skeleton) => (
