@@ -97,10 +97,15 @@ const MovieDetailHeader = ({ movie }: Props) => {
                   </Text>
                 </>
               )}
-              <Text whiteSpace="nowrap">{movie.runtime} MIN</Text>
-              <Text fontSize={25}>
-                <BsDot />
-              </Text>
+              {movie.runtime && (
+                <>
+                  <Text whiteSpace="nowrap">{movie.runtime} MIN</Text>
+
+                  <Text fontSize={25}>
+                    <BsDot />
+                  </Text>
+                </>
+              )}
               <Text whiteSpace="nowrap">{movie.release_date}</Text>
             </HStack>
 
