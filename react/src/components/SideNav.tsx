@@ -1,14 +1,24 @@
 import { Box, Button, ButtonGroup, VStack } from "@chakra-ui/react";
+import { useLocation } from "react-router-dom";
 import useSearchParamsStore from "../stores/search";
-import MovieList from "./sidenav/MovieList";
+import DiscoveryList from "./sidenav/DiscoveryList";
+import SearchResultFilterForm from "./sidenav/SearchResultFilterForm";
 
 const SideNav = () => {
   const { searchParams, setMediaType } = useSearchParamsStore();
+  const { pathname } = useLocation();
 
   return (
     <Box position="relative">
-      <VStack align="center" position="fixed" zIndex="10" w="250px" h="full" spacing={8}>
-        <ButtonGroup isAttached  overflow="hidden">
+      <VStack
+        align="center"
+        position="fixed"
+        zIndex="10"
+        w="250px"
+        h="full"
+        spacing={8}
+      >
+        <ButtonGroup isAttached overflow="hidden">
           <Button
             width={24}
             borderRadius="sm"
@@ -31,10 +41,9 @@ const SideNav = () => {
           </Button>
         </ButtonGroup>
 
-        <MovieList />
-      
+        {pathname === "/" && <DiscoveryList />}
+        {pathname === "/search" && <SearchResultFilterForm />}
       </VStack>
-      
     </Box>
   );
 };

@@ -1,8 +1,8 @@
 import { Box, Button, VStack } from "@chakra-ui/react";
-import useMovieListStore from "../../stores/movie-list";
+import useTVListStore from "../../stores/tv-list";
 
-const MovieList = () => {
-  const { movieList, setMovieList } = useMovieListStore();
+const TVList = () => {
+  const { tvList, setTVList } = useTVListStore();
 
   return (
     <>
@@ -15,38 +15,10 @@ const MovieList = () => {
             borderX="4px"
             borderRightColor="transparent"
             borderLeftColor={
-              movieList === "now_playing" ? "green.400" : "transparent"
+              tvList === "top_rated" ? "green.400" : "transparent"
             }
-            fontWeight={movieList === "now_playing" ? "bold" : "medium"}
-            onClick={() => setMovieList("now_playing")}
-          >
-            Now Playing
-          </Button>
-          <Button
-            width={48}
-            borderRadius="none"
-            bg="transparent"
-            borderX="4px"
-            borderRightColor="transparent"
-            borderLeftColor={
-              movieList === "popular" ? "green.400" : "transparent"
-            }
-            fontWeight={movieList === "popular" ? "bold" : "medium"}
-            onClick={() => setMovieList("popular")}
-          >
-            Trending
-          </Button>
-          <Button
-            width={48}
-            borderRadius="none"
-            bg="transparent"
-            borderX="4px"
-            borderRightColor="transparent"
-            borderLeftColor={
-              movieList === "top_rated" ? "green.400" : "transparent"
-            }
-            fontWeight={movieList === "top_rated" ? "bold" : "medium"}
-            onClick={() => setMovieList("top_rated")}
+            fontWeight={tvList === "top_rated" ? "bold" : "medium"}
+            onClick={() => setTVList("top_rated")}
           >
             Top Rated
           </Button>
@@ -57,10 +29,36 @@ const MovieList = () => {
             borderX="4px"
             borderRightColor="transparent"
             borderLeftColor={
-              movieList === "upcoming" ? "green.400" : "transparent"
+              tvList === "on_the_air" ? "green.400" : "transparent"
             }
-            fontWeight={movieList === "upcoming" ? "bold" : "medium"}
-            onClick={() => setMovieList("upcoming")}
+            fontWeight={tvList === "on_the_air" ? "bold" : "medium"}
+            onClick={() => setTVList("on_the_air")}
+          >
+            Trending
+          </Button>
+          <Button
+            width={48}
+            borderRadius="none"
+            bg="transparent"
+            borderX="4px"
+            borderRightColor="transparent"
+            borderLeftColor={tvList === "popular" ? "green.400" : "transparent"}
+            fontWeight={tvList === "popular" ? "bold" : "medium"}
+            onClick={() => setTVList("popular")}
+          >
+            Airing Today
+          </Button>
+          <Button
+            width={48}
+            borderRadius="none"
+            bg="transparent"
+            borderX="4px"
+            borderRightColor="transparent"
+            borderLeftColor={
+              tvList === "airing_today" ? "green.400" : "transparent"
+            }
+            fontWeight={tvList === "airing_today" ? "bold" : "medium"}
+            onClick={() => setTVList("airing_today")}
           >
             Upcoming
           </Button>
@@ -70,4 +68,4 @@ const MovieList = () => {
   );
 };
 
-export default MovieList;
+export default TVList;

@@ -14,13 +14,7 @@ interface Props {
 }
 
 const MovieGrid = ({ useMovie }: Props) => {
-  const {
-    data,
-    isLoading,
-    error,
-    fetchNextPage,
-    hasNextPage,
-  } = useMovie();
+  const { data, isLoading, error, fetchNextPage, hasNextPage } = useMovie();
 
   const skeletons = _.range(10);
 

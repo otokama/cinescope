@@ -1,0 +1,1 @@
+export type TVList = "top_rated" | "on_the_air" | "popular" | "airing_today";

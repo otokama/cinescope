@@ -2,9 +2,10 @@ import { useQuery } from "@tanstack/react-query";
 import ms from "ms";
 import APIClient from "../../services/api-client";
 import { TV } from "../../entities/TV";
+import { TVList } from "../../entities/TVListType";
 
 const useDiscoveryTVList = (
-  listName: "top_rated" | "on_the_air" | "popular" | "airing_today"
+  listName: TVList
 ) => {
   const apiClient = new APIClient<TV>("/tv/discover/" + listName);
   const queryStr = "tv_discovery_" + listName;
