@@ -10,11 +10,11 @@ import {
 import { UseQueryResult } from "@tanstack/react-query";
 import { CarouselProvider, Slide, Slider } from "pure-react-carousel";
 import fallbackImg from "../assets/banner-placeholder.webp";
+import { Movie } from "../entities/Movie";
+import { TV } from "../entities/TV";
 import useMovieGenres from "../hooks/genres/useMovieGenres";
 import useTVGenres from "../hooks/genres/useTVGenres";
-import { Movie } from "../hooks/movies/useMovies";
-import { TV } from "../hooks/tv/useTV";
-import useMediaTypeStore from "../stores/media-type";
+import useSearchParamsStore from "../stores/search";
 
 interface Props {
   useContents: () => UseQueryResult<(Movie | TV)[], Error>;
@@ -22,7 +22,7 @@ interface Props {
 
 const ContentSlider = ({ useContents }: Props) => {
   const { data: contents, isLoading, error } = useContents();
-  const { mediaType } = useMediaTypeStore();
+  const mediaType = useSearchParamsStore((s) => s.searchParams.mediaType);
 
   if (error) return null;
 
@@ -42,11 +42,10 @@ const ContentSlider = ({ useContents }: Props) => {
           contents?.map((content, idx) => (
             <Slide index={idx} key={idx}>
               <Card
-                marginX={{ sm: 2, lg: 4 }}
+                marginX={{ base: 2, lg: 4 }}
                 shadow="md"
                 borderRadius={{ sm: 5, md: 15 }}
                 overflow="hidden"
-                _hover={{ shadow: "lg" }}
                 position="relative"
               >
                 <Image src={content.backdrop_path} fallbackSrc={fallbackImg} />

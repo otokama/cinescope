@@ -1,5 +1,9 @@
 import axios from "axios";
+import { Actor } from "../models/Actor";
 import { Movie } from "../models/Movie";
+import { MovieDetail } from "../models/MovieDetail";
+import { Video } from "../models/Video";
+import { MovieSearchQuery } from "../models/MovieSearchQuery";
 
 const apiClient = axios.create({
   baseURL: "https://api.themoviedb.org/3",
@@ -9,16 +13,34 @@ interface FetchMovieListResponse {
   results: Movie[];
 }
 
-async function getMovieList(listName: string) {
-  let queryParams = {};
-  if (listName === "upcoming") {
-    queryParams = {
-      "primary_release_date.gte": new Date(),
-    };
-  }
+interface MovieReleaseDate {
+  release_date: Date;
+  certification: string;
+}
 
-  return await apiClient.get<FetchMovieListResponse>(`/movie/${listName}`, {
-    params: queryParams,
+interface MovieReleaseCountry {
+  iso_3166_1: string;
+  release_dates: MovieReleaseDate[];
+}
+
+interface FetchMovieRatingResponse {
+  results: MovieReleaseCountry[];
+}
+
+interface FetchMovieCastResponse {
+  cast: Actor[];
+}
+
+interface FetchMovieTrailerResponse {
+  results: Video[];
+}
+interface FetchResultList<T> {
+  results: T[];
+}
+
+async function getMovieList(listName: string, page?: string) {
+  return await apiClient.get(`/movie/${listName}`, {
+    params: { page },
     headers: {
       Accept: "application/json",
       Authorization: `Bearer ${process.env.TMDB_ACCESS_TOKEN}`,
@@ -34,7 +56,7 @@ async function getMovieDiscovery() {
     region: "us",
     page: 1,
     sort_by: "popularity.desc",
-    "vote_count.gte": 200
+    "vote_count.gte": 200,
   };
   return await apiClient.get<FetchMovieListResponse>("/discover/movie", {
     params: queryParams,
@@ -45,5 +67,95 @@ async function getMovieDiscovery() {
   });
 }
 
-export { getMovieDiscovery, getMovieList };
+async function getDetail(id: number) {
+  return await apiClient.get<MovieDetail>(`/movie/${id}`, {
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${process.env.TMDB_ACCESS_TOKEN}`,
+    },
+  });
+}
 
+async function getMovieRating(id: number) {
+  const { data } = await apiClient.get<FetchMovieRatingResponse>(
+    `/movie/${id}/release_dates`,
+    {
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${process.env.TMDB_ACCESS_TOKEN}`,
+      },
+    }
+  );
+  const releaseDatesUS = data.results.find(
+    (releaseCountry) => releaseCountry.iso_3166_1 === "US"
+  );
+
+  if (releaseDatesUS && releaseDatesUS.release_dates.length > 0) {
+    for (const release of releaseDatesUS.release_dates) {
+      if (release.certification.length > 0) return release.certification;
+    }
+  }
+  return null;
+}
+
+async function getMovieCast(id: number) {
+  return await apiClient.get<FetchMovieCastResponse>(`/movie/${id}/credits`, {
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${process.env.TMDB_ACCESS_TOKEN}`,
+    },
+  });
+}
+
+async function getMovieVideos(id: number) {
+  return await apiClient.get<FetchMovieTrailerResponse>(`/movie/${id}/videos`, {
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${process.env.TMDB_ACCESS_TOKEN}`,
+    },
+  });
+}
+
+async function getMovieProviders(id: number) {
+  return await apiClient.get(`/movie/${id}/watch/providers`, {
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${process.env.TMDB_ACCESS_TOKEN}`,
+    },
+  });
+}
+
+async function getMovieRecommendations(id: number) {
+  return await apiClient.get<FetchMovieListResponse>(
+    `/movie/${id}/recommendations`,
+    {
+      params: { language: "en-US" },
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${process.env.TMDB_ACCESS_TOKEN}`,
+      },
+    }
+  );
+}
+
+async function search(query: MovieSearchQuery) {
+  return await apiClient.get("/search/movie", {
+    params: query,
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${process.env.TMDB_ACCESS_TOKEN}`,
+    },
+  })
+}
+
+export {
+  getMovieCast,
+  getMovieDiscovery,
+  getMovieList,
+  getMovieProviders,
+  getMovieRating,
+  getMovieRecommendations,
+  getMovieVideos,
+  getDetail,
+  search,
+};

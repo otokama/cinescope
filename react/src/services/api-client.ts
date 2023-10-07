@@ -1,5 +1,12 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 
+export interface FetchPaginatedResponse<T> {
+  page: number;
+  results: T[];
+  total_pages: number;
+  total_results: number;
+}
+
 class APIClient<T> {
   endpoint: string;
   axiosInstance: AxiosInstance;
@@ -14,6 +21,18 @@ class APIClient<T> {
   getAll = (config?: AxiosRequestConfig) => {
     return this.axiosInstance
       .get<T[]>(this.endpoint, config)
+      .then((res) => res.data);
+  };
+
+  paginatedGetAll = (config?: AxiosRequestConfig) => {
+    return this.axiosInstance
+      .get<FetchPaginatedResponse<T>>(this.endpoint, config)
+      .then((res) => res.data);
+  };
+
+  get = (config?: AxiosRequestConfig) => {
+    return this.axiosInstance
+      .get<T>(this.endpoint, config)
       .then((res) => res.data);
   };
 }

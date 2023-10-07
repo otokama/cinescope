@@ -1,32 +1,48 @@
 import { Box, Button, ButtonGroup, VStack } from "@chakra-ui/react";
-import useMediaTypeStore from "../stores/media-type";
+import { useLocation } from "react-router-dom";
+import useSearchParamsStore from "../stores/search";
+import DiscoveryList from "./sidenav/DiscoveryList";
+import SearchResultFilterForm from "./sidenav/SearchResultFilterForm";
 
 const SideNav = () => {
-  const { mediaType, setMediaType } = useMediaTypeStore();
+  const { searchParams, setMediaType } = useSearchParamsStore();
+  const { pathname } = useLocation();
 
   return (
     <Box position="relative">
-      <VStack align="center" position="fixed" zIndex="10" w="240px" h="full">
-        <ButtonGroup isAttached borderRadius="2xl" overflow="hidden">
+      <VStack
+        align="center"
+        position="fixed"
+        zIndex="10"
+        w="250px"
+        h="full"
+        spacing={8}
+      >
+        <ButtonGroup isAttached overflow="hidden">
           <Button
             width={24}
+            borderRadius="sm"
             fontSize="md"
             fontWeight="bold"
-            colorScheme={mediaType === "movie" ? "blue" : "gray"}
+            colorScheme={searchParams.mediaType === "movie" ? "blue" : "gray"}
             onClick={() => setMediaType("movie")}
           >
             Movie
           </Button>
           <Button
             width={24}
+            borderRadius="sm"
             fontSize="md"
             fontWeight="bold"
-            colorScheme={mediaType === "tv" ? "red" : "gray"}
+            colorScheme={searchParams.mediaType === "tv" ? "red" : "gray"}
             onClick={() => setMediaType("tv")}
           >
             TV
           </Button>
         </ButtonGroup>
+
+        {pathname === "/" && <DiscoveryList />}
+        {pathname === "/search" && <SearchResultFilterForm />}
       </VStack>
     </Box>
   );

@@ -24,8 +24,14 @@ const publicPath: (string | RegExp)[] = [
   "/",
   "/session/new",
   "/session/tmdb-approved",
+
   /api\/movie\/discover/,
+  /api\/movie\/detail/,
+  /api\/movie\/search/,
+
   /api\/tv\/discover/,
+  /api\/tv\/detail/,
+  /api\/tv\/search/
 ];
 const jwt = jwtClient(publicPath);
 

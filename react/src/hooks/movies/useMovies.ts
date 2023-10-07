@@ -1,30 +1,26 @@
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import ms from "ms";
-import APIClient from "../../services/api-client";
+import { Movie } from "../../entities/Movie";
+import { MovieList } from "../../entities/MovieListType";
+import APIClient, { FetchPaginatedResponse } from "../../services/api-client";
+import useSearchParamsStore from "../../stores/search";
 
-export interface Movie {
-  id: number;
-  title: string;
-  overview: string;
-  popularity: number;
-  vote_average: number;
-  vote_count: number;
-  release_date: string;
-  adult: boolean;
-  backdrop_path: string;
-  poster_path: string;
-  genre_ids: number[];
-}
-
-const useDiscoveryMovieList = (
-  listName: "now_playing" | "popular" | "top_rated" | "upcoming"
-) => {
+const useDiscoveryMovieList = (listName: MovieList) => {
   const apiClient = new APIClient<Movie>("/movie/discover/" + listName);
-  const queryStr = "movies_discovery_" + listName;
-  return useQuery<Movie[], Error>({
+  const queryStr = "movie_list_" + listName;
+  return useInfiniteQuery<FetchPaginatedResponse<Movie>, Error>({
     queryKey: [queryStr],
-    queryFn: apiClient.getAll,
-    staleTime: ms("1h"),
+    queryFn: ({ pageParam = 1 }) =>
+      apiClient.paginatedGetAll({
+        params: {
+          page: pageParam,
+        },
+      }),
+    getNextPageParam: (lastPage, allPages) => {
+      return lastPage.total_pages > lastPage.page
+        ? allPages.length + 1
+        : undefined;
+    },
   });
 };
 
@@ -37,4 +33,41 @@ const useDiscoveryMovies = () => {
   });
 };
 
-export { useDiscoveryMovieList, useDiscoveryMovies };
+const useMovieRecommendation = (movieId: number) => {
+  const apiClient = new APIClient<Movie>(
+    `/movie/detail/${movieId}/recommendation`
+  );
+  return useQuery<Movie[], Error>({
+    queryKey: ["movie_recommendation", movieId],
+    queryFn: apiClient.getAll,
+  });
+};
+
+const useMovieSearch = () => {
+  const apiClient = new APIClient<Movie>("/movie/search");
+  const searchText = useSearchParamsStore((s) => s.searchParams.searchText);
+
+  return useInfiniteQuery<FetchPaginatedResponse<Movie>, Error>({
+    queryKey: ["movies_search", searchText],
+    queryFn: ({ pageParam = 1 }) =>
+      apiClient.paginatedGetAll({
+        params: {
+          query: searchText,
+          page: pageParam,
+        },
+      }),
+    getNextPageParam: (lastPage, allPages) => {
+      return lastPage.total_pages > lastPage.page
+        ? allPages.length + 1
+        : undefined;
+    },
+  });
+};
+
+export {
+  useDiscoveryMovieList,
+  useDiscoveryMovies,
+  useMovieRecommendation,
+  useMovieSearch
+};
+

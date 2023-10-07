@@ -1,4 +1,4 @@
-import { Genre } from "./useMovieGenres";
+import { Genre } from "../../entities/Genre";
 
 const genreList: Genre[] = [
   {

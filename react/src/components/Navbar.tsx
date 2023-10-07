@@ -1,14 +1,12 @@
 import { Box, HStack, Image, useColorMode } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 import logo from "../assets/video-camera.png";
 import ColorModeSwitch from "./ColorModeSwitch";
 import SearchInput from "./SearchInput";
 
-interface Props {
-  onSearch: (searchText: string) => void;
-}
-
-const Navbar = ({ onSearch }: Props) => {
+const Navbar = () => {
   const { colorMode } = useColorMode();
+
   return (
     <HStack
       position="fixed"
@@ -18,12 +16,22 @@ const Navbar = ({ onSearch }: Props) => {
       zIndex={20}
       bgColor={colorMode === "dark" ? "gray.600" : "gray.100"}
       paddingX="15px"
-      paddingY="10px"
+      h="16"
       shadow="md"
     >
-      <Image src={logo} boxSize={10} />
+      <Link to="/">
+        <Box boxSize={10}>
+          <Image
+            src={logo}
+            _hover={{
+              transform: "scale(1.1)",
+              transition: "transform .15s ease-in",
+            }}
+          />
+        </Box>
+      </Link>
       <Box maxWidth="500px" width="full">
-        <SearchInput onSearch={onSearch} />
+        <SearchInput />
       </Box>
       <ColorModeSwitch />
     </HStack>
