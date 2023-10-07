@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response, Router } from "express";
 import { Movie } from "../models/Movie";
-import { MovieDetail } from "../models/MovieDetail";
 import { MovieSearchQuery } from "../models/MovieSearchQuery";
 import {
   getDetail,
@@ -18,8 +17,8 @@ import { populateVideoLink } from "../utils/video-url";
 
 const movieController = Router();
 
-movieController.get("/discover/:list", getDiscoverMovieList);
 movieController.get("/discover", getDiscoveryMovies);
+movieController.get("/discover/:list", getDiscoverMovieList);
 movieController.get("/detail/:id", getMovieDetail);
 movieController.get("/detail/:id/credits", getMovieCredit);
 movieController.get("/detail/:id/trailer", getMovieTrailers);
@@ -27,15 +26,15 @@ movieController.get("/detail/:id/provider", getWatchProviders);
 movieController.get("/detail/:id/recommendation", getRecommendations);
 movieController.get("/search", searchMovies);
 
-async function getDiscoverMovieList(
-  req: Request,
-  res: Response,
-) {
+async function getDiscoverMovieList(req: Request, res: Response) {
   if (!req.params.list) {
     return res.status(400).send("Missing list name");
   }
   try {
-    const { data } = await getMovieList(req.params.list, req.query.page?.toString());
+    const { data } = await getMovieList(
+      req.params.list,
+      req.query.page?.toString()
+    );
     res.send(data);
   } catch (err) {
     res.status(400).send("Failed to fetch discovery movies");

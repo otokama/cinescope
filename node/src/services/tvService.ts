@@ -43,66 +43,42 @@ interface FetchTVCastResponse {
   cast: Actor[];
 }
 
-function getAirTodayQueryParams(queryParams: TVSearchParams) {
-  return {
-    ...queryParams,
-    "air_date.gte": new Date(),
-    "air_date.lte": new Date(),
-  };
-}
+// function getAirTodayQueryParams(queryParams: TVSearchParams) {
+//   return {
+//     ...queryParams,
+//     "air_date.gte": new Date(),
+//     "air_date.lte": new Date(),
+//   };
+// }
 
-function getOnAirQueryParams(queryParams: TVSearchParams) {
-  return {
-    ...queryParams,
-    "air_date.gte": new Date(),
-    "air_date.lte": new Date(),
-    sort_by: "primary_release_date.desc",
-  };
-}
+// function getOnAirQueryParams(queryParams: TVSearchParams) {
+//   return {
+//     ...queryParams,
+//     "air_date.gte": new Date(),
+//     "air_date.lte": new Date(),
+//     sort_by: "primary_release_date.desc",
+//   };
+// }
 
-function getPopularQueryParams(queryParams: TVSearchParams) {
-  return {
-    ...queryParams,
-  };
-}
+// function getPopularQueryParams(queryParams: TVSearchParams) {
+//   return {
+//     ...queryParams,
+//   };
+// }
 
-function getTopRatedQueryParams(queryParams: TVSearchParams) {
-  return {
-    ...queryParams,
-    sort_by: "vote_average.desc",
-  };
-}
+// function getTopRatedQueryParams(queryParams: TVSearchParams) {
+//   return {
+//     ...queryParams,
+//     sort_by: "vote_average.desc",
+//   };
+// }
 
-async function getTVList(listName: string) {
-  let queryParams: TVSearchParams = {
-    include_adult: false,
-    include_null_first_air_dates: false,
-    with_original_language: "en",
+async function getTVList(listName: string, page?: string) {
+  const queryParams = {
     language: "en-US",
-    region: "US",
-    watch_region: "US",
-    page: 1,
-    "vote_count.gte": 200,
-    sort_by: "popularity.desc",
+    page,
   };
-  switch (listName) {
-    case "airing_today":
-      queryParams = getAirTodayQueryParams(queryParams);
-      break;
-    case "on_the_air":
-      queryParams = getOnAirQueryParams(queryParams);
-      break;
-    case "popular":
-      queryParams = getPopularQueryParams(queryParams);
-      break;
-    case "top_rated":
-      queryParams = getTopRatedQueryParams(queryParams);
-      break;
-    default:
-      break;
-  }
-
-  return await apiClient.get<FetchTVListResponse>("/discover/tv", {
+  return await apiClient.get("/tv/" + listName, {
     params: queryParams,
     headers: {
       Accept: "application/json",
@@ -200,6 +176,8 @@ export {
   getDiscoveryTV,
   getRating,
   getStreamProviders,
-  getTVList, getTVRecommendations, getVideos
+  getTVList,
+  getTVRecommendations,
+  getVideos
 };
 

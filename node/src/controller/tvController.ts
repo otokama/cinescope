@@ -12,51 +12,33 @@ import {
   getVideos,
 } from "../services/tvService";
 import {
-  getBackdropLink,
-  getPosterLink,
   populateLinks,
-  populateProfileLink,
+  populateProfileLink
 } from "../utils/image-url";
 import { populateVideoLink } from "../utils/video-url";
 
 const tvController = Router();
 
-tvController.get("/discover/airing_today", getDiscoveryTVList);
-tvController.get("/discover/on_the_air", getDiscoveryTVList);
-tvController.get("/discover/popular", getDiscoveryTVList);
-tvController.get("/discover/top_rated", getDiscoveryTVList);
 tvController.get("/discover", getDiscoverTVList);
+tvController.get("/discover/:list", getDiscoveryTVList);
 tvController.get("/detail/:id", getTVDetail);
 tvController.get("/detail/:id/trailer", getTVTrailers);
 tvController.get("/detail/:id/credits", getTVCredits);
 tvController.get("/detail/:id/provider", getTVWatchProviders);
 tvController.get("/detail/:id/recommendation", getRecommendations);
 
-async function getDiscoveryTVList(
-  req: Request,
-  res: Response,
-  next: NextFunction
-) {
-  const size = parseInt(req.params?.size) || 15;
-  const urlPaths = req.url.split("/");
-  const listName = urlPaths[urlPaths.length - 1];
-
+async function getDiscoveryTVList(req: Request, res: Response) {
+  if (!req.params.list) {
+    return res.status(400).send("Missing list name");
+  }
   try {
-    const response = await getTVList(listName);
-
-    let { results: tvList } = response.data;
-    tvList = tvList.map((tv) => {
-      tv.backdrop_path = getBackdropLink(tv.backdrop_path);
-      tv.poster_path = getPosterLink(tv.poster_path);
-      return tv;
-    });
-    if (tvList.length > size) {
-      res.send(tvList.slice(0, size));
-    } else {
-      res.send(tvList);
-    }
+    const { data } = await getTVList(
+      req.params.list,
+      req.query.page?.toString()
+    );
+    res.send(data);
   } catch (err) {
-    next(err);
+    res.status(400).send("Failed to fetch discovery tv list");
   }
 }
 
