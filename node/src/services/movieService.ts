@@ -3,6 +3,7 @@ import { Actor } from "../models/Actor";
 import { Movie } from "../models/Movie";
 import { MovieDetail } from "../models/MovieDetail";
 import { Video } from "../models/Video";
+import { MovieSearchQuery } from "../models/MovieSearchQuery";
 
 const apiClient = axios.create({
   baseURL: "https://api.themoviedb.org/3",
@@ -33,17 +34,12 @@ interface FetchMovieCastResponse {
 interface FetchMovieTrailerResponse {
   results: Video[];
 }
+interface FetchResultList<T> {
+  results: T[];
+}
 
 async function getMovieList(listName: string) {
-  let queryParams = {};
-  if (listName === "upcoming") {
-    queryParams = {
-      "primary_release_date.gte": new Date(),
-    };
-  }
-
-  return await apiClient.get<FetchMovieListResponse>(`/movie/${listName}`, {
-    params: queryParams,
+  return await apiClient.get(`/movie/${listName}`, {
     headers: {
       Accept: "application/json",
       Authorization: `Bearer ${process.env.TMDB_ACCESS_TOKEN}`,
@@ -141,6 +137,16 @@ async function getMovieRecommendations(id: number) {
   );
 }
 
+async function search(query: MovieSearchQuery) {
+  return await apiClient.get("/search/movie", {
+    params: query,
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${process.env.TMDB_ACCESS_TOKEN}`,
+    },
+  })
+}
+
 export {
   getMovieCast,
   getMovieDiscovery,
@@ -149,6 +155,6 @@ export {
   getMovieRating,
   getMovieRecommendations,
   getMovieVideos,
-  getDetail
+  getDetail,
+  search,
 };
-

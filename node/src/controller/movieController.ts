@@ -1,7 +1,9 @@
 import { NextFunction, Request, Response, Router } from "express";
 import { Movie } from "../models/Movie";
 import { MovieDetail } from "../models/MovieDetail";
+import { MovieSearchQuery } from "../models/MovieSearchQuery";
 import {
+  getDetail,
   getMovieCast,
   getMovieDiscovery,
   getMovieList,
@@ -9,44 +11,34 @@ import {
   getMovieRating,
   getMovieRecommendations,
   getMovieVideos,
-  getDetail,
+  search,
 } from "../services/movieService";
 import { populateLinks, populateProfileLink } from "../utils/image-url";
 import { populateVideoLink } from "../utils/video-url";
 
 const movieController = Router();
 
-movieController.get("/discover/now_playing", getDiscoverMovieList);
-movieController.get("/discover/popular", getDiscoverMovieList);
-movieController.get("/discover/top_rated", getDiscoverMovieList);
-movieController.get("/discover/upcoming", getDiscoverMovieList);
+movieController.get("/discover/:list", getDiscoverMovieList);
 movieController.get("/discover", getDiscoveryMovies);
 movieController.get("/detail/:id", getMovieDetail);
 movieController.get("/detail/:id/credits", getMovieCredit);
 movieController.get("/detail/:id/trailer", getMovieTrailers);
 movieController.get("/detail/:id/provider", getWatchProviders);
 movieController.get("/detail/:id/recommendation", getRecommendations);
+movieController.get("/search", searchMovies);
 
 async function getDiscoverMovieList(
   req: Request,
   res: Response,
-  next: NextFunction
 ) {
-  const size = parseInt(req.params?.size) || 15;
-
-  const urlPaths = req.url.split("/");
-  const listName = urlPaths[urlPaths.length - 1];
+  if (!req.params.list) {
+    return res.status(400).send("Missing list name");
+  }
   try {
-    const response = await getMovieList(listName);
-    let { results: movieList } = response.data;
-    movieList = movieList.map((movie) => populateLinks(movie) as Movie);
-    if (movieList.length > size) {
-      res.send(movieList.slice(0, size));
-    } else {
-      res.send(movieList);
-    }
+    const { data } = await getMovieList(req.params.list);
+    res.send(data);
   } catch (err) {
-    next(err);
+    res.status(400).send("Failed to fetch discovery movies");
   }
 }
 
@@ -74,7 +66,6 @@ async function getMovieDetail(req: Request, res: Response, next: NextFunction) {
     const movieId = parseInt(req.params.id);
     let { data: movieDetail, status } = await getDetail(movieId);
     if (status === 200 && movieDetail) {
-      movieDetail = populateLinks(movieDetail) as MovieDetail;
       const certification = await getMovieRating(parseInt(req.params.id));
       if (certification) movieDetail.certification = certification;
       res.send(movieDetail);
@@ -156,13 +147,29 @@ async function getRecommendations(req: Request, res: Response) {
     let { data, status } = await getMovieRecommendations(movieId);
     let movies = data.results;
     if (status === 200 && movies) {
-      movies = movies.map((movie) => populateLinks(movie) as Movie);
       res.send(movies);
     } else {
       res.send([]);
     }
   } catch (err) {
     res.status(404).send("Movie Not Found");
+  }
+}
+
+async function searchMovies(req: Request, res: Response) {
+  const queryDict = req.query;
+  const searchQuery: MovieSearchQuery = {
+    query: queryDict.query?.toString() || "",
+    include_adult: false,
+    language: "en-US",
+    year: queryDict.year?.toString(),
+    page: queryDict.page ? parseInt(queryDict.page.toString()) : 1,
+  };
+  try {
+    const { data } = await search(searchQuery);
+    res.send(data);
+  } catch (err) {
+    res.status(400).send("Failed to search");
   }
 }
 

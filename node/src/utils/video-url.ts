@@ -10,6 +10,7 @@ function populateVideoLink(video: Video) {
       break;
     case "Vimeo":
       video.link = vimeoBaseUrl + video.key;
+      break;
     default:
       break;
   }
