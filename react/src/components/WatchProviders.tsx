@@ -18,7 +18,11 @@ const WatchProviders = ({ contentId, isMovie }: Props) => {
 
   return (
     <Box mb="10">
-      <Text fontSize={{ base: "lg", md: "2xl" }} fontWeight="semibold" mb="5">
+      <Text
+        fontSize={{ base: "lg", md: "2xl" }}
+        fontWeight="bold"
+        mb={{ base: 4, lg: 5 }}
+      >
         Watch Now On:
       </Text>
       <SimpleGrid
