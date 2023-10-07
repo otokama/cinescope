@@ -35,7 +35,7 @@ async function getDiscoverMovieList(
     return res.status(400).send("Missing list name");
   }
   try {
-    const { data } = await getMovieList(req.params.list);
+    const { data } = await getMovieList(req.params.list, req.query.page?.toString());
     res.send(data);
   } catch (err) {
     res.status(400).send("Failed to fetch discovery movies");

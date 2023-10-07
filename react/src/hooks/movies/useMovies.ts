@@ -3,9 +3,10 @@ import ms from "ms";
 import { Movie } from "../../entities/Movie";
 import APIClient, { FetchPaginatedResponse } from "../../services/api-client";
 import useSearchParamsStore from "../../stores/search";
+import { MovieList } from "../../entities/MovieListType";
 
 const useDiscoveryMovieList = (
-  listName: "now_playing" | "popular" | "top_rated" | "upcoming"
+  listName: MovieList
 ) => {
   const apiClient = new APIClient<Movie>("/movie/discover/" + listName);
   const queryStr = "movie_list_" + listName;
@@ -18,7 +19,7 @@ const useDiscoveryMovieList = (
         },
       }),
     getNextPageParam: (lastPage, allPages) => {
-      return lastPage.total_pages < lastPage.page
+      return lastPage.total_pages > lastPage.page
         ? allPages.length + 1
         : undefined;
     },
@@ -58,7 +59,7 @@ const useMovieSearch = () => {
         },
       }),
     getNextPageParam: (lastPage, allPages) => {
-      return lastPage.total_pages < lastPage.page
+      return lastPage.total_pages > lastPage.page
         ? allPages.length + 1
         : undefined;
     },

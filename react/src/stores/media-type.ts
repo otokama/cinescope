@@ -1,7 +1,6 @@
 import { mountStoreDevtool } from "simple-zustand-devtools";
 import { create } from "zustand";
-
-export type MediaType = "tv" | "movie";
+import { MediaType } from "../entities/MediaType";
 
 interface MediaTypeStore {
   mediaType: MediaType;

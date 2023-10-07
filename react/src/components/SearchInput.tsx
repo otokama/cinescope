@@ -10,8 +10,13 @@ const SearchInput = () => {
   const setSearchText = useSearchParamsStore((s) => s.setSearchText);
 
   const onSearch = (queryStr: string) => {
-    setSearchText(queryStr);
-    navigate("/search");
+    if (queryStr.length > 0) {
+      setSearchText(queryStr);
+      navigate("/search");
+    } else {
+      setSearchText(queryStr);
+      navigate("/");
+    }
   };
 
   return (

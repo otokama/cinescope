@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { MediaType } from "./media-type";
+import { MediaType } from "../entities/MediaType";
 
 interface SearchParams {
   searchText?: string;

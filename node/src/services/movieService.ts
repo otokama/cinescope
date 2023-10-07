@@ -38,8 +38,9 @@ interface FetchResultList<T> {
   results: T[];
 }
 
-async function getMovieList(listName: string) {
+async function getMovieList(listName: string, page?: string) {
   return await apiClient.get(`/movie/${listName}`, {
+    params: { page },
     headers: {
       Accept: "application/json",
       Authorization: `Bearer ${process.env.TMDB_ACCESS_TOKEN}`,
