@@ -3,33 +3,12 @@ import { Actor } from "../models/Actor";
 import { ContentRating } from "../models/Rating";
 import { TV } from "../models/TV";
 import { TVDetail } from "../models/TVDetail";
+import { TVSearchQuery } from "../models/TVSearchQuery";
 import { Video } from "../models/Video";
 
 const apiClient = axios.create({
   baseURL: "https://api.themoviedb.org/3",
 });
-
-interface TVSearchParams {
-  include_adult: boolean;
-  include_null_first_air_dates: boolean;
-  with_original_language: string;
-  language: string;
-  page: number;
-  sort_by?: string;
-  "vote_count.gte"?: number;
-  "vote_average.gte"?: number;
-  "vote_average.lte"?: number;
-  with_genres?: string;
-  with_keywords?: string;
-  with_origin_country?: string;
-  region?: string;
-  watch_region?: string;
-  "with_runtime.gte"?: number;
-  "first_air_date.gte"?: Date;
-  "first_air_date.lte"?: Date;
-  "air_date.gte"?: Date;
-  "air_date.lte"?: Date;
-}
 
 interface FetchTVListResponse {
   results: TV[];
@@ -42,6 +21,28 @@ interface FetchResultList<T> {
 interface FetchTVCastResponse {
   cast: Actor[];
 }
+
+// interface TVSearchParams {
+//   include_adult: boolean;
+//   include_null_first_air_dates: boolean;
+//   with_original_language: string;
+//   language: string;
+//   page: number;
+//   sort_by?: string;
+//   "vote_count.gte"?: number;
+//   "vote_average.gte"?: number;
+//   "vote_average.lte"?: number;
+//   with_genres?: string;
+//   with_keywords?: string;
+//   with_origin_country?: string;
+//   region?: string;
+//   watch_region?: string;
+//   "with_runtime.gte"?: number;
+//   "first_air_date.gte"?: Date;
+//   "first_air_date.lte"?: Date;
+//   "air_date.gte"?: Date;
+//   "air_date.lte"?: Date;
+// }
 
 // function getAirTodayQueryParams(queryParams: TVSearchParams) {
 //   return {
@@ -170,6 +171,16 @@ async function getTVRecommendations(id: number) {
   });
 }
 
+async function search(query: TVSearchQuery) {
+  return await apiClient.get("/search/tv", {
+    params: query,
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${process.env.TMDB_ACCESS_TOKEN}`,
+    },
+  });
+}
+
 export {
   getCast,
   getDetail,
@@ -178,6 +189,7 @@ export {
   getStreamProviders,
   getTVList,
   getTVRecommendations,
-  getVideos
+  getVideos,
+  search
 };
 

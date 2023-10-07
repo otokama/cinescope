@@ -30,7 +30,8 @@ const publicPath: (string | RegExp)[] = [
   /api\/movie\/search/,
 
   /api\/tv\/discover/,
-  /api\/tv\/detail/
+  /api\/tv\/detail/,
+  /api\/tv\/search/
 ];
 const jwt = jwtClient(publicPath);
 

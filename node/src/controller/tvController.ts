@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response, Router } from "express";
 import { TV } from "../models/TV";
 import { TVDetail } from "../models/TVDetail";
+import { TVSearchQuery } from "../models/TVSearchQuery";
 import {
   getCast,
   getDetail,
@@ -10,11 +11,9 @@ import {
   getTVList,
   getTVRecommendations,
   getVideos,
+  search,
 } from "../services/tvService";
-import {
-  populateLinks,
-  populateProfileLink
-} from "../utils/image-url";
+import { populateLinks, populateProfileLink } from "../utils/image-url";
 import { populateVideoLink } from "../utils/video-url";
 
 const tvController = Router();
@@ -26,6 +25,7 @@ tvController.get("/detail/:id/trailer", getTVTrailers);
 tvController.get("/detail/:id/credits", getTVCredits);
 tvController.get("/detail/:id/provider", getTVWatchProviders);
 tvController.get("/detail/:id/recommendation", getRecommendations);
+tvController.get("/search", searchTVs);
 
 async function getDiscoveryTVList(req: Request, res: Response) {
   if (!req.params.list) {
@@ -160,6 +160,24 @@ async function getRecommendations(req: Request, res: Response) {
     }
   } catch (err) {
     res.status(404).send("TV Not Found");
+  }
+}
+
+async function searchTVs(req: Request, res: Response) {
+  const queryDict = req.query;
+  const searchQuery: TVSearchQuery = {
+    query: queryDict.query?.toString() || "",
+    include_adult: false,
+    language: "en-US",
+    first_air_date_year: queryDict.first_air_date_year?.toString(),
+    year: queryDict.year?.toString(),
+    page: queryDict.page ? parseInt(queryDict.page.toString()) : 1,
+  };
+  try {
+    const { data } = await search(searchQuery);
+    res.send(data);
+  } catch (err) {
+    res.status(400).send("Failed to search");
   }
 }
 
