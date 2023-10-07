@@ -10,7 +10,7 @@ const CardContainer = ({ children }: Props) => {
     <Box
       overflow="hidden"
       _hover={{
-        transform: "scale(1.04)",
+        transform: "scale(1.02)",
         transition: "transform .2s ease-in",
       }}
     >
