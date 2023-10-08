@@ -36,4 +36,17 @@ async function getNewSession(request_token: string) {
     }
   );
 }
-export { getRequestToken, getNewSession };
+
+async function revokeSession(session_id: string) {
+  return await apiClient.delete("/session", {
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${process.env.TMDB_ACCESS_TOKEN}`,
+    },
+    data: {
+      session_id,
+    },
+  });
+}
+
+export { getRequestToken, getNewSession, revokeSession };

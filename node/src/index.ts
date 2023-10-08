@@ -22,8 +22,9 @@ app.use(cors());
 // public paths that don't require session auth token:
 const publicPath: (string | RegExp)[] = [
   "/",
-  "/session/new",
-  "/session/tmdb-approved",
+  "/api/session/new",
+  "/api/session/auth",
+  "/api/session/delete",
 
   /api\/movie\/discover/,
   /api\/movie\/detail/,
@@ -44,8 +45,7 @@ app.get("/", (req: Request, res: Response) => {
 app.use("/api/account", accountRouter);
 app.use("/api/movie", movieController);
 app.use("/api/tv", tvController);
-
-app.use("/session", sessionRouter);
+app.use("/api/session", sessionRouter);
 
 // TODO: error handler here
 
