@@ -5,6 +5,7 @@ import Layout from "./pages/Layout";
 import MovieDetailPage from "./pages/MovieDetailPage";
 import SearchResultPage from "./pages/SearchResultPage";
 import TVDetailPage from "./pages/TVDetailPage";
+import SessionAuthPage from "./pages/SessionAuthPage";
 
 const router = createBrowserRouter([
   {
@@ -16,6 +17,7 @@ const router = createBrowserRouter([
       { path: "movie/:id", element: <MovieDetailPage /> },
       { path: "tv/:id", element: <TVDetailPage /> },
       { path: "search", element: <SearchResultPage /> },
+      { path: "session/tmdb-approved", element: <SessionAuthPage />}
     ],
   },
 ]);

@@ -1,22 +1,33 @@
-import { Box, HStack, Image, useColorMode } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  HStack,
+  Image,
+  useColorMode
+} from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import logo from "../assets/video-camera.png";
+import useAccountStore from "../stores/user";
 import ColorModeSwitch from "./ColorModeSwitch";
 import SearchInput from "./SearchInput";
+import UserAvatar from "./UserAvatar";
+import UserLogin from "./UserLogin";
 
 const Navbar = () => {
   const { colorMode } = useColorMode();
-
+  const user = useAccountStore((s) => s.user);
   return (
-    <HStack
+    <Flex
+      justify="center"
+      align="center"
       position="fixed"
-      justify="space-between"
       top="0"
-      width="full"
+      w="full"
+      h={16}
       zIndex={20}
       bgColor={colorMode === "dark" ? "gray.600" : "gray.100"}
-      paddingX="15px"
-      h="16"
+      paddingX={4}
+      gap="5"
       shadow="md"
     >
       <Link to="/">
@@ -30,11 +41,17 @@ const Navbar = () => {
           />
         </Box>
       </Link>
-      <Box maxWidth="500px" width="full">
+      <Box maxWidth="500px" w="full">
         <SearchInput />
       </Box>
-      <ColorModeSwitch />
-    </HStack>
+      <HStack mr={0} ml="auto" gap={5}>
+        <ColorModeSwitch />
+        <>
+          {!user && <UserLogin />}
+          {user && <UserAvatar />}
+        </>
+      </HStack>
+    </Flex>
   );
 };
 

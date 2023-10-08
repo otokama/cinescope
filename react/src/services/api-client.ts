@@ -14,7 +14,7 @@ class APIClient<T> {
   constructor(endpoint: string) {
     this.endpoint = endpoint;
     this.axiosInstance = axios.create({
-      baseURL: import.meta.env.VITE_API_URL,
+      baseURL: import.meta.env.VITE_BASE_API_URL,
     });
   }
 
