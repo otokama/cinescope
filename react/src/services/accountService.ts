@@ -6,11 +6,13 @@ const axiosInstance = axios.create({
 
 async function updateFavoriteMedia(
   accountId: number,
+  sessionId: string,
   mediaType: "movie" | "tv",
   mediaId: number,
   isFavorite: boolean
 ) {
   return await axiosInstance.post("/media/favorite/update/" + accountId, {
+    session_id: sessionId,
     media_type: mediaType,
     media_id: mediaId,
     favorite: isFavorite,

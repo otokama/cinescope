@@ -148,6 +148,8 @@ async function search(query: MovieSearchQuery) {
   });
 }
 
+async function getAccountStates(movieId: number, sessionId: string, accountId: number) {}
+
 export {
   getDetail,
   getMovieCast,

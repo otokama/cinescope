@@ -10,7 +10,10 @@ const accountRouter = Router();
 
 accountRouter.get("/details", getAccountDetails);
 
-accountRouter.get("/favorite/:accountId/:mediaType", getFavoriteMedia);
+accountRouter.get(
+  "/favorite/:accountId/:sessionId/:mediaType",
+  getFavoriteMedia
+);
 accountRouter.post("/favorite/update/:accountId", updateFavoriteMedia);
 
 async function getAccountDetails(
@@ -29,7 +32,7 @@ async function getAccountDetails(
 }
 
 async function getFavoriteMedia(req: Request, res: Response) {
-  if (!req.params.accountId || !req.params.mediaType) {
+  if (!req.params.accountId || !req.params.mediaType || !req.params.sessionId) {
     return res.status(400).send("Missing required field");
   }
   const queryDict = req.query;
@@ -37,6 +40,7 @@ async function getFavoriteMedia(req: Request, res: Response) {
   try {
     const { data } = await getFavoriteList(
       accountId,
+      req.params.sessionId,
       req.params.mediaType,
       queryDict.page?.toString(),
       queryDict.sort_by?.toString()
@@ -48,10 +52,11 @@ async function getFavoriteMedia(req: Request, res: Response) {
 }
 
 async function updateFavoriteMedia(req: Request, res: Response) {
-  let { media_type, media_id, favorite } = req.body;
+  let { media_type, media_id, favorite, session_id } = req.body;
   if (
     !media_type ||
     !media_id ||
+    !session_id ||
     favorite === undefined ||
     !req.params.accountId
   ) {
@@ -60,10 +65,12 @@ async function updateFavoriteMedia(req: Request, res: Response) {
   try {
     const accountId = parseInt(req.params.accountId);
     media_type = String(media_type);
+    session_id = String(session_id);
     media_id = parseInt(media_id);
     const updateRes = await updateFavorite(
       media_id,
       accountId,
+      session_id,
       media_type,
       favorite
     );

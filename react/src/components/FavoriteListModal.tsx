@@ -12,7 +12,7 @@ import {
   TabPanels,
   Tabs,
 } from "@chakra-ui/react";
-import { useFavoriteList } from "../hooks/movies/useMovies";
+import { useFavoriteList } from "../hooks/useFavorites";
 import useModalStore from "../stores/modals";
 import useAccountStore from "../stores/user";
 import FavoriteMovieList from "./FavoriteList";
@@ -20,7 +20,7 @@ import FavoriteMovieList from "./FavoriteList";
 const FavoriteListModal = () => {
   const { showFavoriteList, setShowFavoriteList } = useModalStore();
 
-  const user = useAccountStore((s) => s.user);
+  const { user, sessionId } = useAccountStore();
 
   return (
     <>
@@ -52,7 +52,7 @@ const FavoriteListModal = () => {
                   <Box h="700px">
                     <FavoriteMovieList
                       mediaType={"movie"}
-                      useMedia={() => useFavoriteList(user!.id, "movies")}
+                      useMedia={() => useFavoriteList(user!.id, sessionId!, "movies")}
                     />
                   </Box>
                 </TabPanel>
@@ -60,7 +60,7 @@ const FavoriteListModal = () => {
                   <Box h="700px">
                   <FavoriteMovieList
                       mediaType={"tv"}
-                      useMedia={() => useFavoriteList(user!.id, "tv")}
+                      useMedia={() => useFavoriteList(user!.id, sessionId!, "tv")}
                     />
                   </Box>
                 </TabPanel>

@@ -30,7 +30,6 @@ const publicPath: (string | RegExp)[] = [
   /api\/movie\/discover/,
   /api\/movie\/detail/,
   /api\/movie\/search/,
-  /api\/movie\/favorite/,
 
   /api\/tv\/discover/,
   /api\/tv\/detail/,

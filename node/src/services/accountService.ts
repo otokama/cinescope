@@ -24,12 +24,14 @@ async function getAccount(sessionId: string) {
 
 async function getFavoriteList(
   accountId: number,
+  sessionId: string,
   mediaType: string,
   page?: string,
-  sort_by?: string,
+  sort_by?: string
 ) {
   return await apiClient.get(`/${accountId}/favorite/${mediaType}`, {
     params: {
+      session_id: sessionId,
       page,
       sort_by,
     },
@@ -40,21 +42,31 @@ async function getFavoriteList(
   });
 }
 
-async function updateFavorite(mediaId: number, accountId: number, mediaType: string, favorite: boolean) {
-
-  return await apiClient.post(`/${accountId}/favorite`, {
-    media_type: mediaType,
-    media_id: mediaId,
-    favorite
-  }, {
-    headers: {
-      accept: 'application/json',
-      'content-type': 'application/json',
-      Authorization: `Bearer ${process.env.TMDB_ACCESS_TOKEN}`,
+async function updateFavorite(
+  mediaId: number,
+  accountId: number,
+  sessionId: string,
+  mediaType: string,
+  favorite: boolean
+) {
+  return await apiClient.post(
+    `/${accountId}/favorite`,
+    {
+      media_type: mediaType,
+      media_id: mediaId,
+      favorite,
+    },
+    {
+      params: {
+        session_id: sessionId,
+      },
+      headers: {
+        accept: "application/json",
+        "content-type": "application/json",
+        Authorization: `Bearer ${process.env.TMDB_ACCESS_TOKEN}`,
+      },
     }
-  });
+  );
 }
-
-
 
 export { getAccount, getFavoriteList, updateFavorite };

@@ -19,7 +19,7 @@ interface Props {
 
 const FavoriteMovieList = ({ useMedia, mediaType }: Props) => {
   const { data, isLoading, error, fetchNextPage, hasNextPage } = useMedia();
-  const user = useAccountStore((s) => s.user);
+  const { user, sessionId } = useAccountStore();
   const { setToast } = useToastHook();
 
   if (error) return null;
@@ -32,6 +32,7 @@ const FavoriteMovieList = ({ useMedia, mediaType }: Props) => {
     try {
       const res = await updateFavoriteMedia(
         user!.id,
+        sessionId!,
         mediaType,
         mediaId,
         isLike
