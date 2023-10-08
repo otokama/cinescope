@@ -10,7 +10,7 @@ import logo from "../assets/video-camera.png";
 import useAccountStore from "../stores/user";
 import ColorModeSwitch from "./ColorModeSwitch";
 import SearchInput from "./SearchInput";
-import UserAvatar from "./UserAvatar";
+import UserAvatarMenu from "./UserAvatarMenu";
 import UserLogin from "./UserLogin";
 
 const Navbar = () => {
@@ -48,7 +48,7 @@ const Navbar = () => {
         <ColorModeSwitch />
         <>
           {!user && <UserLogin />}
-          {user && <UserAvatar />}
+          {user && <UserAvatarMenu />}
         </>
       </HStack>
     </Flex>

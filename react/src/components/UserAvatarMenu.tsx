@@ -11,10 +11,11 @@ import {
 import { ToastNotification } from "../entities/Toast";
 import { useToastHook } from "../hooks/useToast";
 import { revokeSession } from "../services/sessionService";
-import useAccountStore from "../stores/user";
 import useModalStore from "../stores/modals";
+import useAccountStore from "../stores/user";
+import FavoriteMoviesModal from "./movie/FavoriteMoviesModal";
 
-const UserAvatar = () => {
+const UserAvatarMenu = () => {
   const { setToast } = useToastHook();
   const { user, sessionId, removeUser, removeSessionId } = useAccountStore();
   const { setShowFavoriteMovie } = useModalStore();
@@ -58,9 +59,12 @@ const UserAvatar = () => {
         </MenuButton>
         <MenuList>
           <MenuGroup title="My Lists" fontWeight="semibold">
-            <MenuItem fontWeight="semibold" onClick={() => {
-              setShowFavoriteMovie(true)
-            }}>Favorite Movies</MenuItem>
+            <MenuItem
+              fontWeight="semibold"
+              onClick={() => setShowFavoriteMovie(true)}
+            >
+              Favorite Movies
+            </MenuItem>
             <MenuItem fontWeight="semibold">Favorite TV</MenuItem>
           </MenuGroup>
           <MenuDivider />
@@ -71,8 +75,9 @@ const UserAvatar = () => {
           </MenuItem>
         </MenuList>
       </Menu>
+      <FavoriteMoviesModal />
     </>
   );
 };
 
-export default UserAvatar;
+export default UserAvatarMenu;
