@@ -60,7 +60,6 @@ async function deleteSession(req: Request, res: Response) {
   try {
     const {data: revokeResponse, status} = await revokeSession(String(session_id));
     if (status === 200 && revokeResponse.success) {
-      console.log("delete success")
       return res.send({success: true});
     }
     return res.status(400).send("Failed to revoke session");

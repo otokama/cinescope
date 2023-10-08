@@ -26,7 +26,7 @@ const UserLogin = () => {
     try {
       const authLink = await requestSession();
       if (authLink) {
-        window.open(authLink);
+        window.location.href = authLink;
       }
     } catch (err) {
       toast({

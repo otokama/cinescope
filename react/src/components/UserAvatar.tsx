@@ -12,10 +12,12 @@ import { ToastNotification } from "../entities/Toast";
 import { useToastHook } from "../hooks/useToast";
 import { revokeSession } from "../services/sessionService";
 import useAccountStore from "../stores/user";
+import useModalStore from "../stores/modals";
 
 const UserAvatar = () => {
   const { setToast } = useToastHook();
   const { user, sessionId, removeUser, removeSessionId } = useAccountStore();
+  const { setShowFavoriteMovie } = useModalStore();
   if (!user || !sessionId) return null;
 
   const onLogout = async () => {
@@ -56,7 +58,9 @@ const UserAvatar = () => {
         </MenuButton>
         <MenuList>
           <MenuGroup title="My Lists" fontWeight="semibold">
-            <MenuItem fontWeight="semibold">Favorite Movies</MenuItem>
+            <MenuItem fontWeight="semibold" onClick={() => {
+              setShowFavoriteMovie(true)
+            }}>Favorite Movies</MenuItem>
             <MenuItem fontWeight="semibold">Favorite TV</MenuItem>
           </MenuGroup>
           <MenuDivider />
