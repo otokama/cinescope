@@ -13,12 +13,12 @@ import { useToastHook } from "../hooks/useToast";
 import { revokeSession } from "../services/sessionService";
 import useModalStore from "../stores/modals";
 import useAccountStore from "../stores/user";
-import FavoriteMoviesModal from "./movie/FavoriteMoviesModal";
+import FavoriteListModal from "./FavoriteListModal";
 
 const UserAvatarMenu = () => {
   const { setToast } = useToastHook();
   const { user, sessionId, removeUser, removeSessionId } = useAccountStore();
-  const { setShowFavoriteMovie } = useModalStore();
+  const { setShowFavoriteList } = useModalStore();
   if (!user || !sessionId) return null;
 
   const onLogout = async () => {
@@ -61,11 +61,10 @@ const UserAvatarMenu = () => {
           <MenuGroup title="My Lists" fontWeight="semibold">
             <MenuItem
               fontWeight="semibold"
-              onClick={() => setShowFavoriteMovie(true)}
+              onClick={() => setShowFavoriteList(true)}
             >
-              Favorite Movies
+              Favorites
             </MenuItem>
-            <MenuItem fontWeight="semibold">Favorite TV</MenuItem>
           </MenuGroup>
           <MenuDivider />
           <MenuItem onClick={onLogout}>
@@ -75,7 +74,7 @@ const UserAvatarMenu = () => {
           </MenuItem>
         </MenuList>
       </Menu>
-      <FavoriteMoviesModal />
+      <FavoriteListModal />
     </>
   );
 };

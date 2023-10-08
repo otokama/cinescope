@@ -12,17 +12,17 @@ import { useState } from "react";
 import { RiDislikeFill, RiHeartLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import fallbackImg from "../../assets/image-placeholder.webp";
-import { Movie } from "../../entities/Movie";
-import useMovieGenre from "../../hooks/genres/useMovieGenres";
+import { TV } from "../../entities/TV";
+import useTVGenre from "../../hooks/genres/useTVGenres";
 import { getPosterLink } from "../util/image-url";
 
 interface Props {
-  movie: Movie;
+  tv: TV;
   onClick: () => void;
   onToggleLike: (isLike: boolean) => void;
 }
 
-const FavoriteMovieCard = ({ movie, onClick, onToggleLike }: Props) => {
+const FavoriteTVCard = ({ tv, onClick, onToggleLike }: Props) => {
   const [like, setLike] = useState(true);
 
   const handleLike = async (e: React.MouseEvent) => {
@@ -34,7 +34,7 @@ const FavoriteMovieCard = ({ movie, onClick, onToggleLike }: Props) => {
 
   return (
     <>
-      <Link to={"/movie/" + movie.id} onClick={onClick}>
+      <Link to={"/tv/" + tv.id} onClick={onClick}>
         <Card
           direction="row"
           overflow="hidden"
@@ -51,9 +51,7 @@ const FavoriteMovieCard = ({ movie, onClick, onToggleLike }: Props) => {
           <Image
             objectFit="cover"
             maxW="120px"
-            src={
-              movie.poster_path ? getPosterLink(movie.poster_path) : fallbackImg
-            }
+            src={tv.poster_path ? getPosterLink(tv.poster_path) : fallbackImg}
           />
           <VStack align="start" justify="center">
             <Text
@@ -61,21 +59,21 @@ const FavoriteMovieCard = ({ movie, onClick, onToggleLike }: Props) => {
               fontWeight="semibold"
               mb="-1"
             >
-              {movie.title}
+              {tv.name}
             </Text>
-            {movie.release_date && (
+            {tv.first_air_date && (
               <Text fontSize={{ base: "xs", md: "md" }}>
-                {movie.release_date.split("-")[0]}
+                {tv.first_air_date.split("-")[0]}
               </Text>
             )}
-            {movie.vote_count > 200 ? (
+            {tv.vote_count > 200 ? (
               <Badge
                 variant="subtle"
                 px="2"
                 fontSize={{ base: "xs", md: "md" }}
-                colorScheme={movie.vote_average > 7 ? "green" : "yellow"}
+                colorScheme={tv.vote_average > 7 ? "green" : "yellow"}
               >
-                {movie.vote_average.toFixed(1)}
+                {tv.vote_average.toFixed(1)}
               </Badge>
             ) : (
               <Badge
@@ -89,7 +87,7 @@ const FavoriteMovieCard = ({ movie, onClick, onToggleLike }: Props) => {
             )}
             <Show above="md">
               <HStack spacing="3" mb="5" wrap="wrap">
-                {useMovieGenre(movie.genre_ids).map((genre) => (
+                {useTVGenre(tv.genre_ids).map((genre) => (
                   <Badge key={genre.id}>{genre.name}</Badge>
                 ))}
               </HStack>
@@ -115,4 +113,4 @@ const FavoriteMovieCard = ({ movie, onClick, onToggleLike }: Props) => {
   );
 };
 
-export default FavoriteMovieCard;
+export default FavoriteTVCard;

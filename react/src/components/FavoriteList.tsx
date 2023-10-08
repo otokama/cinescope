@@ -2,37 +2,49 @@ import { Box, Divider, Spinner, VStack } from "@chakra-ui/react";
 import { UseInfiniteQueryResult } from "@tanstack/react-query";
 import React from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { Movie } from "../../entities/Movie";
-import { ToastNotification } from "../../entities/Toast";
-import { useToastHook } from "../../hooks/useToast";
-import { updateFavoriteMedia } from "../../services/accountService";
-import { FetchPaginatedResponse } from "../../services/api-client";
-import useModalStore from "../../stores/modals";
-import useAccountStore from "../../stores/user";
-import FavoriteMovieCard from "./FavoriteMovieCard";
+import { MediaType } from "../entities/MediaType";
+import { Movie } from "../entities/Movie";
+import { TV } from "../entities/TV";
+import { ToastNotification } from "../entities/Toast";
+import { useToastHook } from "../hooks/useToast";
+import { updateFavoriteMedia } from "../services/accountService";
+import { FetchPaginatedResponse } from "../services/api-client";
+import useAccountStore from "../stores/user";
+import FavoriteMediaCard from "./FavoriteMediaCard";
 
 interface Props {
-  useMovie: () => UseInfiniteQueryResult<FetchPaginatedResponse<Movie>, Error>;
+  mediaType: MediaType;
+  useMedia: () => UseInfiniteQueryResult<FetchPaginatedResponse<Movie | TV>, Error>;
 }
 
-const FavoriteMovieList = ({ useMovie }: Props) => {
-  const { data, isLoading, error, fetchNextPage, hasNextPage } = useMovie();
+const FavoriteMovieList = ({ useMedia, mediaType }: Props) => {
+  const { data, isLoading, error, fetchNextPage, hasNextPage } = useMedia();
   const user = useAccountStore((s) => s.user);
   const { setToast } = useToastHook();
-  const { setShowFavoriteMovie } = useModalStore();
 
   if (error) return null;
 
-  const handleToggleLike = async (movieId: number, isLike: boolean) => {
+  const handleToggleLike = async (
+    mediaId: number,
+    isLike: boolean,
+    mediaType: MediaType
+  ) => {
     try {
-      const res = await updateFavoriteMedia(user!.id, "movie", movieId, isLike);
+      const res = await updateFavoriteMedia(
+        user!.id,
+        mediaType,
+        mediaId,
+        isLike
+      );
       if (!res.data.success) {
         throw new Error("Failed to handle update favorite");
       }
-      
+
       const successToast: ToastNotification = {
         title: "Success",
-        description: isLike ? "Phew... That was a close one!" : "Removed from favorite.",
+        description: isLike
+          ? "Phew... That was a close one!"
+          : "Removed from favorite.",
         status: "success",
         duration: 5000,
       };
@@ -64,24 +76,24 @@ const FavoriteMovieList = ({ useMovie }: Props) => {
           </Box>
         }
       >
-        <Box maxH="700px" overflowY="auto" pb={{base: 14, sm: 5}}>
-          <VStack align="stretch" spacing={5} margin={10} >
+        <Box overflowY="auto" pb={{ base: 14, sm: 5 }}>
+          <VStack align="stretch" spacing={5} margin={10}>
             {!isLoading &&
               data?.pages.map((page, idx) => (
                 <React.Fragment key={idx}>
-                  {page.results.map((movie) => (
-                    <FavoriteMovieCard
-                      key={movie.id}
-                      movie={movie}
-                      onClickMovie={() => setShowFavoriteMovie(false)}
-                      onToggleLike={(isLike) =>
-                        handleToggleLike(movie.id, isLike)
+                  {page.results.map((media) => (
+                    <FavoriteMediaCard
+                      key={media.id}
+                      media={media}
+                      mediaType={mediaType}
+                      handleToggleLike={(mediaId, isLike, mediaType) =>
+                        handleToggleLike(mediaId, isLike, mediaType)
                       }
                     />
                   ))}
                 </React.Fragment>
               ))}
-              <Divider maxW="90%" mx="auto" mt="5"  /> 
+            <Divider maxW="90%" mx="auto" mt="5" />
           </VStack>
         </Box>
       </InfiniteScroll>

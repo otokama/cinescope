@@ -67,7 +67,7 @@ const useMovieSearch = () => {
 const useFavoriteList = (accountId: number, mediaType: "movies" | "tv") => {
   const apiClient = new APIClient<Movie>(`/media/favorite/${accountId}/${mediaType}`);
   return useInfiniteQuery<FetchPaginatedResponse<Movie>, Error>({
-    queryKey: ["favorite_movies"],
+    queryKey: ["favorite_list", mediaType],
     queryFn: ({ pageParam = 1 }) =>
       apiClient.paginatedGetAll({
         params: {
