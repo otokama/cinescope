@@ -1,17 +1,20 @@
 import {
+  Box,
   Modal,
   ModalCloseButton,
   ModalContent,
   ModalHeader,
   ModalOverlay,
-  Text,
 } from "@chakra-ui/react";
+import { useFavoriteList } from "../../hooks/movies/useMovies";
 import useModalStore from "../../stores/modals";
 import useAccountStore from "../../stores/user";
+import FavoriteMovieList from "./FavoriteMovieList";
 
 const FavoriteMoviesModal = () => {
-  const sessionId = useAccountStore((s) => s.sessionId);
   const { showFavoriteMovie, setShowFavoriteMovie } = useModalStore();
+
+  const { sessionId, user } = useAccountStore();
 
   return (
     <>
@@ -20,12 +23,17 @@ const FavoriteMoviesModal = () => {
         size="xl"
         isOpen={showFavoriteMovie}
         isCentered
+        scrollBehavior="inside"
       >
         <ModalOverlay />
-        <ModalCloseButton />
-        <ModalContent>
-          <ModalHeader>My Favorite Movies</ModalHeader>
-          <Text>{sessionId}</Text>
+        <ModalContent overflow="hidden">
+          <ModalHeader>Favorite Movies</ModalHeader>
+          <ModalCloseButton />
+          <Box mt="2">
+            <FavoriteMovieList
+              useMovie={() => useFavoriteList(user!.id, "movies")}
+            />
+          </Box>
         </ModalContent>
       </Modal>
     </>

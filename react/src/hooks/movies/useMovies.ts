@@ -64,10 +64,27 @@ const useMovieSearch = () => {
   });
 };
 
+const useFavoriteList = (accountId: number, mediaType: "movies" | "tv") => {
+  const apiClient = new APIClient<Movie>(`/media/favorite/${accountId}/${mediaType}`);
+  return useInfiniteQuery<FetchPaginatedResponse<Movie>, Error>({
+    queryKey: ["favorite_movies"],
+    queryFn: ({ pageParam = 1 }) =>
+      apiClient.paginatedGetAll({
+        params: {
+          page: pageParam,
+        },
+      }),
+    getNextPageParam: (lastPage, allPages) => {
+      return lastPage.total_pages > lastPage.page
+        ? allPages.length + 1
+        : undefined;
+    },
+  });
+};
+
 export {
   useDiscoveryMovieList,
-  useDiscoveryMovies,
-  useMovieRecommendation,
+  useDiscoveryMovies, useFavoriteList, useMovieRecommendation,
   useMovieSearch
 };
 
