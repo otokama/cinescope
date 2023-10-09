@@ -15,7 +15,7 @@ dotenv.config({
 
 const app = express();
 
-const buildPath = path.normalize(path.join(__dirname, "../dist/react_build"));
+const buildPath = path.join(__dirname, "../dist/react-build");
 app.use(express.static(buildPath));
 
 app.use(bodyParser.urlencoded({ extended: false }));
