@@ -49,4 +49,5 @@ async function revokeSession(session_id: string) {
   });
 }
 
-export { getRequestToken, getNewSession, revokeSession };
+export { getNewSession, getRequestToken, revokeSession };
+

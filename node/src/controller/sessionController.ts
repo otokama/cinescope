@@ -2,7 +2,11 @@ import { Request, Response, Router } from "express";
 // import ms from "ms";
 // import { getNewSessionToken } from "../helpers/jwt";
 import { getAccount } from "../services/accountService";
-import { getNewSession, getRequestToken, revokeSession } from "../services/sessionService";
+import {
+  getNewSession,
+  getRequestToken,
+  revokeSession,
+} from "../services/sessionService";
 
 const sessionRouter = Router();
 
@@ -39,7 +43,7 @@ async function createSession(req: Request, res: Response) {
         // const sessionToken = getNewSessionToken(session_id, accountDetail.id);
         res.send({
           user: accountDetail,
-          sessionId: session_id
+          sessionId: session_id,
         });
       } else {
         res.status(400).send("TMDB: new session denied");
@@ -58,15 +62,16 @@ async function deleteSession(req: Request, res: Response) {
     return res.status(400).send("Missing session_id");
   }
   try {
-    const {data: revokeResponse, status} = await revokeSession(String(session_id));
+    const { data: revokeResponse, status } = await revokeSession(
+      String(session_id)
+    );
     if (status === 200 && revokeResponse.success) {
-      return res.send({success: true});
+      return res.send({ success: true });
     }
     return res.status(400).send("Failed to revoke session");
   } catch (err) {
     return res.status(400).send("Failed to revoke session");
   }
-
 }
 
 export default sessionRouter;
