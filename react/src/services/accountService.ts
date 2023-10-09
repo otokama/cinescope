@@ -4,6 +4,13 @@ const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_BASE_API_URL,
 });
 
+interface FetchAccountStatesResponse {
+  id: number;
+  favorite: boolean;
+  rated: boolean;
+  watchlist: boolean;
+}
+
 async function updateFavoriteMedia(
   accountId: number,
   sessionId: string,
@@ -19,4 +26,12 @@ async function updateFavoriteMedia(
   });
 }
 
-export { updateFavoriteMedia };
+async function getAccountStates(sessionId: string, mediaId: number, mediaType: "movie" | "tv") {
+  return await axiosInstance.get<FetchAccountStatesResponse>(`/${mediaType}/detail/${mediaId}/account_states`, {
+    params: {
+      session_id: sessionId
+    }
+  });
+}
+
+export { updateFavoriteMedia, getAccountStates };
