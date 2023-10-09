@@ -194,7 +194,8 @@ async function getAccountStates(tvId: number, sessionId: string) {
 }
 
 export {
-  getAccountStates, getCast,
+  getAccountStates,
+  getCast,
   getDetail,
   getDiscoveryTV,
   getRating,

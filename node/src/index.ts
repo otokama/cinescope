@@ -22,7 +22,7 @@ app.use(cors());
 // public paths that don't require session auth token:
 const publicPath: (string | RegExp)[] = [
   "/",
-  
+
   "/api/session/new",
   "/api/session/auth",
   "/api/session/delete",
@@ -34,9 +34,8 @@ const publicPath: (string | RegExp)[] = [
   /api\/tv\/discover/,
   /api\/tv\/detail/,
   /api\/tv\/search/,
-  
+
   /api\/media\/favorite/,
-  
 ];
 const jwt = jwtClient(publicPath);
 
@@ -51,8 +50,6 @@ app.use("/api/media", accountRouter);
 app.use("/api/movie", movieController);
 app.use("/api/tv", tvController);
 app.use("/api/session", sessionRouter);
-
-// TODO: error handler here
 
 const port = process.env.PORT ? parseInt(process.env.PORT) : 3030;
 app.listen(port, "0.0.0.0", function () {
