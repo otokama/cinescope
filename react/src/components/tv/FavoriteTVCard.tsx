@@ -87,9 +87,11 @@ const FavoriteTVCard = ({ tv, onClick, onToggleLike }: Props) => {
             )}
             <Show above="md">
               <HStack spacing="3" mb="5" wrap="wrap">
-                {useTVGenre(tv.genre_ids).map((genre) => (
-                  <Badge key={genre.id}>{genre.name}</Badge>
-                ))}
+                {useTVGenre(tv.genre_ids)
+                  .slice(0, 2)
+                  .map((genre) => (
+                    <Badge key={genre.id}>{genre.name}</Badge>
+                  ))}
               </HStack>
             </Show>
           </VStack>

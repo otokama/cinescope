@@ -89,7 +89,7 @@ const FavoriteMovieCard = ({ movie, onClick, onToggleLike }: Props) => {
             )}
             <Show above="md">
               <HStack spacing="3" mb="5" wrap="wrap">
-                {useMovieGenre(movie.genre_ids).map((genre) => (
+                {useMovieGenre(movie.genre_ids).slice(0, 2).map((genre) => (
                   <Badge key={genre.id}>{genre.name}</Badge>
                 ))}
               </HStack>
