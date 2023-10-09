@@ -148,9 +148,20 @@ async function search(query: MovieSearchQuery) {
   });
 }
 
-async function getAccountStates(movieId: number, sessionId: string, accountId: number) {}
+async function getAccountStates(movieId: number, sessionId: string) {
+  return await apiClient.get(`/movie/${movieId}/account_states`, {
+    params: {
+      session_id: sessionId,
+    },
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${process.env.TMDB_ACCESS_TOKEN}`,
+    },
+  });
+}
 
 export {
+  getAccountStates,
   getDetail,
   getMovieCast,
   getMovieDiscovery,
