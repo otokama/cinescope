@@ -66,8 +66,7 @@ const useMovieSearch = () => {
 
 export {
   useDiscoveryMovieList,
-  useDiscoveryMovies,
-  useMovieRecommendation,
+  useDiscoveryMovies, useMovieRecommendation,
   useMovieSearch
 };
 

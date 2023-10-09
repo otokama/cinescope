@@ -3,6 +3,7 @@ import { TV } from "../models/TV";
 import { TVDetail } from "../models/TVDetail";
 import { TVSearchQuery } from "../models/TVSearchQuery";
 import {
+  getAccountStates,
   getCast,
   getDetail,
   getDiscoveryTV,
@@ -25,6 +26,8 @@ tvController.get("/detail/:id/trailer", getTVTrailers);
 tvController.get("/detail/:id/credits", getTVCredits);
 tvController.get("/detail/:id/provider", getTVWatchProviders);
 tvController.get("/detail/:id/recommendation", getRecommendations);
+tvController.get("/detail/:tvId/account_states", getTVStates);
+
 tvController.get("/search", searchTVs);
 
 async function getDiscoveryTVList(req: Request, res: Response) {
@@ -178,6 +181,20 @@ async function searchTVs(req: Request, res: Response) {
     res.send(data);
   } catch (err) {
     res.status(400).send("Failed to search");
+  }
+}
+
+async function getTVStates(req: Request, res: Response) {
+  if (!req.query.session_id || !req.params.tvId) {
+    return res.status(401).send("Missing required field");
+  }
+  const tvId = parseInt(req.params.tvId);
+  const sessionId = String(req.query.session_id);
+  try {
+    const { data } = await getAccountStates(tvId, sessionId);
+    res.send(data);
+  } catch (err) {
+    res.status(400).send("Failed to get tv account state");
   }
 }
 

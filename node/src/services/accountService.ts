@@ -22,10 +22,51 @@ async function getAccount(sessionId: string) {
   });
 }
 
-async function getFavoriteMovies(accountId: number) {}
+async function getFavoriteList(
+  accountId: number,
+  sessionId: string,
+  mediaType: string,
+  page?: string,
+  sort_by?: string
+) {
+  return await apiClient.get(`/${accountId}/favorite/${mediaType}`, {
+    params: {
+      session_id: sessionId,
+      page,
+      sort_by,
+    },
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${process.env.TMDB_ACCESS_TOKEN}`,
+    },
+  });
+}
 
-async function addFavoriteMovie(movieId: number, accountId: number) {}
+async function updateFavorite(
+  mediaId: number,
+  accountId: number,
+  sessionId: string,
+  mediaType: string,
+  favorite: boolean
+) {
+  return await apiClient.post(
+    `/${accountId}/favorite`,
+    {
+      media_type: mediaType,
+      media_id: mediaId,
+      favorite,
+    },
+    {
+      params: {
+        session_id: sessionId,
+      },
+      headers: {
+        accept: "application/json",
+        "content-type": "application/json",
+        Authorization: `Bearer ${process.env.TMDB_ACCESS_TOKEN}`,
+      },
+    }
+  );
+}
 
-async function removeFavoriteMovie(movieId: number, accountId: number) {}
-
-export { getAccount };
+export { getAccount, getFavoriteList, updateFavorite };

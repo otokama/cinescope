@@ -2,6 +2,7 @@ import { NextFunction, Request, Response, Router } from "express";
 import { Movie } from "../models/Movie";
 import { MovieSearchQuery } from "../models/MovieSearchQuery";
 import {
+  getAccountStates,
   getDetail,
   getMovieCast,
   getMovieDiscovery,
@@ -24,6 +25,8 @@ movieController.get("/detail/:id/credits", getMovieCredit);
 movieController.get("/detail/:id/trailer", getMovieTrailers);
 movieController.get("/detail/:id/provider", getWatchProviders);
 movieController.get("/detail/:id/recommendation", getRecommendations);
+movieController.get("/detail/:movieId/account_states", getMovieStates);
+
 movieController.get("/search", searchMovies);
 
 async function getDiscoverMovieList(req: Request, res: Response) {
@@ -169,6 +172,20 @@ async function searchMovies(req: Request, res: Response) {
     res.send(data);
   } catch (err) {
     res.status(400).send("Failed to search");
+  }
+}
+
+async function getMovieStates(req: Request, res: Response) {
+  if (!req.query.session_id || !req.params.movieId) {
+    return res.status(401).send("Missing required field");
+  }
+  const movieId = parseInt(req.params.movieId);
+  const sessionId = String(req.query.session_id);
+  try {
+    const { data } = await getAccountStates(movieId, sessionId);
+    res.send(data);
+  } catch (err) {
+    res.status(400).send("Failed to get movie account state");
   }
 }
 

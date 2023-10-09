@@ -15,6 +15,7 @@ import { TV } from "../entities/TV";
 import useMovieGenres from "../hooks/genres/useMovieGenres";
 import useTVGenres from "../hooks/genres/useTVGenres";
 import useSearchParamsStore from "../stores/search";
+import { Link } from "react-router-dom";
 
 interface Props {
   useContents: () => UseQueryResult<(Movie | TV)[], Error>;
@@ -37,56 +38,62 @@ const ContentSlider = ({ useContents }: Props) => {
       infinite
       interval={7000}
     >
-      <Slider>
+      <Slider style={{padding: 4}}>
         {!isLoading &&
           contents?.map((content, idx) => (
             <Slide index={idx} key={idx}>
-              <Card
-                marginX={{ base: 2, lg: 4 }}
-                shadow="md"
-                borderRadius={{ sm: 5, md: 15 }}
-                overflow="hidden"
-                position="relative"
-              >
-                <Image src={content.backdrop_path} fallbackSrc={fallbackImg} />
-                <Show above="md">
-                  <VStack
-                    position="absolute"
-                    bottom={0}
-                    left={0}
-                    w="full"
-                    bgGradient="linear(to-b, transparent, blackAlpha.900)"
-                    padding={5}
-                    color="whiteAlpha.900"
-                    align="stretch"
-                  >
-                    <Text
-                      fontSize="xl"
-                      fontWeight="bold"
+              <Link to={`${mediaType}/${content.id}`}>
+                <Card
+                  marginX={{ base: 2, lg: 4 }}
+                  shadow="md"
+                  borderRadius={{ sm: 5, md: 15 }}
+                  overflow="hidden"
+                  position="relative"
+                  _hover={{
+                    transform: "scale(1.02)",
+                    transition: "transform .2s ease-in",
+                  }}
+                >
+                  <Image src={content.backdrop_path} fallbackSrc={fallbackImg} />
+                  <Show above="md">
+                    <VStack
+                      position="absolute"
+                      bottom={0}
+                      left={0}
+                      w="full"
+                      bgGradient="linear(to-b, transparent, blackAlpha.900)"
+                      padding={5}
                       color="whiteAlpha.900"
+                      align="stretch"
                     >
-                      {(content as TV).name || (content as Movie).title}
-                    </Text>
+                      <Text
+                        fontSize="xl"
+                        fontWeight="bold"
+                        color="whiteAlpha.900"
+                      >
+                        {(content as TV).name || (content as Movie).title}
+                      </Text>
 
-                    <HStack>
-                      {mediaType === "movie" && (
-                        <>
-                          {useMovieGenres(content.genre_ids).map((genre) => (
-                            <Badge key={genre.id}>{genre.name}</Badge>
-                          ))}
-                        </>
-                      )}
-                      {mediaType === "tv" && (
-                        <>
-                          {useTVGenres(content.genre_ids).map((genre) => (
-                            <Badge key={genre.id}>{genre.name}</Badge>
-                          ))}
-                        </>
-                      )}
-                    </HStack>
-                  </VStack>
-                </Show>
-              </Card>
+                      <HStack>
+                        {mediaType === "movie" && (
+                          <>
+                            {useMovieGenres(content.genre_ids).map((genre) => (
+                              <Badge key={genre.id}>{genre.name}</Badge>
+                            ))}
+                          </>
+                        )}
+                        {mediaType === "tv" && (
+                          <>
+                            {useTVGenres(content.genre_ids).map((genre) => (
+                              <Badge key={genre.id}>{genre.name}</Badge>
+                            ))}
+                          </>
+                        )}
+                      </HStack>
+                    </VStack>
+                  </Show>
+                </Card>
+              </Link>
             </Slide>
           ))}
       </Slider>

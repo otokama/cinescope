@@ -1,12 +1,17 @@
 import { Grid, GridItem } from "@chakra-ui/layout";
 import { Show } from "@chakra-ui/media-query";
+import { useEffect } from "react";
 import SideNav from "../components/SideNav";
 import MovieDiscoveryGrid from "../components/movie/MovieDiscoveryGrid";
 import TVDiscoveryGrid from "../components/tv/TVDiscoveryGrid";
 import useSearchParamsStore from "../stores/search";
 
 const HomePage = () => {
-  const mediaType = useSearchParamsStore(s => s.searchParams.mediaType);
+  useEffect(() => {
+    document.title = "CineScope";
+  });
+
+  const mediaType = useSearchParamsStore((s) => s.searchParams.mediaType);
   return (
     <Grid
       templateAreas={{

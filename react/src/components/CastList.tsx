@@ -11,10 +11,12 @@ interface Props {
 
 const CastList = ({ contentId, isMovie }: Props) => {
   const { data: cast, isLoading, error } = useCredit(contentId, isMovie);
+  const skeletons = _.range(10);
 
   if (error) return null;
 
-  const skeletons = _.range(10);
+  if (cast?.length === 0) return null;
+
   return (
     <Box mb="10">
       <Text fontSize={{ base: "lg", md: "2xl" }} fontWeight="bold">

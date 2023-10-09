@@ -2,12 +2,12 @@ import { Box, Grid, GridItem, Show, Text } from "@chakra-ui/react";
 import { useNavigate, useParams } from "react-router-dom";
 import CastList from "../components/CastList";
 import LoadingPage from "../components/LoadingPage";
+import Recommendations from "../components/Recommendations";
 import WatchProviders from "../components/WatchProviders";
 import TVDetailHeader from "../components/tv/TVDetailHeader";
+import TVSpec from "../components/tv/TVSpec";
 import TVTrailer from "../components/tv/TVTrailer";
 import { useTVDetail } from "../hooks/tv/useTV";
-import Recommendations from "../components/Recommendations";
-import TVSpec from "../components/tv/TVSpec";
 
 const TVDetailPage = () => {
   const { id } = useParams();
@@ -58,6 +58,8 @@ const TVDetailPage = () => {
             <WatchProviders contentId={tvDetail.id} isMovie={false} />
             <TVSpec tvDetail={tvDetail} />
           </Show>
+
+          <Recommendations contentId={tvDetail.id} isMovie={false} />
         </GridItem>
 
         <Show above="lg">
@@ -66,8 +68,6 @@ const TVDetailPage = () => {
             <WatchProviders contentId={tvDetail.id} isMovie={false} />
           </GridItem>
         </Show>
-
-        <Recommendations contentId={tvDetail.id} isMovie={false} />
       </Grid>
     </>
   );

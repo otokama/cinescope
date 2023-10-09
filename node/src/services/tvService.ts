@@ -181,8 +181,20 @@ async function search(query: TVSearchQuery) {
   });
 }
 
+async function getAccountStates(tvId: number, sessionId: string) {
+  return await apiClient.get(`/tv/${tvId}/account_states`, {
+    params: {
+      session_id: sessionId,
+    },
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${process.env.TMDB_ACCESS_TOKEN}`,
+    },
+  });
+}
+
 export {
-  getCast,
+  getAccountStates, getCast,
   getDetail,
   getDiscoveryTV,
   getRating,

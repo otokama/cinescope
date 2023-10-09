@@ -2,8 +2,8 @@ import axios from "axios";
 import { Actor } from "../models/Actor";
 import { Movie } from "../models/Movie";
 import { MovieDetail } from "../models/MovieDetail";
-import { Video } from "../models/Video";
 import { MovieSearchQuery } from "../models/MovieSearchQuery";
+import { Video } from "../models/Video";
 
 const apiClient = axios.create({
   baseURL: "https://api.themoviedb.org/3",
@@ -145,10 +145,24 @@ async function search(query: MovieSearchQuery) {
       Accept: "application/json",
       Authorization: `Bearer ${process.env.TMDB_ACCESS_TOKEN}`,
     },
-  })
+  });
+}
+
+async function getAccountStates(movieId: number, sessionId: string) {
+  return await apiClient.get(`/movie/${movieId}/account_states`, {
+    params: {
+      session_id: sessionId,
+    },
+    headers: {
+      Accept: "application/json",
+      Authorization: `Bearer ${process.env.TMDB_ACCESS_TOKEN}`,
+    },
+  });
 }
 
 export {
+  getAccountStates,
+  getDetail,
   getMovieCast,
   getMovieDiscovery,
   getMovieList,
@@ -156,6 +170,6 @@ export {
   getMovieRating,
   getMovieRecommendations,
   getMovieVideos,
-  getDetail,
-  search,
+  search
 };
+
