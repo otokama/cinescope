@@ -110,7 +110,7 @@ const TVDetailHeader = ({ tv }: Props) => {
         backdropBrightness="40%"
         h="full"
         bgGradient="linear(to-b, transparent, blackAlpha.800)"
-        pr={{ base: "1", md: "5" }}
+        pr={{ md: "5" }}
       >
         <Flex
           justify="start"
