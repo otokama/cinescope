@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response, Router } from "express";
-import { Movie } from "../models/Movie";
-import { MovieSearchQuery } from "../models/MovieSearchQuery";
+import Movie from "../models/Movie";
+import MovieSearchQuery from "../models/MovieSearchQuery";
 import {
   getAccountStates,
   getDetail,

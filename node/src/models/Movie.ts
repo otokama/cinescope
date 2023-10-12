@@ -1,7 +1,4 @@
-import { Country } from "./Country";
-import { Genre } from "./Genre";
-
-export interface Movie {
+export default interface Movie {
   id: number;
   title: string;
   overview: string;

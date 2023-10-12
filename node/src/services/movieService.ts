@@ -1,9 +1,9 @@
 import axios from "axios";
-import { Actor } from "../models/Actor";
-import { Movie } from "../models/Movie";
-import { MovieDetail } from "../models/MovieDetail";
-import { MovieSearchQuery } from "../models/MovieSearchQuery";
-import { Video } from "../models/Video";
+import Actor from "../models/Actor";
+import Movie from "../models/Movie";
+import MovieDetail from "../models/MovieDetail";
+import MovieSearchQuery from "../models/MovieSearchQuery";
+import Video from "../models/Video";
 
 const apiClient = axios.create({
   baseURL: "https://api.themoviedb.org/3",

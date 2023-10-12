@@ -1,8 +1,8 @@
-import { Actor } from "./Actor";
-import { Country } from "./Country";
-import { Genre } from "./Genre";
+import Actor from "./Actor";
+import Country from "./Country";
+import Genre from "./Genre";
 
-export interface TVDetail {
+export default interface TVDetail {
   adult: boolean;
   backdrop_path: string;
   created_by: Actor[];
