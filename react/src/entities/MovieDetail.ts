@@ -1,7 +1,7 @@
-import { Country } from "./Country";
-import { Genre } from "./Genre";
+import Country from "./Country";
+import Genre from "./Genre";
 
-export interface MovieDetail {
+export default interface MovieDetail {
   adult: boolean;
   backdrop_path: string;
   belongs_to_collection: null;

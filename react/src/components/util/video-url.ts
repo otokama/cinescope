@@ -1,4 +1,4 @@
-import { Video } from "../../entities/Video";
+import Video from "../../entities/Video";
 
 function populateVideoLink(video: Video) {
   const videoType = video.site;

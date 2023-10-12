@@ -12,7 +12,7 @@ import { useState } from "react";
 import { RiDislikeFill, RiHeartLine } from "react-icons/ri";
 import { Link } from "react-router-dom";
 import fallbackImg from "../../assets/image-placeholder.webp";
-import { TV } from "../../entities/TV";
+import TV from "../../entities/TV";
 import useTVGenre from "../../hooks/genres/useTVGenres";
 import { getPosterLink } from "../util/image-url";
 

@@ -8,7 +8,7 @@ import {
   MenuList,
   Text,
 } from "@chakra-ui/react";
-import { ToastNotification } from "../entities/Toast";
+import ToastNotification from "../entities/Toast";
 import { useToastHook } from "../hooks/useToast";
 import { revokeSession } from "../services/sessionService";
 import useModalStore from "../stores/modals";

@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { WatchProviderDetail } from "../entities/WatchProviderDetail";
+import WatchProviderDetail from "../entities/WatchProviderDetail";
 import APIClient from "../services/api-client";
 
 

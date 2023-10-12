@@ -3,7 +3,7 @@ import { UseInfiniteQueryResult } from "@tanstack/react-query";
 import _ from "lodash";
 import React from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { TV } from "../../entities/TV";
+import TV from "../../entities/TV";
 import { FetchPaginatedResponse } from "../../services/api-client";
 import CardContainer from "../CardContainer";
 import CardSkeleton from "../CardSkeleton";

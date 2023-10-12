@@ -1,6 +1,6 @@
 import { useToast } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
-import { ToastNotification } from "../entities/Toast";
+import ToastNotification from "../entities/Toast";
 
 export function useToastHook() {
   const [toastState, setToast] = useState<ToastNotification>();

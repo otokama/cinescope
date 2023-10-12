@@ -1,6 +1,6 @@
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import ms from "ms";
-import { Movie } from "../../entities/Movie";
+import Movie from "../../entities/Movie";
 import { MovieList } from "../../entities/MovieListType";
 import APIClient, { FetchPaginatedResponse } from "../../services/api-client";
 import useSearchParamsStore from "../../stores/search";

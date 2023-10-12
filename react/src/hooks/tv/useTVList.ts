@@ -1,6 +1,6 @@
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import ms from "ms";
-import { TV } from "../../entities/TV";
+import TV from "../../entities/TV";
 import { TVList } from "../../entities/TVListType";
 import APIClient, { FetchPaginatedResponse } from "../../services/api-client";
 import useSearchParamsStore from "../../stores/search";

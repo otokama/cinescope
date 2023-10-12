@@ -1,4 +1,4 @@
-export interface ToastNotification {
+export default interface ToastNotification {
   title: string;
   status: "info" | "warning" | "success" | "error" | "loading";
   description: string;

@@ -1,7 +1,7 @@
 import { Image, Text, VStack } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import fallbackImg from "../../assets/image-placeholder.webp";
-import { Movie } from "../../entities/Movie";
+import Movie from "../../entities/Movie";
 import { getPosterLink } from "../util/image-url";
 
 interface Props {

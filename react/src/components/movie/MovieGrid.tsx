@@ -2,7 +2,7 @@ import { Box, SimpleGrid, Spinner } from "@chakra-ui/react";
 import { UseInfiniteQueryResult } from "@tanstack/react-query";
 import _ from "lodash";
 import React from "react";
-import { Movie } from "../../entities/Movie";
+import Movie from "../../entities/Movie";
 import CardContainer from "../CardContainer";
 import CardSkeleton from "../CardSkeleton";
 import MovieCard from "./MovieCard";

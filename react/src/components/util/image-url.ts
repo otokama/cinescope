@@ -1,8 +1,8 @@
-import { Actor } from "../../entities/Actor";
-import { Movie } from "../../entities/Movie";
-import { MovieDetail } from "../../entities/MovieDetail";
-import { TV } from "../../entities/TV";
-import { TVDetail } from "../../entities/TVDetail";
+import Actor from "../../entities/Actor";
+import Movie from "../../entities/Movie";
+import MovieDetail from "../../entities/MovieDetail";
+import TV from "../../entities/TV";
+import TVDetail from "../../entities/TVDetail";
 
 const baseUrl = "https://image.tmdb.org/t/p/";
 

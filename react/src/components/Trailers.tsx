@@ -1,5 +1,5 @@
 import { AspectRatio, Box, Skeleton, Text } from "@chakra-ui/react";
-import { Video } from "../entities/Video";
+import Video from "../entities/Video";
 
 interface Props {
   videos?: Video[];

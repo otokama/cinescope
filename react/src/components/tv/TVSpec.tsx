@@ -1,5 +1,5 @@
 import { Box, HStack, Text, VStack } from "@chakra-ui/react";
-import { TVDetail } from "../../entities/TVDetail";
+import TVDetail from "../../entities/TVDetail";
 
 interface Props {
   tvDetail: TVDetail;
@@ -16,7 +16,7 @@ const TVSpec = ({ tvDetail }: Props) => {
         Details
       </Text>
       <VStack align="start">
-        <HStack >
+        <HStack>
           <Text>Seasons:</Text>
           <Text fontWeight="bold">{tvDetail.number_of_seasons}</Text>
         </HStack>

@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import ms from "ms";
-import { TVDetail } from "../../entities/TVDetail";
+import TVDetail from "../../entities/TVDetail";
 import APIClient from "../../services/api-client";
 
 const useTVDetail = (tvId: number) => {

@@ -1,6 +1,6 @@
-import { create } from "zustand";
-import { User } from "./../entities/User";
 import { mountStoreDevtool } from "simple-zustand-devtools";
+import { create } from "zustand";
+import User from "./../entities/User";
 
 interface AccountStore {
   user: User | null;

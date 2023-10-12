@@ -1,6 +1,6 @@
-import { WatchProvider } from "./WatchProvider";
+import WatchProvider from "./WatchProvider";
 
-export interface WatchProviderDetail {
+export default interface WatchProviderDetail {
   link: string;
   flatrate?: WatchProvider[];
   rent?: WatchProvider[];

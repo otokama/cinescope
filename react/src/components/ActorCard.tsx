@@ -1,5 +1,5 @@
 import { Avatar, Text, VStack } from "@chakra-ui/react";
-import { Actor } from "../entities/Actor";
+import Actor from "../entities/Actor";
 
 interface Props {
   actor: Actor;
