@@ -1,7 +1,7 @@
 import { CanceledError } from "axios";
 import { useEffect, useState } from "react";
-import { ToastNotification } from "../entities/Toast";
-import { User } from "../entities/User";
+import ToastNotification from "../entities/Toast";
+import User from "../entities/User";
 import APIClient from "../services/api-client";
 import useAccountStore from "../stores/user";
 import { useToastHook } from "./useToast";

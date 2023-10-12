@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response, Router } from "express";
-import { TV } from "../models/TV";
-import { TVDetail } from "../models/TVDetail";
-import { TVSearchQuery } from "../models/TVSearchQuery";
+import TV from "../models/TV";
+import TVDetail from "../models/TVDetail";
+import TVSearchQuery from "../models/TVSearchQuery";
 import {
   getAccountStates,
   getCast,

@@ -13,8 +13,8 @@ import { useEffect, useState } from "react";
 import { BsDot } from "react-icons/bs";
 import { RiHeartFill, RiHeartLine } from "react-icons/ri";
 import fallBackImg from "../../assets/image-placeholder.webp";
-import { TVDetail } from "../../entities/TVDetail";
-import { ToastNotification } from "../../entities/Toast";
+import TVDetail from "../../entities/TVDetail";
+import ToastNotification from "../../entities/Toast";
 import { useToastHook } from "../../hooks/useToast";
 import {
   getAccountStates,

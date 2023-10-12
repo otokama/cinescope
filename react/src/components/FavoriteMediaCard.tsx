@@ -1,6 +1,6 @@
 import { MediaType } from "../entities/MediaType";
-import { Movie } from "../entities/Movie";
-import { TV } from "../entities/TV";
+import Movie from "../entities/Movie";
+import TV from "../entities/TV";
 import useModalStore from "../stores/modals";
 import FavoriteMovieCard from "./movie/FavoriteMovieCard";
 import FavoriteTVCard from "./tv/FavoriteTVCard";

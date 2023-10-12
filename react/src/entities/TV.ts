@@ -1,4 +1,4 @@
-export interface TV {
+export default interface TV {
   id: number;
   name: string;
   overview: string;

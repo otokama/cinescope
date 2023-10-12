@@ -1,8 +1,8 @@
-import { Actor } from "../models/Actor";
-import { Movie } from "../models/Movie";
-import { MovieDetail } from "../models/MovieDetail";
-import { TV } from "../models/TV";
-import { TVDetail } from "../models/TVDetail";
+import Actor from "../models/Actor";
+import Movie from "../models/Movie";
+import MovieDetail from "../models/MovieDetail";
+import TV from "../models/TV";
+import TVDetail from "../models/TVDetail";
 
 const baseUrl = "https://image.tmdb.org/t/p/";
 
@@ -26,8 +26,12 @@ function populateProfileLink(actor: Actor, size?: string) {
 function populateLinks(
   content: Movie | TV | MovieDetail | TVDetail
 ): Movie | TV | MovieDetail | TVDetail {
-  content.backdrop_path = content.backdrop_path ? getBackdropLink(content.backdrop_path) : "";
-  content.poster_path = content.poster_path ? getPosterLink(content.poster_path) : "";
+  content.backdrop_path = content.backdrop_path
+    ? getBackdropLink(content.backdrop_path)
+    : "";
+  content.poster_path = content.poster_path
+    ? getPosterLink(content.poster_path)
+    : "";
   return content;
 }
 

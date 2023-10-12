@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { Video } from "../entities/Video";
+import Video from "../entities/Video";
 import APIClient from "../services/api-client";
 
 const useTrailers = (id: number, isMovie: boolean) => {

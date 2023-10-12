@@ -1,4 +1,4 @@
-export interface Actor {
+export default interface Actor {
   id: number;
   name: string;
   popularity: number;

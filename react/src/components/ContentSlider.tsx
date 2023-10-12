@@ -9,13 +9,13 @@ import {
 } from "@chakra-ui/react";
 import { UseQueryResult } from "@tanstack/react-query";
 import { CarouselProvider, Slide, Slider } from "pure-react-carousel";
+import { Link } from "react-router-dom";
 import fallbackImg from "../assets/banner-placeholder.webp";
-import { Movie } from "../entities/Movie";
-import { TV } from "../entities/TV";
+import Movie from "../entities/Movie";
+import TV from "../entities/TV";
 import useMovieGenres from "../hooks/genres/useMovieGenres";
 import useTVGenres from "../hooks/genres/useTVGenres";
 import useSearchParamsStore from "../stores/search";
-import { Link } from "react-router-dom";
 
 interface Props {
   useContents: () => UseQueryResult<(Movie | TV)[], Error>;
@@ -38,7 +38,7 @@ const ContentSlider = ({ useContents }: Props) => {
       infinite
       interval={7000}
     >
-      <Slider style={{padding: 4}}>
+      <Slider style={{ padding: 4 }}>
         {!isLoading &&
           contents?.map((content, idx) => (
             <Slide index={idx} key={idx}>
@@ -54,7 +54,10 @@ const ContentSlider = ({ useContents }: Props) => {
                     transition: "transform .2s ease-in",
                   }}
                 >
-                  <Image src={content.backdrop_path} fallbackSrc={fallbackImg} />
+                  <Image
+                    src={content.backdrop_path}
+                    fallbackSrc={fallbackImg}
+                  />
                   <Show above="md">
                     <VStack
                       position="absolute"

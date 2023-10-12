@@ -1,9 +1,13 @@
-import APIClient, { FetchPaginatedResponse } from "../services/api-client";
-import { Movie } from "../entities/Movie";
-import { TV } from "../entities/TV";
 import { useInfiniteQuery } from "@tanstack/react-query";
+import Movie from "../entities/Movie";
+import TV from "../entities/TV";
+import APIClient, { FetchPaginatedResponse } from "../services/api-client";
 
-const useFavoriteList = (accountId: number, sessionId: string, mediaType: "movies" | "tv") => {
+const useFavoriteList = (
+  accountId: number,
+  sessionId: string,
+  mediaType: "movies" | "tv"
+) => {
   const apiClient = new APIClient<Movie | TV>(
     `/media/favorite/${accountId}/${sessionId}/${mediaType}`
   );

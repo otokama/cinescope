@@ -1,4 +1,4 @@
-export interface TVSearchQuery {
+export default interface TVSearchQuery {
   query: string;
   page: number;
   include_adult?: boolean;

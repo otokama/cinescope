@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { Actor } from "../entities/Actor";
+import Actor from "../entities/Actor";
 import APIClient from "../services/api-client";
 
 const useCredit = (contentId: number, isMovie: boolean) => {

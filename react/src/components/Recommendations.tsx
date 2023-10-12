@@ -1,7 +1,7 @@
 import { Box, SimpleGrid, Skeleton, Text } from "@chakra-ui/react";
 import _ from "lodash";
-import { Movie } from "../entities/Movie";
-import { TV } from "../entities/TV";
+import Movie from "../entities/Movie";
+import TV from "../entities/TV";
 import useRecommendation from "../hooks/useRecommendation";
 import CardContainer from "./CardContainer";
 import MovieCard from "./movie/MovieCard";
